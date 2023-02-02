@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.codecatchers'
+    namespace 'com.example.lab_4_codecatchers'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.codecatchers"
+        applicationId "com.example.lab_4_codecatchers"
         minSdk 24
         targetSdk 32
         versionCode 1

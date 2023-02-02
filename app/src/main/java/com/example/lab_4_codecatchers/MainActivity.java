@@ -1,4 +1,4 @@
-package com.example.codecatchers;
+package com.example.lab_4_codecatchers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
