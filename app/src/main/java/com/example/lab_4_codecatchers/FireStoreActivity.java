@@ -1,7 +1,5 @@
 package com.example.lab_4_codecatchers;
 
-import com.example.codecatchers.Player;
-import com.example.codecatchers.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -13,7 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class FireStoreActivity {
     private final FirebaseFirestore userDB = FirebaseFirestore.getInstance();
     private final CollectionReference userCollection = userDB.collection("Users");
-    Player currentUser = Player.getInstance();
+    User currentUser = User.getInstance();
     private static FireStoreActivity instance = null;
 
     public static FireStoreActivity getInstance(){

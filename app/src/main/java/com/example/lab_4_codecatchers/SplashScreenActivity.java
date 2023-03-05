@@ -1,34 +1,25 @@
-package com.example.codecatchers;
+package  com.example.lab_4_codecatchers;
 
 import static android.content.ContentValues.TAG;
-import static java.security.AccessController.getContext;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.lab_4_codecatchers.FireStoreActivity;
-import com.example.lab_4_codecatchers.FirstSignInActivity;
-import com.example.lab_4_codecatchers.MainActivity;
-import com.google.android.gms.tasks.Task;
-import com.example.codecatchers.Player;
-import com.example.codecatchers.User;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Document;
 
 import java.util.List;
 
+/**
+ *Screen Initializing and checking if user has logged in before
+ */
+@SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
-    Player currentUser = com.example.codecatchers.Player.getInstance();
+    User currentUser = User.getInstance();
     FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +68,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     /**
-     * If user does not exist then direct to FirstTimeActivity
+     * If user does not exist then direct to FirstSignInActivity
      */
     public void noUserExists(){
         Intent intent = new Intent(SplashScreenActivity.this, FirstSignInActivity.class);

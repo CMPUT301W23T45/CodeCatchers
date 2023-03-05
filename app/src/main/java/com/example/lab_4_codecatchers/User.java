@@ -1,4 +1,4 @@
-package com.example.codecatchers;
+package com.example.lab_4_codecatchers;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * Creates a user object for the database
  */
 public class User {
+    private static User instance = null;
+    private String id;
     private String username;
     private String email;
     private String phone;
@@ -14,6 +16,20 @@ public class User {
     private ArrayList<String> collectedQRCodes = new ArrayList<>();
     private ArrayList<String> devices = new ArrayList<>();
 
+    public static User getInstance(){
+        if(instance == null){
+            instance = new User();
+        }
+        return instance;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * Gets the devices for an user

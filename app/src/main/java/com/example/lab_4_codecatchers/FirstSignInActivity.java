@@ -1,30 +1,15 @@
 package com.example.lab_4_codecatchers;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.codecatchers.Player;
-import com.example.codecatchers.R;
-import com.example.codecatchers.User;
-import com.google.android.gms.common.internal.Constants;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Signs-in user for the first time
@@ -33,7 +18,7 @@ import java.util.Objects;
 public class FirstSignInActivity extends AppCompatActivity {
     private FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
 
-    private Player currentUser = Player.getInstance();
+    private User currentUser = User.getInstance();
     private EditText editUsername;
     private EditText editEmail;
     private EditText editPhone;
@@ -85,12 +70,15 @@ public class FirstSignInActivity extends AppCompatActivity {
             User newUser = new User();
             newUser.setUsername(username);
             newUser.getDevices().add(currentUser.getId());
+            currentUser.setUsername(username);
 
             if(!email.equals("")){
                 newUser.setEmail(email);
+                currentUser.setEmail(email);
             }
             if(!phone.equals("")){
                 newUser.setPhone(phone);
+                currentUser.setPhone(phone);
             }
             addUser(newUser);
         }
