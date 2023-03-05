@@ -1,4 +1,4 @@
-package com.example.codecatchers;
+package com.example.lab_4_codecatchers;
 
 import static android.content.ContentValues.TAG;
 
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.codecatchers.Player;
+import com.example.codecatchers.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;

@@ -1,5 +1,7 @@
-package com.example.codecatchers;
+package com.example.lab_4_codecatchers;
 
+import com.example.codecatchers.Player;
+import com.example.codecatchers.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
