@@ -12,9 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.codecatchers.Player;
-import com.example.codecatchers.R;
-import com.example.codecatchers.User;
+import com.example.lab_4_codecatchers.Player;
+import com.example.lab_4_codecatchers.User;
 import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;

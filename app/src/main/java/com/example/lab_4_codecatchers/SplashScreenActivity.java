@@ -1,4 +1,4 @@
-package com.example.codecatchers;
+package  com.example.lab_4_codecatchers;
 
 import static android.content.ContentValues.TAG;
 import static java.security.AccessController.getContext;
@@ -16,8 +16,8 @@ import com.example.lab_4_codecatchers.FireStoreActivity;
 import com.example.lab_4_codecatchers.FirstSignInActivity;
 import com.example.lab_4_codecatchers.MainActivity;
 import com.google.android.gms.tasks.Task;
-import com.example.codecatchers.Player;
-import com.example.codecatchers.User;
+import com.example.lab_4_codecatchers.Player;
+import com.example.lab_4_codecatchers.User;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,7 +28,7 @@ import org.w3c.dom.Document;
 import java.util.List;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    Player currentUser = com.example.codecatchers.Player.getInstance();
+    Player currentUser = Player.getInstance();
     FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
