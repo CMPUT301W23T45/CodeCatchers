@@ -1,7 +1,8 @@
-package com.example.lab_4_codecatchers;
+package  com.example.lab_4_codecatchers;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,10 +14,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.List;
 
+/**
+ *Screen Initializing and checking if user has logged in before
+ */
+@SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
     User currentUser = User.getInstance();
     FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,5 +75,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 
 }

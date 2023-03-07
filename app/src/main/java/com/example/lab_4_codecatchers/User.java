@@ -2,6 +2,9 @@ package com.example.lab_4_codecatchers;
 
 import java.util.ArrayList;
 
+/**
+ * Creates a user object for the database
+ */
 public class User {
     private static User instance = null;
     private String id;
@@ -43,6 +46,8 @@ public class User {
     public void setDevices(ArrayList<String> devices) {
         this.devices = devices;
     }
+
+
 
     public User() {
 

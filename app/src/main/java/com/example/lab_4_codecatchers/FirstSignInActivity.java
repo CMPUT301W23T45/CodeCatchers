@@ -11,7 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class FirstSignInActivity extends AppCompatActivity {private FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
+/**
+ * Signs-in user for the first time
+ *
+ */
+public class FirstSignInActivity extends AppCompatActivity {
+    private FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
 
     private User currentUser = User.getInstance();
     private EditText editUsername;
@@ -78,6 +83,4 @@ public class FirstSignInActivity extends AppCompatActivity {private FireStoreAct
             addUser(newUser);
         }
     }
-
-
 }
