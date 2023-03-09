@@ -13,7 +13,7 @@ public class User {
     private String phone;
     private Integer totalScore;
     private Integer rank;
-    private ArrayList<String> collectedQRCodes = new ArrayList<>();
+    private UserWallet collectedQRCodes;
     private ArrayList<String> devices = new ArrayList<>();
 
     public static User getInstance(){
@@ -48,9 +48,26 @@ public class User {
     }
 
 
-
     public User() {
+        this.id = "0";
+        this.username = " ";
+        this.email = " ";
+        this.phone = " ";
+        this.totalScore = 0;
+        this.rank = 0;
+        this.collectedQRCodes = new UserWallet(this.id);
+        this.devices = new ArrayList<String>();
+    }
 
+    public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.totalScore = totalScore;
+        this.rank = rank;
+        this.collectedQRCodes = new UserWallet(id, collectedQRCodes);
+        this.devices = new ArrayList<String>();
     }
 
     /**
@@ -137,7 +154,7 @@ public class User {
      * Retrieves all the collected QR codes of the user
      * @return collected QR codes
      */
-    public ArrayList<String> getCollectedQRCodes() {
+    public UserWallet getCollectedQRCodes() {
         return collectedQRCodes;
     }
 
@@ -145,7 +162,7 @@ public class User {
      * Sets the collected QR codes of user
      * @param collectedQRCodes
      */
-    public void setCollectedQRCodes(ArrayList<String> collectedQRCodes) {
+    public void setCollectedQRCodes(UserWallet collectedQRCodes) {
         this.collectedQRCodes = collectedQRCodes;
     }
 
