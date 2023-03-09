@@ -8,6 +8,12 @@ public class UserWallet {
 
 
     //CONSTRUCTORS
+
+    public UserWallet() {
+        this.userID = null;
+        this.userCodes = new ArrayList<Code>();
+    }
+
     public UserWallet(String userID) {
         this.userID = userID;
         this.userCodes = new ArrayList<Code>();
@@ -63,6 +69,9 @@ public class UserWallet {
      */
     public int getHighest() {
         int size = getSize();
+        if(size <= 0) {
+            return 0;
+        }
         int highest = userCodes.get(0).getScore();
         for(int i =1; i<size; i++) {
             int score = userCodes.get(i).getScore();
@@ -77,6 +86,9 @@ public class UserWallet {
      */
     public int getLowest() {
         int size = getSize();
+        if(size <= 0) {
+            return 0;
+        }
         int lowest = userCodes.get(0).getScore();
         for(int i =1; i<size; i++) {
             int score = userCodes.get(i).getScore();

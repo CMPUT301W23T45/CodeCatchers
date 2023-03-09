@@ -44,7 +44,7 @@ public class FirstSignInActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG,"Data has been successfully added");
-                        Intent activity = new Intent(FirstSignInActivity.this,MainActivity.class);
+                        Intent activity = new Intent(FirstSignInActivity.this, MainActivity.class);
                         startActivity(activity);
                     }
                 });
