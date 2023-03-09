@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
+        //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
 
         //get data from firebase
         populatedUser();
