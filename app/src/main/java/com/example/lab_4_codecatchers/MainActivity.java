@@ -46,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
-
-        // Testing hash function
-        // TODO: Remove
-        hash("test");
     }
 
     private void populatedUser() {
@@ -90,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
             output = sb.toString();
         }
+        //Log.i("CodeCatchers", output);
         return output;
     }
 }
