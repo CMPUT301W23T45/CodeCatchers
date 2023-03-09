@@ -40,7 +40,12 @@ public class FireStoreActivity {
      * @return an array of usernames that have used this device
      */
     public Task<QuerySnapshot> getUsersBasedOnDevice(){
-        return userCollection.whereArrayContains("devices",currentUser.getId()).get();
+        return userCollection.whereArrayContains("devices",currentUser.getUsername()).get();
+    }
+
+    public Task<QuerySnapshot> isUniqueUsername() {
+        return userCollection.get();
+
     }
 
 }

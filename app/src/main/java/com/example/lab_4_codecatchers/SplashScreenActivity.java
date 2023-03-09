@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,6 +58,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
     /**
      * If user exists then direct to MainActivity

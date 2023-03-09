@@ -10,6 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Signs-in user for the first time
@@ -23,6 +27,7 @@ public class FirstSignInActivity extends AppCompatActivity {
     private EditText editEmail;
     private EditText editPhone;
     private Button buttonStart;
+    private ArrayList<String> allUsers = new ArrayList<>();
     final String TAG = "Sample";
 
 
@@ -31,6 +36,7 @@ public class FirstSignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         buttonStart = findViewById(R.id.button_get_started);
+        userExists();
         buttonStart.setOnClickListener(view -> reviewUser());
     }
 
@@ -44,12 +50,22 @@ public class FirstSignInActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG,"Data has been successfully added");
-                        Intent activity = new Intent(FirstSignInActivity.this, MainActivity.class);
+                        Intent activity = new Intent(FirstSignInActivity.this,MainActivity.class);
                         startActivity(activity);
                     }
                 });
 
 
+    }
+
+    protected void userExists(){
+        allUsers.clear();
+        fireStoreActivity.isUniqueUsername()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot user_exists : queryDocumentSnapshots){
+                        allUsers.add(Objects.requireNonNull(user_exists.get("username")).toString());
+                    }
+                });
     }
 
     /**
@@ -63,10 +79,14 @@ public class FirstSignInActivity extends AppCompatActivity {
         String username = editUsername.getText().toString();
         String email = editEmail.getText().toString();
         String phone = editPhone.getText().toString();
+        boolean uniqueUser = allUsers.contains(username);
         Log.d(TAG,"It works!");
         if(username.equals("")) {
-            Toast.makeText(FirstSignInActivity.this, "Please enter username!", Toast.LENGTH_SHORT).show();
-        } else{
+            Toast.makeText(FirstSignInActivity.this, "Please enter username!", Toast.LENGTH_LONG).show();
+        } else if(uniqueUser){
+                Toast.makeText(FirstSignInActivity.this,"Username is not unique!",Toast.LENGTH_LONG).show();
+        }
+        else{
             User newUser = new User();
             newUser.setUsername(username);
             newUser.getDevices().add(currentUser.getId());
