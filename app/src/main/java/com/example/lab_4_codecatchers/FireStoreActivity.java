@@ -1,5 +1,9 @@
 package com.example.lab_4_codecatchers;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
