@@ -6,9 +6,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.lab_4_codecatchers.databinding.ActivityMainBinding;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+
+        // Testing hash function
+        // TODO: Remove
+        hash("test");
     }
 
     private void populatedUser() {
@@ -63,5 +70,26 @@ public class MainActivity extends AppCompatActivity {
 
     public User getUser() {
         return user;
+    }
+
+    // Returns the SHA-256 hash for any given string
+    // Based on code from http://www.java2s.com/example/android/java.lang/sha256-hash-string.html
+    public static String hash(String s) {
+        byte[] rawHash = null;
+        String output = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            rawHash = digest.digest(s.getBytes());
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("CodeCatchers", "Cannot calculate SHA-256");
+        }
+        if (rawHash != null) {
+            StringBuilder sb = new StringBuilder();
+            for (byte b: rawHash) {
+                sb.append(String.format("%02x", b));
+            }
+            output = sb.toString();
+        }
+        return output;
     }
 }
