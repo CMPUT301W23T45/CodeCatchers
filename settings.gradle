@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' } //https://github.com/yuriy-budiyev/code-scanner
     }
 }
 rootProject.name = "lab_4_codecatchers"

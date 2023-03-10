@@ -44,10 +44,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.1.1'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //dependency for Material Components
     implementation 'com.google.android.material:material:1.8.0'
+    // needed for the camera to work
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'//https://github.com/yuriy-budiyev/code-scanner
 }
