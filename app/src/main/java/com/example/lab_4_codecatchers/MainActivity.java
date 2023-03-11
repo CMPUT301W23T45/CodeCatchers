@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
-    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
 
     ActivityMainBinding binding;
     @Override
@@ -77,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
