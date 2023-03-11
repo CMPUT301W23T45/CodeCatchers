@@ -65,36 +65,44 @@ public class UserWallet {
 
     /**
      * Returns the highest score (int) of all QR codes in wallet
-     * @return highest score
+     * @return highest scoring Code
      */
-    public int getHighest() {
+    public Code getHighest() {
         int size = getSize();
         if(size <= 0) {
-            return 0;
+            return null;
         }
         int highest = userCodes.get(0).getScore();
+        int highestIndex = 0;
         for(int i =1; i<size; i++) {
             int score = userCodes.get(i).getScore();
-            if(score > highest) {highest = score;}
+            if(score > highest) {
+                highest = score;
+                highestIndex = i;
+            }
         }
-        return highest;
+        return userCodes.get(highestIndex);
     }
 
     /**
      * Returns the lowest score (int) of all QR codes in wallet
-     * @return lowest score
+     * @return lowest scoring Code
      */
-    public int getLowest() {
+    public Code getLowest() {
         int size = getSize();
         if(size <= 0) {
-            return 0;
+            return null;
         }
         int lowest = userCodes.get(0).getScore();
+        int lowestIndex = 0;
         for(int i =1; i<size; i++) {
             int score = userCodes.get(i).getScore();
-            if(score < lowest) {lowest = score;}
+            if(score < lowest) {
+                lowest = score;
+                lowestIndex = i;
+            }
         }
-        return lowest;
+        return userCodes.get(lowestIndex);
     }
 
     /**
