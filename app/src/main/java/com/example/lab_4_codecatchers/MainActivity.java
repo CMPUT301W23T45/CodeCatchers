@@ -19,6 +19,7 @@ import com.example.lab_4_codecatchers.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
         // start
         // Check if camera permission has been granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -59,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(this, "Camera permission not granted", Toast.LENGTH_SHORT).show();
                     }
+                    break;
+
                 case R.id.map:
                     replaceFragment(new MapFragment());
                     break;
@@ -73,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //camera permission granted
