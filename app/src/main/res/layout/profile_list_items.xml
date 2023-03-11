@@ -21,13 +21,13 @@
             android:id="@+id/humanName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Human Readable Name" />
+            android:text="@string/human_readable_name" />
 
         <TextView
             android:id="@+id/qrScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="QR code score" />
+            android:text="@string/qr_code_score"/>
 
     </LinearLayout>
 </LinearLayout>

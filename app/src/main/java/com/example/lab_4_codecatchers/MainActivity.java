@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
 
     ActivityMainBinding binding;
     @Override
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
-
         // start
         // Check if camera permission has been granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -42,10 +42,14 @@ public class MainActivity extends AppCompatActivity {
 //        else {
 //            // Permission has already been granted
 //            replaceFragment(new CameraFragment());
+//            binding.navBar.getMenu().getItem(1).setChecked(true);
 //        }
         // end
-
         //get data from firebase
+        replaceFragment(new CameraFragment());
+        binding.navBar.getMenu().getItem(1).setChecked(true);
+        //get data from firebase
+        user = User.getInstance();
         populatedUser();
 
         binding.navBar.setOnItemSelectedListener(item -> {
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "Camera permission not granted", Toast.LENGTH_SHORT).show();
                     }
                     break;
+
                 case R.id.map:
                     replaceFragment(new MapFragment());
                     break;
@@ -76,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //camera permission granted
@@ -86,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void populatedUser() {
-        // TODO: add the firebase stuff here (I just manually created a User for testing)
-        ArrayList<Code> qrList = new ArrayList<Code>();
-        qrList.add(new Code(150, 0, "Jimmy", 0));
-        qrList.add(new Code(8000, 0, "Linda", 0));
-        qrList.add(new Code(7803, 0, "Hose", 0));
-        user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
+        UserWallet qrList = user.getCollectedQRCodes();
+        qrList.addCode(new Code(150, 0, "Jimmy", 0));
+        qrList.addCode(new Code(8000, 0, "Linda", 0));
+        qrList.addCode(new Code(7803, 0, "Betty", 0));
+        //user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
     }
 
     private void replaceFragment(Fragment fragment) {
