@@ -16,7 +16,6 @@ public class User {
     private UserWallet collectedQRCodes;
     private ArrayList<String> devices = new ArrayList<>();
 
-    public boolean locationAccepted;
 
     public static User getInstance(){
         if(instance == null){
@@ -25,13 +24,6 @@ public class User {
         return instance;
     }
 
-    public boolean isLocationAccepted() {
-        return locationAccepted;
-    }
-
-    public void setLocationAccepted(boolean location) {
-        locationAccepted = location;
-    }
 
     public String getId() {
         return id;
@@ -67,7 +59,6 @@ public class User {
         this.rank = 0;
         this.collectedQRCodes = new UserWallet(this.id);
         this.devices = new ArrayList<String>();
-        this.locationAccepted = false;
     }
 
     public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes) {
