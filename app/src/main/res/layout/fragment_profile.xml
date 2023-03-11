@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:weightSum="1"
         android:orientation="vertical">
 
         <LinearLayout
@@ -42,7 +43,7 @@
             android:id="@+id/profileLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="15"
+            android:layout_weight="0.26"
             android:backgroundTint="#E45EC56C"
             android:orientation="horizontal">
 
@@ -104,87 +105,160 @@
             android:id="@+id/walletLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="0.28"
             android:gravity="center"
             android:orientation="vertical">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topConstraint"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
+                android:layout_weight="0.28"
                 android:gravity="center_horizontal">
 
-                <TextView
-                    android:id="@+id/highQR"
-                    android:layout_width="150dp"
+                <LinearLayout
+                    android:id="@+id/highLayout"
+                    android:layout_width="170dp"
                     android:layout_height="65dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="180dp"
                     android:background="#E45EC56C"
-                    android:text="@string/highest_qr"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/lowQR"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/lowQR"
-                    android:layout_width="150dp"
-                    android:layout_height="65dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#E45EC56C"
-                    android:text="@string/lowest_qr"
-                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/highScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/highest_score"/>
+                    <TextView
+                        android:id="@+id/humanNameHigh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/human_readable_name"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/qrScoreHigh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/qr_code_score"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lowLayout"
+                    android:layout_width="170dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="180dp"
+                    android:background="#E45EC56C"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/lowScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lowest_score"/>
+
+                    <TextView
+                        android:id="@+id/humanNameLow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/human_readable_name"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/qrScoreLow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/qr_code_score"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/userQRList"
-                android:layout_width="350dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:background="#E45EC56C"
-                android:clipToPadding="false"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                tools:listitem="@layout/profile_list_items"/>
+        </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bottomConstraint"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:gravity="center_horizontal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/userQRList"
+            android:layout_width="350dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            android:layout_gravity="center"
+            android:background="#E45EC56C"
+            android:clipToPadding="false"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            tools:listitem="@layout/profile_list_items" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.28"
+            android:gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/scoreLayout"
+                android:layout_width="170dp"
+                android:layout_height="65dp"
+                android:layout_marginEnd="180dp"
+                android:background="#E45EC56C"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/scoreSumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sum_of_scores"/>
 
                 <TextView
                     android:id="@+id/scoreSum"
-                    android:layout_width="150dp"
-                    android:layout_height="65dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="#E45EC56C"
-                    android:text="@string/sum_of_scores"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/numQR"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/undefinedNum"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/numLayout"
+                android:layout_width="170dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="180dp"
+                android:background="#E45EC56C"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/numQRText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_num_of_qr_scanned" />
 
                 <TextView
                     android:id="@+id/numQR"
-                    android:layout_width="150dp"
-                    android:layout_height="65dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="#E45EC56C"
-                    android:text="@string/total_num_of_qr_scanned"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/undefinedNum"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </FrameLayout>

@@ -59,16 +59,23 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setInfoBoxes(View view) {
-        TextView highestScore = view.findViewById(R.id.highQR);
-        TextView lowestScore = view.findViewById(R.id.lowQR);
+        TextView highName = view.findViewById(R.id.humanNameHigh);
+        TextView highScore = view.findViewById(R.id.qrScoreHigh);
+        TextView lowName = view.findViewById(R.id.humanNameLow);
+        TextView lowScore = view.findViewById(R.id.qrScoreLow);
         TextView sumOfScores = view.findViewById(R.id.scoreSum);
         TextView numQR = view.findViewById(R.id.numQR);
         TextView username = view.findViewById(R.id.username);
         TextView totalPoints = view.findViewById(R.id.totalPoints);
         TextView rank = view.findViewById(R.id.currentRank);
 
-        highestScore.setText(String.valueOf(userWallet.getHighest()));
-        lowestScore.setText(String.valueOf(userWallet.getLowest()));
+        Code highCode = userWallet.getHighest();
+        Code lowCode = userWallet.getLowest();
+
+        highName.setText(highCode.getHumanName());
+        highScore.setText(String.valueOf(highCode.getScore()));
+        lowName.setText(lowCode.getHumanName());
+        lowScore.setText(String.valueOf(lowCode.getScore()));
         sumOfScores.setText(String.valueOf(userWallet.getTotal()));
         numQR.setText(String.valueOf(userWallet.getSize()));
         username.setText(user.getUsername());
@@ -78,7 +85,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setUserInfo() {
-        user = ((MainActivity) requireActivity()).getUser();
+        user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
         qrList = userWallet.getUserCodes();
     }

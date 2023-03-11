@@ -20,9 +20,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
-
+        replaceFragment(new CameraFragment());
+        binding.navBar.getMenu().getItem(1).setChecked(true);
         //get data from firebase
+        user = User.getInstance();
         populatedUser();
 
         binding.navBar.setOnItemSelectedListener(item -> {
@@ -46,12 +47,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populatedUser() {
-        // TODO: add the firebase stuff here (I just manually created a User for testing)
-        ArrayList<Code> qrList = new ArrayList<Code>();
-        qrList.add(new Code(150, 0, "Jimmy", 0));
-        qrList.add(new Code(8000, 0, "Linda", 0));
-        qrList.add(new Code(7803, 0, "Hose", 0));
-        user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
+        UserWallet qrList = user.getCollectedQRCodes();
+        qrList.addCode(new Code(150, 0, "Jimmy", 0));
+        qrList.addCode(new Code(8000, 0, "Linda", 0));
+        qrList.addCode(new Code(7803, 0, "Betty", 0));
+        //user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
     }
 
     private void replaceFragment(Fragment fragment) {
