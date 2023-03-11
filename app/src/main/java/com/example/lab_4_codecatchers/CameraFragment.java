@@ -104,6 +104,7 @@ public class CameraFragment extends Fragment {
                         tv_textView.setText(result.getText());
                         // gets the binary content of the decoded message
                         byte[] bytes = s.getBytes();
+                        int score = getScore(bytes);
                         // sets the binary content at binary_textView
                         binary_textView.setText(Arrays.toString(bytes));
                         // gets the first item in the array and stores it as a string
@@ -114,8 +115,9 @@ public class CameraFragment extends Fragment {
                                 x = x + String.valueOf(bytes[i]);
                             }
                         }
-                        // shows the string of x
-                        hash_textView.setText(x);
+                        hash_textView.setText(String.valueOf(score));
+//                        // shows the string of x
+//                        hash_textView.setText(x);
                         // inputs x as the input for the hash function to get the hash output and sets it under hashOut_textView
                         String hash_output = hash(x);
                         hashOut_textView.setText(hash_output);
@@ -153,8 +155,35 @@ public class CameraFragment extends Fragment {
             }
             output = sb.toString();
         }
-        //Log.i("CodeCatchers", output);
         return output;
+    }
+
+    public static int getScore(byte[] bytes) {
+        int x = 0;
+        for (byte b : bytes) {
+            x += b;
+        }
+        int m = bytes.length % 100;
+        int[] down = {11, 75, 42, 66, 5, 94, 32, 68, 19, 83};
+        int[] up = {72, 39, 88, 15, 56, 93, 2, 47, 81, 29};
+        int score;
+        if (contains(up, m)) {
+            score = x * m;
+        } else if (contains(down, m)) {
+            score = Math.floorDiv(x, 2);
+        } else {
+            score = x;
+        }
+        return score;
+    }
+
+    private static boolean contains(int[] arr, int val) {
+        for (int i : arr) {
+            if (i == val) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -168,11 +197,4 @@ public class CameraFragment extends Fragment {
         mCodeScanner.releaseResources();
         super.onPause();
     }
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_camera, container, false);
-//    }
 }
