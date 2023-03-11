@@ -1,5 +1,7 @@
 package com.example.lab_4_codecatchers;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
+    User currentUser = User.getInstance();
 
     ActivityMainBinding binding;
     @Override
@@ -30,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
 
+        if(!currentUser.isLocationAccepted()){
+            locationPermissionRequest.launch(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            });
+        }
         // start
         // Check if camera permission has been granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -42,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 //        else {
 //            // Permission has already been granted
 //            replaceFragment(new CameraFragment());
-//        }
+//       }
         // end
 
         //get data from firebase
@@ -72,6 +81,20 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
+    ActivityResultLauncher<String[]> locationPermissionRequest =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                        Boolean fineLocationGranted = result.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false);
+                        Boolean coarseLocationGranted = result.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION,false);
+                        if (fineLocationGranted != null && fineLocationGranted) {
+                            currentUser.setLocationAccepted(true);
+                        } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                            Toast.makeText(this, "Grant Precise Location!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Grant Location!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            );
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
