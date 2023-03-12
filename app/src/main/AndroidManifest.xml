@@ -46,6 +46,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <meta-data android:name="com.google.android.gms.location.CHANGE_BACKGROUND_LOCATION" android:value="enable" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCAJ1k2w4SxpDUSST0UkHRFz5RBkVkwlkA"/>
     </application>
-
 </manifest>
