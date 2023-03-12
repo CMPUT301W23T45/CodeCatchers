@@ -93,7 +93,7 @@ public class CameraFragment extends Fragment {
             public void onDecoded(@NonNull final Result result) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
-                    // this function is to scna the QR code
+                    // this function is to scan the QR code
                     public void run() {
                         /**
                          TODO potentially create the other fragment here to that we can save the qr code
