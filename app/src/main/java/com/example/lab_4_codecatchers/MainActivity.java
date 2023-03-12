@@ -1,9 +1,5 @@
 package com.example.lab_4_codecatchers;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -16,43 +12,28 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.Manifest;
 import androidx.annotation.NonNull;
+
+
 import com.example.lab_4_codecatchers.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
-
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
-    private GoogleMap map;
 
     ActivityMainBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Check if the app has permission to access the user's location
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted, request it
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            // Permission has already been granted
-            // Do something with the location data
-        }
-
         //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
         String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION};
         ActivityCompat.requestPermissions(this, permissions, CAMERA_PERMISSION_REQUEST_CODE);
 
         replaceFragment(new CameraFragment());
         binding.navBar.getMenu().getItem(1).setChecked(true);
-
         //get data from firebase
         user = User.getInstance();
         populatedUser();
@@ -81,17 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             return true;
         });
-
-        // Get a reference to the map fragment
-        MapFragment mapFragment = (MapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-
-        // Initialize the map
-        //mapFragment.getMapAsync(this);
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -126,10 +97,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public User getUser() {
         return user;
-    }
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        map = googleMap;
-        // TODO: Add map customizations here
     }
 }
