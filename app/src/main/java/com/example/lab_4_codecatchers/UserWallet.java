@@ -50,6 +50,18 @@ public class UserWallet {
     //FUNCTIONS
 
     /**
+     * Gets code at index if code is in a wallet then
+     * @param index index of code to get
+     * @return Code at index or null if index is out of range
+     */
+    public Code getCode(int index) {
+        if(userCodes.size() <= index){
+            return null;
+        }
+        return userCodes.get(index);
+    }
+
+    /**
      * Returns the total score (int) of all QR codes in wallet
      * @return  total score
      */

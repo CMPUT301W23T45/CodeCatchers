@@ -13,4 +13,9 @@
     <string name="qr_code_score">QR code score</string>
     <string name="highest_score">Highest Score:</string>
     <string name="lowest_score">Lowest Score:</string>
+    <string name="comment">Comment</string>
+    <string name="save_geolocation_of_qr_code">Save Geolocation of QR Code</string>
+    <string name="take_a_photo_of_location">Take a Photo of Location</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_code">Add Code</string>
 </resources>
