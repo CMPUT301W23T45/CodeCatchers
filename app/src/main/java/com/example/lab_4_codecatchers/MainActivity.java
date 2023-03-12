@@ -29,22 +29,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
-        // start
-        // Check if camera permission has been granted
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted, request it
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA},
-                    CAMERA_PERMISSION_REQUEST_CODE);
-        }
-//        else {
-//            // Permission has already been granted
-//            replaceFragment(new CameraFragment());
-//            binding.navBar.getMenu().getItem(1).setChecked(true);
-//        }
-        // end
-        //get data from firebase
+        String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION};
+        ActivityCompat.requestPermissions(this, permissions, CAMERA_PERMISSION_REQUEST_CODE);
+
         replaceFragment(new CameraFragment());
         binding.navBar.getMenu().getItem(1).setChecked(true);
         //get data from firebase
@@ -78,15 +65,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //camera permission granted
-                //replaceFragment(new CameraFragment());
+            boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            boolean locationPermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+            if (cameraPermissionGranted && locationPermissionGranted) {
+                replaceFragment(new CameraFragment());
             } else {
-                //camera permission denied
-                //handle this case, e.g. show an error message
+                Toast.makeText(this, "Camera and location permission not granted", Toast.LENGTH_SHORT).show();
             }
         }
     }
