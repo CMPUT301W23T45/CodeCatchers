@@ -32,6 +32,7 @@ public class CameraFragment extends Fragment {
     TextView binary_textView;
     TextView hash_textView;
     TextView hashOut_textView;
+    UserWallet userWallet;
 
     // for camera - neel
     private CodeScanner mCodeScanner;
@@ -124,6 +125,15 @@ public class CameraFragment extends Fragment {
                         /**
                          * get rid of the extra items ^^^^^^^^
                          */
+
+                        //make new code
+                        Code code = new Code(score, hash_output);
+                        userWallet = User.getInstance().getCollectedQRCodes();
+                        userWallet.addCode(code);
+
+                        //go to AddCodeFragment
+                        ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
+
                     }
                 });
             }
