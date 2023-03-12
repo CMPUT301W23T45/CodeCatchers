@@ -16,12 +16,14 @@ public class User {
     private UserWallet collectedQRCodes;
     private ArrayList<String> devices = new ArrayList<>();
 
+
     public static User getInstance(){
         if(instance == null){
             instance = new User();
         }
         return instance;
     }
+
 
     public String getId() {
         return id;
