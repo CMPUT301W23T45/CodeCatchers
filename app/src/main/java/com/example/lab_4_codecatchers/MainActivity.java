@@ -1,7 +1,5 @@
 package com.example.lab_4_codecatchers;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -23,7 +21,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
-    User currentUser = User.getInstance();
 
     ActivityMainBinding binding;
     @Override
@@ -32,29 +29,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //replaceFragment(new ProfileFragment()); // TODO: NEED to replace with camera or login fragment once impelmented
+        String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION};
+        ActivityCompat.requestPermissions(this, permissions, CAMERA_PERMISSION_REQUEST_CODE);
 
-        if(!currentUser.isLocationAccepted()){
-            locationPermissionRequest.launch(new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            });
-        }
-        // start
-        // Check if camera permission has been granted
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted, request it
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA},
-                    CAMERA_PERMISSION_REQUEST_CODE);
-        }
-//        else {
-//            // Permission has already been granted
-//            replaceFragment(new CameraFragment());
-//       }
-        // end
-
+        replaceFragment(new CameraFragment());
+        binding.navBar.getMenu().getItem(1).setChecked(true);
         //get data from firebase
+        user = User.getInstance();
         populatedUser();
 
         binding.navBar.setOnItemSelectedListener(item -> {
@@ -67,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "Camera permission not granted", Toast.LENGTH_SHORT).show();
                     }
                     break;
+
                 case R.id.map:
                     replaceFragment(new MapFragment());
                     break;
@@ -82,40 +64,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    ActivityResultLauncher<String[]> locationPermissionRequest =
-            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
-                        Boolean fineLocationGranted = result.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false);
-                        Boolean coarseLocationGranted = result.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION,false);
-                        if (fineLocationGranted != null && fineLocationGranted) {
-                            currentUser.setLocationAccepted(true);
-                        } else if (coarseLocationGranted != null && coarseLocationGranted) {
-                            Toast.makeText(this, "Grant Precise Location!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(this, "Grant Location!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-            );
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //camera permission granted
-                //replaceFragment(new CameraFragment());
+            boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            boolean locationPermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+            if (cameraPermissionGranted && locationPermissionGranted) {
+                replaceFragment(new CameraFragment());
             } else {
-                //camera permission denied
-                //handle this case, e.g. show an error message
+                Toast.makeText(this, "Camera and location permission not granted", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     private void populatedUser() {
-        // TODO: add the firebase stuff here (I just manually created a User for testing)
-        ArrayList<Code> qrList = new ArrayList<Code>();
-        qrList.add(new Code(150, 0, "Jimmy", 0));
-        qrList.add(new Code(8000, 0, "Linda", 0));
-        qrList.add(new Code(7803, 0, "Hose", 0));
-        user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
+        UserWallet qrList = user.getCollectedQRCodes();
+        qrList.addCode(new Code(150, null, "Jimmy", 0));
+        qrList.addCode(new Code(8000, null, "Linda", 0));
+        qrList.addCode(new Code(7803, null, "Betty", 0));
+        //user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -125,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public User getUser() {
-        return user;
+    public void changeFragment(Fragment fragment) {
+        replaceFragment(fragment);
     }
 }
