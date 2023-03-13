@@ -26,7 +26,7 @@ public class UserWalletTest {
      */
     @Test
     public void addCodeTest(){
-        Code code = new Code(3568, "763974");
+        Code code = new Code(3568, "763974","0");
         int size = userWallet.getSize();
         userWallet.addCode(code);
         assertEquals(userWallet.getSize(), size+1);
@@ -39,7 +39,7 @@ public class UserWalletTest {
      */
     @Test
     public void getCode() {
-        Code code = new Code(3568, "763974");
+        Code code = new Code(3568, "763974","0");
         userWallet.addCode(code);
         assertEquals(userWallet.getCode(0), code);
     }
@@ -50,8 +50,8 @@ public class UserWalletTest {
      */
     @Test
     public void getTotal() {
-        Code code = new Code(3568, "763974");
-        Code code1 = new Code(95674, "763984");
+        Code code = new Code(3568, "763974","0");
+        Code code1 = new Code(95674, "763984","0");
         userWallet.addCode(code);
         userWallet.addCode(code1);
         assertEquals(userWallet.getTotal(), 99242);
@@ -63,8 +63,8 @@ public class UserWalletTest {
      */
     @Test
     public void getHighest() {
-        Code code = new Code(3568, "763974");
-        Code code1 = new Code(95674, "763984");
+        Code code = new Code(3568, "763974","0");
+        Code code1 = new Code(95674, "763984","0");
         userWallet.addCode(code);
         userWallet.addCode(code1);
         assertEquals(userWallet.getHighest(),code1);
@@ -76,8 +76,8 @@ public class UserWalletTest {
      */
     @Test
     public void getLowest() {
-        Code code = new Code(3568, "763974");
-        Code code1 = new Code(95674, "763984");
+        Code code = new Code(3568, "763974","0");
+        Code code1 = new Code(95674, "763984","0");
         userWallet.addCode(code);
         userWallet.addCode(code1);
         assertEquals(userWallet.getLowest(),code);
@@ -92,8 +92,8 @@ public class UserWalletTest {
      */
     @Test
     public void removeCodeTest() {
-        Code code = new Code(3568, "763974");
-        Code code1 = new Code(95674, "763984");
+        Code code = new Code(3568, "763974","0");
+        Code code1 = new Code(95674, "763984","0");
         userWallet.addCode(code);
         userWallet.addCode(code1);
         int size = userWallet.getSize();
