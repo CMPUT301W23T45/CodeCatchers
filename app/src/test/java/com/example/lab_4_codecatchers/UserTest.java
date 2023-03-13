@@ -37,7 +37,7 @@ public class UserTest {
     public void phoneTest(){
         String phone = user.getPhone();
         assertEquals(" ",phone);
-        user.setEmail("283-334-3322");
+        user.setPhone("283-334-3322");
         assertEquals("283-334-3322",user.getPhone());
     }
 
