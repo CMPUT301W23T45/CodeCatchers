@@ -56,18 +56,33 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.SwitchCompat
+
+        <!--        <androidx.appcompat.widget.SwitchCompat-->
+<!--            android:id="@+id/addPhoto"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/take_a_photo_of_location"-->
+<!--            android:clickable="true"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/editTextComment"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.88"-->
+<!--            android:focusable="true" />-->
+
+        <TextView
             android:id="@+id/addPhoto"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/take_a_photo_of_location"
-            android:clickable="true"
+            android:text="Take a Photo of Location"
+            android:textColor="#000000"
+            android:textSize="15dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextComment"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.88"
-            android:focusable="true" />
+            app:layout_constraintVertical_bias="0.839" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/geoLocation"
@@ -119,6 +134,14 @@
                 android:text="@string/add_code" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/add_loc_photo"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:text="+"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/geoLocation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
