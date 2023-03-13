@@ -52,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.firebase:firebase-storage:20.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -62,4 +63,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     // needed for the camera to work
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'//https://github.com/yuriy-budiyev/code-scanner
+
+    implementation "androidx.camera:camera-camera2:1.1.0"
+    implementation "androidx.camera:camera-lifecycle:1.1.0"
+    implementation "androidx.camera:camera-view:1.0.0-alpha30"
+
 }
