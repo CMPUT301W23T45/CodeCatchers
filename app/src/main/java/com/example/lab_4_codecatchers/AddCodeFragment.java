@@ -159,10 +159,10 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null){
                     startActivityForResult(intent,1);
+                    photoAdded = true;
                 } else {
                     Toast.makeText(getActivity(), "There is no app that supports this action",Toast.LENGTH_SHORT).show();
                 }
-                photoAdded = true;
                 break;
 
             default:
