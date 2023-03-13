@@ -25,6 +25,9 @@ import java.util.Arrays;
  * A simple {@link Fragment} subclass.
  * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * Fragment shows Camera that auto-scans QR codes
+ * Also turns codes to hashes and sums Code's score
  */
 public class CameraFragment extends Fragment {
     // declaring all the items from xml

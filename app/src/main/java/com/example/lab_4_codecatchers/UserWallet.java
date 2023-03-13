@@ -2,6 +2,10 @@ package com.example.lab_4_codecatchers;
 
 import java.util.ArrayList;
 
+/**
+ * UserWallet stores a Users scanned QR codes
+ * It can also preform tasks, like getting highest QR codes
+ */
 public class UserWallet {
     private String userID;
     private ArrayList<Code> userCodes;
@@ -9,16 +13,30 @@ public class UserWallet {
 
     //CONSTRUCTORS
 
+    /**
+     * Empty constructor for wallet
+     * Sets userID to null and userCodes to empty ArrayList
+     */
     public UserWallet() {
         this.userID = null;
         this.userCodes = new ArrayList<Code>();
     }
 
+    /**
+     * Constructor for wallet with existing useID
+     * Sets userCodes to empty ArrayList
+     * @param userID id for user
+     */
     public UserWallet(String userID) {
         this.userID = userID;
         this.userCodes = new ArrayList<Code>();
     }
 
+    /**
+     * Constructor for wallet with existing useID and list of codes
+     * @param userID id for user
+     * @param playerCodes list of players scanned codes
+     */
     public UserWallet(String userID, ArrayList<Code> playerCodes) {
         this.userID = userID;
         this.userCodes = playerCodes;

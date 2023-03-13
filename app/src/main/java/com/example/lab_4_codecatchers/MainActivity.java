@@ -13,14 +13,18 @@ import android.widget.Toast;
 import android.Manifest;
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import com.example.lab_4_codecatchers.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
+    private GoogleMap map;
 
     ActivityMainBinding binding;
     @Override
@@ -39,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         populatedUser();
 
         binding.navBar.setOnItemSelectedListener(item -> {
+//            NavBar implemented with assistance from: Foxandroid on YouTube
+//                         URL: https://www.youtube.com/watch?v=Bb8SgfI4Cm4
+//                         Author: Foxandroid
             switch (item.getItemId()) {
                 case R.id.camera: // this case too
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -79,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+    /**
+     * Tester function to populate a user's wallet
+     */
     private void populatedUser() {
         UserWallet qrList = user.getCollectedQRCodes();
         qrList.addCode(new Code(150, null, "Jimmy", 0));
@@ -88,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
         //user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
     }
 
+    /**
+     * replaces the fragment currently in the frameLayout
+     * @param fragment desired fragment
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -95,7 +108,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * replaces the fragment currently in the frameLayout
+     * (public version that just calls replaceFragment)
+     * @param fragment desired fragment
+     */
     public void changeFragment(Fragment fragment) {
         replaceFragment(fragment);
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
     }
 }

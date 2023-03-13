@@ -23,6 +23,9 @@ import javax.xml.transform.Result;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Fragment used to let a User add a new QR code to wallet
+ * CameraFragment will jump to this fragment after a QR code is scanned
+ * @see CameraFragment
  */
 public class AddCodeFragment extends Fragment implements View.OnClickListener {
     UserWallet userWallet;
@@ -72,6 +75,10 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Fill the information boxes for new QR code found in the AddCodeFragment xml
+     * @param view current view
+     */
     private void populateFields(View view) {
         TextView humanName = view.findViewById(R.id.addHumanName);
         TextView score = view.findViewById(R.id.addScore);
@@ -84,6 +91,10 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         score.setText(String.valueOf(code.getScore()));
     }
 
+    /**
+     * Defines behaviour when buttons are selected in AddCodeFragment
+     * @param v current view
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
