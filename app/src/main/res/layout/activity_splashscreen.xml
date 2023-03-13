@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BDB5B5">
+    android:background="@color/northern_sky">
 
     <TextView
         android:id="@+id/codeCatchers"
@@ -12,7 +12,7 @@
         android:layout_height="67dp"
         android:text="CodeCatchers"
         android:textAlignment="center"
-        android:textColor="#121010"
+        android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

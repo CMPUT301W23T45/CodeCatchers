@@ -85,10 +85,10 @@ public class Code {
 
     //FUNCTIONS
     private String generateHumanName(String hash) {
-        String[] mentalAdjectives = {"Clever", "Intelligent", "Inquisitive", "Curious", "Creative", "Wise", "Analytical", "Perceptive", "Insightful", "Reflective", "Contemplative", "Philosophical", "Eloquent", "Expressive", "Imaginative", "Visionary"};
-        String[] physicalAdjectives = {"Slender", "Muscular", "Chubby", "Obese", "Lean", "Fit", "Tall", "Short", "Curvy", "Athletic", "Stout", "Brawny", "Fragile", "Graceful", "Flabby", "Lanky"};
-        String[] colours = {"Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Pink", "Brown", "Gray", "Black", "White", "Turquoise", "Magenta", "Gold", "Silver", "Bronze"};
-        String[] gemstones = {"Diamond", "Ruby", "Emerald", "Sapphire", "Topaz", "Opal", "Amethyst", "Garnet", "Peridot", "Aquamarine", "Pearl", "Turquoise", "Citrine", "Agate", "Quartz", "Jade"};
+        String[] mentalAdjectives = {"Clever ", "Intelligent ", "Inquisitive ", "Curious ", "Creative ", "Wise ", "Analytical ", "Perceptive ", "Insightful ", "Reflective ", "Contemplative ", "Philosophical ", "Eloquent ", "Expressive ", "Imaginative ", "Visionary "};
+        String[] physicalAdjectives = {"Slender ", "Muscular ", "Chubby ", "Obese ", "Lean ", "Fit ", "Tall ", "Short ", "Curvy ", "Athletic ", "Stout ", "Brawny ", "Fragile ", "Graceful ", "Flabby ", "Lanky "};
+        String[] colours = {"Red ", "Orange ", "Yellow ", "Green ", "Blue ", "Purple ", "Pink ", "Brown ", "Gray ", "Black ", "White ", "Turquoise ", "Magenta ", "Gold ", "Silver ", "Bronze "};
+        String[] gemstones = {"Diamond ", "Ruby ", "Emerald ", "Sapphire ", "Topaz ", "Opal ", "Amethyst ", "Garnet ", "Peridot ", "Aquamarine ", "Pearl ", "Turquoise ", "Citrine ", "Agate ", "Quartz ", "Jade "};
         String[] animals = {"Lion", "Tiger", "Elephant", "Giraffe", "Gorilla", "Kangaroo", "Panda", "Squirrel", "Koala", "Lemur", "Platypus", "Hedgehog", "Sloth", "Meerkat", "Penguin", "Ostrich"};
 
         String output = "";
