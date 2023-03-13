@@ -16,6 +16,7 @@ public class User {
     private UserWallet collectedQRCodes;
     private ArrayList<String> devices = new ArrayList<>();
 
+    //FUNCTIONS
 
     public static User getInstance(){
         if(instance == null){
@@ -24,7 +25,46 @@ public class User {
         return instance;
     }
 
+    //CONSTRUCTORS
 
+    /**
+     * Empty constructor for User
+     * Sets all data to empty data or 0
+     */
+    public User() {
+        this.id = "0";
+        this.username = " ";
+        this.email = " ";
+        this.phone = " ";
+        this.totalScore = 0;
+        this.rank = 0;
+        this.collectedQRCodes = new UserWallet(this.id);
+        this.devices = new ArrayList<String>();
+    }
+
+    /**
+     * User constructor with all attributes known but devices
+     * Devices is set to empty ArrayList
+     * @param id user's ID
+     * @param username user's username
+     * @param email user's email
+     * @param phone user's phone number
+     * @param totalScore user's total points from scanned QR codes
+     * @param rank user's rank on global leaderboard
+     * @param collectedQRCodes list of all user's scanned QR codes
+     */
+    public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.totalScore = totalScore;
+        this.rank = rank;
+        this.collectedQRCodes = new UserWallet(id, collectedQRCodes);
+        this.devices = new ArrayList<String>();
+    }
+
+    //SETTERS AND GETTERS
     public String getId() {
         return id;
     }
@@ -47,29 +87,6 @@ public class User {
      */
     public void setDevices(ArrayList<String> devices) {
         this.devices = devices;
-    }
-
-
-    public User() {
-        this.id = "0";
-        this.username = " ";
-        this.email = " ";
-        this.phone = " ";
-        this.totalScore = 0;
-        this.rank = 0;
-        this.collectedQRCodes = new UserWallet(this.id);
-        this.devices = new ArrayList<String>();
-    }
-
-    public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.phone = phone;
-        this.totalScore = totalScore;
-        this.rank = rank;
-        this.collectedQRCodes = new UserWallet(id, collectedQRCodes);
-        this.devices = new ArrayList<String>();
     }
 
     /**

@@ -19,6 +19,12 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
+ * ProfileFragment shows the users information like:
+ *      list of scanned QR codes
+ *      username
+ *      total score
+ *      highest and lowest QR
+ *      ect.
  */
 public class ProfileFragment extends Fragment {
     private User user;
@@ -50,6 +56,7 @@ public class ProfileFragment extends Fragment {
         setUserInfo();
         setInfoBoxes(view);
 
+        //setting recycler view to show list of scanned QRcodes
         recyclerView = view.findViewById(R.id.userQRList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -58,6 +65,10 @@ public class ProfileFragment extends Fragment {
         profileAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Fill the information boxes found in the profileFragment xml
+     * @param view current view
+     */
     private void setInfoBoxes(View view) {
         TextView highName = view.findViewById(R.id.humanNameHigh);
         TextView highScore = view.findViewById(R.id.qrScoreHigh);
@@ -84,6 +95,9 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    /**
+     * Gets current user, current user's wallet and list of current user's scanned codes
+     */
     private void setUserInfo() {
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
