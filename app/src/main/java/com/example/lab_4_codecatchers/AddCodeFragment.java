@@ -105,14 +105,16 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 //           implemented with help from: Android Academics
 //                URL: https://androidacademic.blogspot.com/2016/12/multiple-buttons-onclicklistener-android.html
 //                Author: Pragnesh Ghoda
-            case R.id.add_loc_photo:
-                // TODO: jump to photo taking camera fragment
-                break;
+
+
+//            case R.id.add_loc_photo:
+//                // TODO: jump to photo taking camera fragment
+//                break;
             case R.id.addButton:
                 //The switches are returning a NullPointerException when using isChecked()
                 //Commented out for now
                 if(geoSave.isChecked()) {
-                    code.setHumanName("Pam");
+                    
                     // TODO: add save location code here, then setCords of code
                 }
 
