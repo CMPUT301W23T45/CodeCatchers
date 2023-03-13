@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         populatedUser();
 
         binding.navBar.setOnItemSelectedListener(item -> {
+//            NavBar implemented with assistance from: Foxandroid on YouTube
+//                         URL: https://www.youtube.com/watch?v=Bb8SgfI4Cm4
+//                         Author: Foxandroid
             switch (item.getItemId()) {
                 case R.id.camera: // this case too
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -83,7 +86,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
-
+    /**
+     * Tester function to populate a user's wallet
+     */
     private void populatedUser() {
         UserWallet qrList = user.getCollectedQRCodes();
         qrList.addCode(new Code(150, null, "Jimmy", 0));
@@ -92,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
     }
 
+    /**
+     * replaces the fragment currently in the frameLayout
+     * @param fragment desired fragment
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -99,6 +108,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         fragmentTransaction.commit();
     }
 
+    /**
+     * replaces the fragment currently in the frameLayout
+     * (public version that just calls replaceFragment)
+     * @param fragment desired fragment
+     */
     public void changeFragment(Fragment fragment) {
         replaceFragment(fragment);
     }

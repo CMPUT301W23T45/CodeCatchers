@@ -24,6 +24,9 @@ import org.checkerframework.checker.units.qual.A;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * MapFragment shows a map with scanned QR codes
+ */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap map;
     private User user;
