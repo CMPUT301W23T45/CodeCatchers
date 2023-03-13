@@ -1,7 +1,10 @@
 package com.example.lab_4_codecatchers;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +23,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.ByteArrayOutputStream;
 
 import javax.xml.transform.Result;
 
@@ -33,6 +42,8 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     Code code; //code to add
     SwitchCompat geoSave;
     ImageView ivProfile;
+    Bitmap finalPhoto;
+    FireStoreActivity fireStore = FireStoreActivity.getInstance();
     public AddCodeFragment() {
         // Required empty public constructor
     }
@@ -70,7 +81,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data !=null){
             Bundle bundle = data.getExtras();
-            Bitmap finalPhoto = (Bitmap) bundle.get("data");
+            finalPhoto = (Bitmap) bundle.get("data");
             ivProfile.setImageBitmap(finalPhoto);
         }
     }
@@ -87,9 +98,18 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
         code = userWallet.getCode((userWallet.getSize()) - 1);
-
         humanName.setText(code.getHumanName());
         score.setText(String.valueOf(code.getScore()));
+    }
+
+    protected void updateUser(User user){
+        fireStore.updateUser(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG,"Data has been successfully added");
+                    }
+                });
     }
 
     /**
@@ -118,8 +138,23 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 // TODO: add user comment to Code
 
                 //update user in Firestore
-                FireStoreActivity fireStore = FireStoreActivity.getInstance();
-                fireStore.updateUser(user);
+                updateUser(user);
+
+                // Convert the finalPhoto Bitmap to a Base64 encoded String
+                String encodedImage = null;
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                byte[] imageBytes = outputStream.toByteArray();
+                encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                //TODO: upload encodedImage to firebase
+
+                // here is the code to convert from string back to bitmap
+//                String bitmapString = "get from firebase" // Replace with bitmap string
+//                byte[] decodedBytes = Base64.decode(bitmapString, Base64.DEFAULT);
+//                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+
+
                 ((MainActivity) getActivity()).changeFragment(new CameraFragment());
 
                 break;

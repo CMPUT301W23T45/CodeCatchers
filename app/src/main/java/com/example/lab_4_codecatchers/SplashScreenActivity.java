@@ -53,8 +53,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                         currentUser.setUsername(current.getUsername());
                         currentUser.setEmail(current.getEmail());
                         currentUser.setPhone(current.getPhone());
-                        //currentUser.setRank(current.getCollectedQRCodes().getSize());
-                        //currentUser.setCollectedQRCodes(current.getCollectedQRCodes());
+                        currentUser.setRank(current.getCollectedQRCodes().getSize());
+                        currentUser.setCollectedQRCodes(current.getCollectedQRCodes());
                         Log.d(TAG,"User Exists!");
                         userExists();
                     }
