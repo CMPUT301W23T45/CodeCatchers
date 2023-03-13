@@ -3,6 +3,7 @@ package com.example.lab_4_codecatchers;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.GeoPoint;
 
 import javax.xml.transform.Result;
 
@@ -38,6 +48,8 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     SwitchCompat geoSave;
     ImageView ivProfile;
     Bitmap finalPhoto;
+    private FusedLocationProviderClient fusedLocationClient;
+
     public AddCodeFragment() {
         // Required empty public constructor
     }
@@ -45,6 +57,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
     }
 
     @Override
@@ -119,8 +132,25 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 //The switches are returning a NullPointerException when using isChecked()
                 //Commented out for now
                 if(geoSave.isChecked()) {
-                    
-                    // TODO: add save location code here, then setCords of code
+                    // TODO: double check location permissions
+                    try {
+                        fusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                if (location != null) {
+                                    Double lat = location.getLatitude();
+                                    Double lon = location.getLongitude();
+                                    GeoPoint g = new GeoPoint(lat, lon);
+                                    Log.i("CodeCatchers_LAT", lat.toString());
+                                    Log.i("CodeCatchers_LON", lon.toString());
+                                    code.setLocation(g);
+                                }
+                            }
+                        });
+                    } catch (SecurityException e) {
+                        GeoPoint g = new GeoPoint(0,0);
+                        code.setLocation(g);
+                    }
                 }
 
                 // TODO: add user comment to Code

@@ -1,5 +1,7 @@
 package com.example.lab_4_codecatchers;
 
+import com.google.firebase.firestore.GeoPoint;
+
 /**
  * Representation of a QR Code or Barcode
  */
@@ -9,6 +11,7 @@ public class Code {
     private String humanName;
     private int humanImage;
     private String image;
+    private GeoPoint location;
 
     //CONSTRUCTORS
 
@@ -109,5 +112,13 @@ public class Code {
             output = output.concat(selection);
         }
         return output;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoPoint g) {
+        this.location = g;
     }
 }
