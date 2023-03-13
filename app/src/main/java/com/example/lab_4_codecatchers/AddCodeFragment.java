@@ -110,7 +110,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 userWallet.removeCode(code);
                 ((MainActivity) getActivity()).changeFragment(new CameraFragment());
                 break;
-            case R.id.add_loc_photoButton:
+            case R.id.add_loc_photoButton:   //https://www.youtube.com/watch?v=YLUmfyGFjnU&ab_channel=CodingDemos
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null){
                     startActivityForResult(intent,1);
