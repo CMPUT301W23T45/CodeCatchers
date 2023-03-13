@@ -2,6 +2,7 @@ package com.example.lab_4_codecatchers;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 import javax.xml.transform.Result;
 
@@ -33,6 +37,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     Code code; //code to add
     SwitchCompat geoSave;
     ImageView ivProfile;
+    Bitmap finalPhoto;
     public AddCodeFragment() {
         // Required empty public constructor
     }
@@ -73,7 +78,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data !=null){
             Bundle bundle = data.getExtras();
-            Bitmap finalPhoto = (Bitmap) bundle.get("data");
+            finalPhoto = (Bitmap) bundle.get("data");
             ivProfile.setImageBitmap(finalPhoto);
         }
     }
@@ -123,6 +128,22 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 //update user in Firestore
                 FireStoreActivity fireStore = FireStoreActivity.getInstance();
                 fireStore.updateUser(user);
+
+                // Convert the finalPhoto Bitmap to a Base64 encoded String
+                String encodedImage = null;
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                byte[] imageBytes = outputStream.toByteArray();
+                encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                //TODO: upload encodedImage to firebase
+
+                // here is the code to convert from string back to bitmap
+//                String bitmapString = "get from firebase" // Replace with bitmap string
+//                byte[] decodedBytes = Base64.decode(bitmapString, Base64.DEFAULT);
+//                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+
+
                 ((MainActivity) getActivity()).changeFragment(new CameraFragment());
 
                 break;
