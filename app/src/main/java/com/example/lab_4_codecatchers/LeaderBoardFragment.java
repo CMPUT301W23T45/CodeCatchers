@@ -1,60 +1,58 @@
 package com.example.lab_4_codecatchers;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LeaderBoardFragment#newInstance} factory method to
  * create an instance of this fragment.
  * This fragment WILL show leaderboard
  * Not implemented for half-way
+ *Implemented with the assistance of :
+ * https://stackoverflow.com/questions/68423448/how-to-sort-an-array-of-objects-by-total-score
+ * https://stackoverflow.com/questions/53991868/search-in-recyclerview-with-edittext
  */
 public class LeaderBoardFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView recyclerView;
+    TextView globalrank;
+    EditText searchPlayers;
+    private final User currentUser = User.getInstance();
+    private final FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
+    private ArrayList<User> allUsers = new ArrayList<>();
+    LeaderBoardAdapter leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers);
 
     public LeaderBoardFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LeaderBoardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LeaderBoardFragment newInstance(String param1, String param2) {
-        LeaderBoardFragment fragment = new LeaderBoardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -62,5 +60,85 @@ public class LeaderBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_leader_board, container, false);
+    }
+
+
+    /**
+     * Fills the array allUsers with users from firebase
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        allUsers.clear();
+        fireStoreActivity.isUniqueUsername()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    queryDocumentSnapshots.getDocuments().forEach(documentSnapshot -> allUsers.add(documentSnapshot.toObject(User.class)));
+                    int rank = rankByScore(allUsers);
+                    globalrank.setText("" + rank);
+
+                    Log.d(TAG,"users are "+ allUsers);
+                    recyclerView = view.findViewById(R.id.users_recycle_view);
+                    leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers);
+                    recyclerView.setAdapter(leaderBoardAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                });
+
+        //setting recycler view to show list of players
+        globalrank = view.findViewById(R.id.editglobalrank);
+        searchPlayers = view.findViewById(R.id.editTextSearchForPlayers);
+        searchPlayers.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                search(editable.toString());
+            }
+        });
+    }
+
+    /**
+     * Array filters according to the users input
+     * @param edit
+     */
+    private void search(String edit){
+        ArrayList<User> users = new ArrayList<>();
+        for(User user : allUsers){
+            if(user.getUsername().toLowerCase(Locale.ROOT).contains(edit.toLowerCase(Locale.ROOT))){
+                users.add(user);
+            }
+        }
+        leaderBoardAdapter.searchList(users);
+    }
+
+
+    /**
+     * Used to rank each user in order
+     * @param users
+     * @return users rank number
+     */
+    private int rankByScore(ArrayList<User> users){
+        users.sort((user,i)-> i.getTotalScore() - user.getTotalScore());
+        for(int i =0;i < users.size();i++){
+            users.get(i).setRank(i+1);
+        }
+        for(int i =0;i < users.size();i++){
+            if(users.get(i).getUsername().equals(currentUser.getUsername())){
+                return i+1;
+            }
+        }
+        return 0;
     }
 }

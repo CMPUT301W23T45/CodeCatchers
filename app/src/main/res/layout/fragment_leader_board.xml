@@ -1,15 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9C27B0"
-    tools:context=".LeaderBoardFragment">
+    android:alwaysDrawnWithCache="false"
+    android:background="@color/coffee"
+    tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="LeaderBoard" />
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/headerProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/code_catchers"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            app:cardBackgroundColor="@color/northern_sky"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="396dp"
+                android:layout_height="60dp"
+                app:cardBackgroundColor="@color/northern_sky"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true">
+
+                <EditText
+                    android:id="@+id/editTextSearchForPlayers"
+                    android:layout_width="372dp"
+                    android:layout_height="48dp"
+                    android:layout_below="@+id/textView5"
+                    android:hint="Search Users"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp" />
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/globalRankLayout"
+            android:layout_width="376dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:background="@color/northern_sky"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imagestar"
+                android:layout_width="56dp"
+                android:layout_height="47dp"
+                android:src="@android:drawable/btn_star_big_on" />
+
+            <TextView
+                android:id="@+id/globalRankTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Global Rank:"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/editglobalrank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="#XXX"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/users_recycle_view"
+            android:layout_width="366dp"
+            android:layout_height="394dp"
+            android:layout_below="@+id/globalRankLayout"
+            android:layout_gravity="center"
+            android:paddingTop="15dp"
+            tools:listitem="@layout/leader_board_recycle_view" />
+
+    </LinearLayout>
+
 
 </FrameLayout>
