@@ -13,14 +13,18 @@ import android.widget.Toast;
 import android.Manifest;
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import com.example.lab_4_codecatchers.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     User user;
+    private GoogleMap map;
 
     ActivityMainBinding binding;
     @Override
@@ -97,5 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeFragment(Fragment fragment) {
         replaceFragment(fragment);
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
     }
 }
