@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class FireStoreActivity {
     private final FirebaseFirestore userDB = FirebaseFirestore.getInstance();
     private final CollectionReference userCollection = userDB.collection("Users");
+    private final CollectionReference codeCollection = userDB.collection("qrCode");
     User currentUser = User.getInstance();
     private static FireStoreActivity instance = null;
 
@@ -63,4 +64,7 @@ public class FireStoreActivity {
 
     }
 
+    public Task<QuerySnapshot> getCodes() {
+        return codeCollection.get();
+    }
 }

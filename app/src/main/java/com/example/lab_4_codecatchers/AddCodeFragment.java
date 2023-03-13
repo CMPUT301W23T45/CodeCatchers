@@ -1,7 +1,5 @@
 package com.example.lab_4_codecatchers;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.ByteArrayOutputStream;
 
@@ -43,7 +38,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     SwitchCompat geoSave;
     ImageView ivProfile;
     Bitmap finalPhoto;
-    FireStoreActivity fireStore = FireStoreActivity.getInstance();
+    Boolean photoAdded = false;
     public AddCodeFragment() {
         // Required empty public constructor
     }
@@ -71,9 +66,12 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         geoSave = view.findViewById(R.id.geoLocation);
         Button add_loc_photo = view.findViewById(R.id.add_loc_photoButton);
         ivProfile = view.findViewById(R.id.ivProfile);
+
         add_loc_photo.setOnClickListener(this);
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -98,18 +96,9 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
         code = userWallet.getCode((userWallet.getSize()) - 1);
+
         humanName.setText(code.getHumanName());
         score.setText(String.valueOf(code.getScore()));
-    }
-
-    protected void updateUser(User user){
-        fireStore.updateUser(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG,"Data has been successfully added");
-                    }
-                });
     }
 
     /**
@@ -137,16 +126,16 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 
                 // TODO: add user comment to Code
 
-                //update user in Firestore
-                updateUser(user);
-
-                // Convert the finalPhoto Bitmap to a Base64 encoded String
-                String encodedImage = null;
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                byte[] imageBytes = outputStream.toByteArray();
-                encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-                //TODO: upload encodedImage to firebase
+                if(photoAdded) {
+                    // Convert the finalPhoto Bitmap to a Base64 encoded String
+                    String encodedImage = null;
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    byte[] imageBytes = outputStream.toByteArray();
+                    encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                    //TODO: upload encodedImage to firebase
+                    code.setImageString(encodedImage);
+                }
 
                 // here is the code to convert from string back to bitmap
 //                String bitmapString = "get from firebase" // Replace with bitmap string
@@ -154,7 +143,9 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 //                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
 
 
-
+                //update user in Firestore
+                FireStoreActivity fireStore = FireStoreActivity.getInstance();
+                fireStore.updateUser(user);
                 ((MainActivity) getActivity()).changeFragment(new CameraFragment());
 
                 break;
@@ -168,6 +159,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null){
                     startActivityForResult(intent,1);
+                    photoAdded = true;
                 } else {
                     Toast.makeText(getActivity(), "There is no app that supports this action",Toast.LENGTH_SHORT).show();
                 }

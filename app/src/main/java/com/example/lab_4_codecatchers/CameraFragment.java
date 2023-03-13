@@ -130,7 +130,7 @@ public class CameraFragment extends Fragment {
                          */
 
                         //make new code
-                        Code code = new Code(score, hash_output);
+                        Code code = new Code(score, hash_output, "0");
                         userWallet = User.getInstance().getCollectedQRCodes();
                         userWallet.addCode(code);
 
