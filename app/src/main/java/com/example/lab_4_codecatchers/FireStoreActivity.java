@@ -4,6 +4,10 @@ import static android.content.ContentValues.TAG;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,6 +42,25 @@ public class FireStoreActivity {
                 .document(userToAdd.getUsername())
                 .set(userToAdd);
 
+    }
+
+    public Task<Void> updateUser(User user) {
+        return userCollection
+                .document(user.getUsername())
+                .update("totalScore", user.getCollectedQRCodes().getTotal(),
+                        "userCodes", user.getCollectedQRCodes()
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "User updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating Code", e);
+                    }
+                });
     }
 
     /**
