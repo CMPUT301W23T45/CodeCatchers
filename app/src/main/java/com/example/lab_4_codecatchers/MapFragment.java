@@ -59,15 +59,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             for (DocumentSnapshot code : queryDocumentSnapshots) {
                 GeoPoint g = (GeoPoint) code.get("location");
                 if (g.getLatitude() != 0.0 && g.getLongitude() != 0.0) {
-                    allCodes.put(code.get("name").toString(), g);
+                    LatLng position = new LatLng(g.getLatitude(), g.getLongitude());
+                    map.addMarker(new MarkerOptions().position(position).title(code.get("name").toString()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                 }
             }
         });
-        for (String n: allCodes.keySet()) {
-            LatLng position = new LatLng(allCodes.get(n).getLatitude(), allCodes.get(n).getLongitude());
-            map.addMarker(new MarkerOptions().position(position).title(n).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-            Log.i("CodeCatchers", n);
-        }
     }
 
     private void setUserInfo() {
