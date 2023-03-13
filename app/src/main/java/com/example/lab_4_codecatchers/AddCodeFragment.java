@@ -125,10 +125,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 
                 // TODO: add user comment to Code
 
-                //update user in Firestore
-                FireStoreActivity fireStore = FireStoreActivity.getInstance();
-                fireStore.updateUser(user);
-
                 // Convert the finalPhoto Bitmap to a Base64 encoded String
                 String encodedImage = null;
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -136,6 +132,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 byte[] imageBytes = outputStream.toByteArray();
                 encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
                 //TODO: upload encodedImage to firebase
+                code.setImageString(encodedImage);
 
                 // here is the code to convert from string back to bitmap
 //                String bitmapString = "get from firebase" // Replace with bitmap string
@@ -143,7 +140,9 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 //                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
 
 
-
+                //update user in Firestore
+                FireStoreActivity fireStore = FireStoreActivity.getInstance();
+                fireStore.updateUser(user);
                 ((MainActivity) getActivity()).changeFragment(new CameraFragment());
 
                 break;

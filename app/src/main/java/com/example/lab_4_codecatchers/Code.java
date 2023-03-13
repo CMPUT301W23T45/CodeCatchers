@@ -8,6 +8,7 @@ public class Code {
     private String hash;
     private String humanName;
     private int humanImage;
+    private String image;
 
     //CONSTRUCTORS
 
@@ -21,6 +22,7 @@ public class Code {
         this.score = 0;
         this.humanName = null;
         this.humanImage = R.drawable.baseline_qr_code_2_24;
+        this.image = null;
     }
 
     /**
@@ -29,35 +31,32 @@ public class Code {
      * @param score score of QR code
      * @param hash hashCode of QR code
      */
-    public Code(int score, String hash) {
+    public Code(int score, String hash, String image) {
         this.score = score;
         this.hash = hash;
         this.humanName = generateHumanName(hash); // TODO: change to nameFunction once implemented
-        this.humanImage = R.drawable.baseline_qr_code_2_24; // TODO: change to imageFunction once implemented
+//        this.humanImage = R.drawable.baseline_qr_code_2_24; // TODO: change to imageFunction once implemented
+        this.image = image;
     }
 
     /**
      * Constructor used for testing
      * @param score score of QR code
      * @param hash hashCode of QR code
-     * @param humanImage visual rep. of QR code
+     * @param image string rep. of QR code
      * @param humanName human readable name for QR code
      */
-    public Code(int score, String hash, String humanName, int humanImage) {
+    public Code(int score, String hash, String humanName, String image) {
         this.score = score;
         this.hash = hash;
         this.humanName = humanName;
-        this.humanImage = humanImage;
+        this.image = image;
     }
 
     //SETTERS AND GETTERS
-    public int getHumanImage() {
-        return humanImage;
-    }
+    public String getImageString() {return image;}
 
-    public void setHumanImage(int humanImage) {
-        this.humanImage = humanImage;
-    }
+    public void setImageString(String image) {this.image = image;}
 
     public int getScore() {
         return score;
