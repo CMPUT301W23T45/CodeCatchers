@@ -38,6 +38,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     SwitchCompat geoSave;
     ImageView ivProfile;
     Bitmap finalPhoto;
+    Boolean photoAdded = false;
     public AddCodeFragment() {
         // Required empty public constructor
     }
@@ -125,14 +126,16 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 
                 // TODO: add user comment to Code
 
-                // Convert the finalPhoto Bitmap to a Base64 encoded String
-                String encodedImage = null;
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                byte[] imageBytes = outputStream.toByteArray();
-                encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-                //TODO: upload encodedImage to firebase
-                code.setImageString(encodedImage);
+                if(photoAdded) {
+                    // Convert the finalPhoto Bitmap to a Base64 encoded String
+                    String encodedImage = null;
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    byte[] imageBytes = outputStream.toByteArray();
+                    encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                    //TODO: upload encodedImage to firebase
+                    code.setImageString(encodedImage);
+                }
 
                 // here is the code to convert from string back to bitmap
 //                String bitmapString = "get from firebase" // Replace with bitmap string
@@ -159,6 +162,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 } else {
                     Toast.makeText(getActivity(), "There is no app that supports this action",Toast.LENGTH_SHORT).show();
                 }
+                photoAdded = true;
                 break;
 
             default:
