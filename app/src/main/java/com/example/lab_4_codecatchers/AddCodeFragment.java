@@ -60,12 +60,9 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         geoSave = view.findViewById(R.id.geoLocation);
         Button add_loc_photo = view.findViewById(R.id.add_loc_photoButton);
         ivProfile = view.findViewById(R.id.ivProfile);
-
         add_loc_photo.setOnClickListener(this);
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
-
-
     }
 
     @Override
