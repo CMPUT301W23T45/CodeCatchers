@@ -1,9 +1,5 @@
 package com.example.lab_4_codecatchers;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-
 /**
  * Representation of a QR Code or Barcode
  */
@@ -12,7 +8,6 @@ public class Code {
     private String hash;
     private String humanName;
     private int humanImage;
-    private final ArrayList<String[]> opposites = new ArrayList<>();
 
     //CONSTRUCTORS
 
