@@ -11,6 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for the recycleView in ProfileFragment
+ * Implemented with assistance from: Foxandroid on YouTube
+ *      URL: https://www.youtube.com/watch?v=UBgXVGgTaHk
+ *      Author: Foxandroid
+ *
+ * @see ProfileFragment
+ */
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHolder>{
     Context context;
     ArrayList<Code> codes; //List of codes to be put in recyclerView
@@ -50,17 +58,22 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
     }
 
     /**
-     * @return
+     * gets number of items in codes ArrayList
+     * @return int size of array list
      */
     @Override
     public int getItemCount() {
         return codes.size();
     }
 
+    /**
+     * View Holder for list in recycle view
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         //ShapeableImageView qrImage;
         TextView nameText;
         TextView scoreText;
+        // TODO: add visual rep of QR codes once implemented
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

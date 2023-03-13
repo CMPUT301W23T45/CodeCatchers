@@ -13,6 +13,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
+/**
+ * MapFragment shows a map with scanned QR codes
+ */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap map;
 
