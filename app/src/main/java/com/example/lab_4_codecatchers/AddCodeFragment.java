@@ -1,5 +1,7 @@
 package com.example.lab_4_codecatchers;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,11 +10,16 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import javax.xml.transform.Result;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +32,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     UserWallet userWallet;
     Code code; //code to add
     SwitchCompat geoSave;
+    ImageView ivProfile;
     public AddCodeFragment() {
         // Required empty public constructor
     }
@@ -50,12 +58,26 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         Button add = view.findViewById(R.id.addButton);
         Button cancel = view.findViewById(R.id.cancelButton);
         geoSave = view.findViewById(R.id.geoLocation);
+        Button add_loc_photo = view.findViewById(R.id.add_loc_photoButton);
+        ivProfile = view.findViewById(R.id.ivProfile);
 
+        add_loc_photo.setOnClickListener(this);
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && data !=null){
+            Bundle bundle = data.getExtras();
+            Bitmap finalPhoto = (Bitmap) bundle.get("data");
+            ivProfile.setImageBitmap(finalPhoto);
+        }
+    }
+
     /**
      * Fill the information boxes for new QR code found in the AddCodeFragment xml
      * @param view current view
@@ -99,17 +121,28 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 //update user in Firestore
                 FireStoreActivity fireStore = FireStoreActivity.getInstance();
                 fireStore.updateUser(user);
+                ((MainActivity) getActivity()).changeFragment(new CameraFragment());
 
                 break;
 
             case R.id.cancelButton:
                 //remove Code from wallet
                 userWallet.removeCode(code);
+                ((MainActivity) getActivity()).changeFragment(new CameraFragment());
                 break;
+            case R.id.add_loc_photoButton:   //https://www.youtube.com/watch?v=YLUmfyGFjnU&ab_channel=CodingDemos
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null){
+                    startActivityForResult(intent,1);
+                } else {
+                    Toast.makeText(getActivity(), "There is no app that supports this action",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
             default:
+                ((MainActivity) getActivity()).changeFragment(new CameraFragment());
                 break;
         }
         //jump back to camera fragment
-        ((MainActivity) getActivity()).changeFragment(new CameraFragment());
     }
 }

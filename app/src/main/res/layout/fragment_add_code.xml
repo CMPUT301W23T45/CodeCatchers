@@ -56,46 +56,29 @@
 
         </LinearLayout>
 
-
-        <!--        <androidx.appcompat.widget.SwitchCompat-->
-<!--            android:id="@+id/addPhoto"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/take_a_photo_of_location"-->
-<!--            android:clickable="true"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/editTextComment"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.88"-->
-<!--            android:focusable="true" />-->
-
         <TextView
             android:id="@+id/addPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Take a Photo of Location"
             android:textColor="#000000"
             android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextComment"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/add_loc_photoButton"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.839" />
+            app:layout_constraintTop_toBottomOf="@+id/geoLocation" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/geoLocation"
-            android:layout_width="392dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
             android:clickable="true"
+            android:focusable="true"
             android:text="@string/save_geolocation_of_qr_code"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.22000003"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 
         <EditText
@@ -107,7 +90,7 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -117,31 +100,40 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.841">
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/cancelButton"
-                android:layout_width="193dp"
+                android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/addButton"
-                android:layout_width="193dp"
+                android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:text="@string/add_code" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/add_loc_photo"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
+            android:id="@+id/add_loc_photoButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:text="+"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/geoLocation" />
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="111dp"
+            android:layout_height="148dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/add_loc_photoButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addPhoto"
+            tools:src="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
