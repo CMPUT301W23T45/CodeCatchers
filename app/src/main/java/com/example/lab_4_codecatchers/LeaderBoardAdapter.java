@@ -54,6 +54,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
     public void onBindViewHolder(@NonNull LeaderBoardAdapter.MyViewHolder holder, int position) {
         holder.userNameLeaderBoard.setText(leaderBoardInfo.get(position).getUsername());
         holder.rankLeaderBoard.setText(String.valueOf(leaderBoardInfo.get(position).getRank()));
+        holder.scoreLeaderBoard.setText(String.valueOf(leaderBoardInfo.get(position).getTotalScore()));
         // TODO: click user which takes them to their profile
     }
 
@@ -83,11 +84,13 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
 
         TextView userNameLeaderBoard;
         TextView rankLeaderBoard;
+        TextView scoreLeaderBoard;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             userNameLeaderBoard = itemView.findViewById(R.id.userNameLeaderBoard);
             rankLeaderBoard = itemView.findViewById(R.id.LeaderBoardRank);
+            scoreLeaderBoard = itemView.findViewById(R.id.leaderBoardEditScore);
         }
 
 
