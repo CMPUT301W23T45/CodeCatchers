@@ -1,28 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
-    app:cardBackgroundColor="@color/white"
+    android:layout_height="85dp"
+    app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
-    android:backgroundTint="@color/northern_sky"
-    android:id="@+id/userleaderboardlayout">
+    >
 
     <RelativeLayout
-        android:layout_width="373dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:paddingLeft="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:paddingLeft="5dp"
+        android:background="@color/northern_sky">
 
         <TextView
-            android:id="@+id/userNameLeaderBoard"
+            android:id="@+id/usernameLeaderBoard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:text="Username"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="30sp" />
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/usernameLeaderBoard"
+            android:paddingTop="10dp"
+            android:text="Score: "
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/leaderBoardEditScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/usernameLeaderBoard"
+            android:layout_toRightOf="@+id/textViewScore"
+            android:paddingTop="10dp"
+            android:text="XXX"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/LeaderBoardRank"
@@ -32,30 +51,8 @@
             android:paddingTop="5dp"
             android:paddingRight="15dp"
             android:text="X"
+            android:textColor="#000000"
             android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/leaderBoardTextViewScore"
-            android:layout_width="62dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="7dp"
-            android:layout_marginEnd="258dp"
-            android:layout_marginBottom="9dp"
-            android:layout_toStartOf="@+id/LeaderBoardRank"
-            android:text="Score: " />
-
-        <TextView
-            android:id="@+id/leaderBoardEditScore"
-            android:layout_width="41dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="231dp"
-            android:layout_marginBottom="9dp"
-            android:layout_toStartOf="@+id/LeaderBoardRank"
-            android:text="XXX" />
-
     </RelativeLayout>
 
 

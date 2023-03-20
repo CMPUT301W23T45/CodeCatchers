@@ -88,7 +88,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            userNameLeaderBoard = itemView.findViewById(R.id.userNameLeaderBoard);
+            userNameLeaderBoard = itemView.findViewById(R.id.usernameLeaderBoard);
             rankLeaderBoard = itemView.findViewById(R.id.LeaderBoardRank);
             scoreLeaderBoard = itemView.findViewById(R.id.leaderBoardEditScore);
         }
