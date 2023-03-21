@@ -48,19 +48,7 @@ public class FireStoreActivity {
         return userCollection
                 .document(user.getUsername())
                 .update("totalScore", user.getCollectedQRCodes().getTotal(),
-                        "userCodes", user.getCollectedQRCodes()
-                ).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "User updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating Code", e);
-                    }
-                });
+                        "userCodes", user.getCollectedQRCodes());
     }
 
     /**

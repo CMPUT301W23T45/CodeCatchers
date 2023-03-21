@@ -64,7 +64,7 @@
             android:layout_marginTop="10dp"
             android:text="Take a Photo of Location"
             android:textColor="#000000"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/add_loc_photoButton"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/geoLocation"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/save_geolocation_of_qr_code"
@@ -85,8 +85,9 @@
 
         <EditText
             android:id="@+id/editTextComment"
+            android:hint="Comment here"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
@@ -120,8 +121,8 @@
 
         <Button
             android:id="@+id/add_loc_photoButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:text="+"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/geoLocation"

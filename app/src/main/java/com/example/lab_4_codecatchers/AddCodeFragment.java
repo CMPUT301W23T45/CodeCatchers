@@ -120,7 +120,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 //The switches are returning a NullPointerException when using isChecked()
                 //Commented out for now
                 if(geoSave.isChecked()) {
-                    
+
                     // TODO: add save location code here, then setCords of code
                 }
 
