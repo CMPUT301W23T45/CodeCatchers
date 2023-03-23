@@ -93,6 +93,14 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     private void populateFields(View view) {
         TextView humanName = view.findViewById(R.id.addHumanName);
         TextView score = view.findViewById(R.id.addScore);
+        TextView face0 = view.findViewById(R.id.face0);
+        TextView face1 = view.findViewById(R.id.face1);
+        TextView face2 = view.findViewById(R.id.face2);
+        TextView face3 = view.findViewById(R.id.face3);
+        TextView face4 = view.findViewById(R.id.face4);
+        TextView face5 = view.findViewById(R.id.face5);
+        TextView face6 = view.findViewById(R.id.face6);
+        TextView face7 = view.findViewById(R.id.face7);
         // TODO: add photo view when implemented
 
         user = User.getInstance();
@@ -101,6 +109,17 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 
         humanName.setText(code.getHumanName());
         score.setText(String.valueOf(code.getScore()));
+
+        String[] face= code.generateFace(code.getHash());
+        face0.setText(face[0]);
+        face1.setText(face[1]);
+        face2.setText(face[2]);
+        face3.setText(face[3]);
+        face4.setText(face[4]);
+        face5.setText(face[5]);
+        face6.setText(face[6]);
+        face7.setText(face[7]);
+
     }
 
     /**

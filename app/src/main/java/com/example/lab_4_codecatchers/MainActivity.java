@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     private void populatedUser() {
         UserWallet qrList = user.getCollectedQRCodes();
-        qrList.addCode(new Code(150, null, "Jimmy", "0"));
-        qrList.addCode(new Code(8000, null, "Linda", "0"));
-        qrList.addCode(new Code(7803, null, "Betty", "0"));
+        qrList.addCode(new Code(150, null, "Jimmy","", "this"));
+        qrList.addCode(new Code(8000, null, "Linda","", "this"));
+        qrList.addCode(new Code(7803, null, "Betty","", "tjis"));
         //qrList.addCode(new Code(5234, "6e80a5bf1f6e165f65965076290a61638dfde0f2972474d73b954a10962a392f"));
         //user = new User("273869", "user_1234", "123@gmail.com", "780-123-4560", 15953, 1, qrList);
     }

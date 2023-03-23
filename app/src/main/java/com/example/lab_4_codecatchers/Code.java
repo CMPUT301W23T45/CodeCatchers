@@ -49,7 +49,7 @@ public class Code {
      * @param image string rep. of QR code
      * @param humanName human readable name for QR code
      */
-    public Code(int score, String hash, String humanName, String image,String comment) {
+    public Code(int score, String hash, String humanName, String image, String comment) {
         this.score = score;
         this.hash = hash;
         this.humanName = humanName;
@@ -119,7 +119,7 @@ public class Code {
         return output;
     }
 
-    private String[] generateFace(String hash) {
+    public String[] generateFace(String hash) {
         String[] face= new String[8];
         int eyes = 3;
         int eyebrows = 2;
@@ -131,14 +131,14 @@ public class Code {
         int smile = 6;
         int beard = 7;
 
-        face[shape1] = "    ____";
-        face[shape2]= "  /      \\";
-        face[eyebrows]="  | ^  ^ |";
-        face[eyes]="|\\| -  - |/|";
-        face[nose1]=" \\|  ||  |/";
-        face[nose2]="  |  ``  |";
-        face[smile]="  | `__` |";
-        face[shape3]="   \\____/";
+        face[shape1] = "___";
+        face[shape2]= "/      \\";
+        face[eyebrows]="|  ^  ^  |";
+        face[eyes]="|\\|  -   -  |/|";
+        face[nose1]="\\|   | |   |/";
+        face[nose2]="|   ``   |";
+        face[smile]="| `__` |";
+        face[shape3]="\\___/";
 
     /*         base face
     0            ____
@@ -152,46 +152,72 @@ public class Code {
     */
 
 
-        String substr = hash.substring(0, 6);
-
+        String substr = hash.substring(0, 2);
+        substr=hexToBin(substr);
         // Set the eyes based on the first bit
         int index = Character.digit(substr.charAt(0), 2);
-        if (index == 1){
-            face[eyes]="|\\| O  O |/|";
+        if (index != 1){
+            face[eyes]="|\\| o   o |/|";
         }
 
         // Set the eyebrows based on the second bit
         index = Character.digit(substr.charAt(1), 2);
-        if (index == 1){
-            face[eyebrows]="  | ^  ^ |";
+        if (index != 1){
+            face[eyebrows]="|         |";
         }
 
         // Set the face shape based on the third bit
         index = Character.digit(substr.charAt(2), 2);
-        if (index == 1){
-            face[shape1]="   ______";
-            face[shape2]="  |      |";
-            face[shape3]="  |______|";
+        if (index != 1){
+            face[shape1]="_____";
+            face[shape2]="|         |";
+            face[shape3]="|_____|";
         }
 
         // Set the nose based on the fourth bit
         index = Character.digit(substr.charAt(3), 2);
-        if (index == 1){
-            face[nose1] = " \\| |__| |/";
-            face[nose2] ="  |      |";
+        if (index != 1){
+            face[nose1] = "\\| |___| |/";
+            face[nose2] ="|         |";
         }
 
         // Set the smile based on the fifth bit
         index = Character.digit(substr.charAt(4), 2);
-        if(index==1){
-            face[smile] = "  | ,--, |";
+        if(index!=1){
+            face[smile] = "|  ,---,  |";
         }
 
         // Set the beard based on the sixth bit
         index = Character.digit(substr.charAt(5), 2);
-        if (index==1){
-            face[beard]="  \\::::::/";
+        if (index!=1){
+            face[beard]="|::::::::::|";
         }
         return face;
+    }
+
+    private String hexToBin(String hex){
+        hex = hex.replaceAll("0", "0000");
+        hex = hex.replaceAll("1", "0001");
+        hex = hex.replaceAll("2", "0010");
+        hex = hex.replaceAll("3", "0011");
+        hex = hex.replaceAll("4", "0100");
+        hex = hex.replaceAll("5", "0101");
+        hex = hex.replaceAll("6", "0110");
+        hex = hex.replaceAll("7", "0111");
+        hex = hex.replaceAll("8", "1000");
+        hex = hex.replaceAll("9", "1001");
+        hex = hex.replaceAll("A", "1010");
+        hex = hex.replaceAll("B", "1011");
+        hex = hex.replaceAll("C", "1100");
+        hex = hex.replaceAll("D", "1101");
+        hex = hex.replaceAll("E", "1110");
+        hex = hex.replaceAll("F", "1111");
+        hex = hex.replaceAll("a", "1010");
+        hex = hex.replaceAll("b", "1011");
+        hex = hex.replaceAll("c", "1100");
+        hex = hex.replaceAll("d", "1101");
+        hex = hex.replaceAll("e", "1110");
+        hex = hex.replaceAll("f", "1111");
+        return hex;
     }
 }

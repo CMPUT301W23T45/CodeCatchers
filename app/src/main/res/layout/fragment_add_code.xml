@@ -27,12 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/addQRImage"
-                android:layout_width="134dp"
-                android:layout_height="126dp"
-                android:src="@drawable/baseline_qr_code_2_24" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,6 +37,7 @@
                     android:id="@+id/addHumanName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:text="Human Readable Name"
                     android:textSize="20dp" />
 
@@ -50,9 +45,78 @@
                     android:id="@+id/addScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:text="Score"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    />
+                <TextView
+                    android:id="@+id/face0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face1"
                     android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="5dp"
+                     />
+                <TextView
+                    android:id="@+id/face1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face2"
+                    android:textSize="18dp"
+                    />
+                <TextView
+                    android:id="@+id/face2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face3"
+                    android:textSize="18dp"
+                    />
+                <TextView
+                    android:id="@+id/face3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face4"
+                    android:textSize="18dp"
+                     />
+                <TextView
+                    android:id="@+id/face4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face5"
+                    android:textSize="18dp"
+                     />
+                <TextView
+                    android:id="@+id/face5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face6"
+                    android:textSize="18dp"
+                     />
+                <TextView
+                    android:id="@+id/face6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face7"
+                    android:textSize="18dp"
+                     />
+                <TextView
+                    android:id="@+id/face7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="face8"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="5dp"
+                     />
             </LinearLayout>
 
         </LinearLayout>
