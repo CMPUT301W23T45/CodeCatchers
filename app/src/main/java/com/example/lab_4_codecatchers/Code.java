@@ -9,7 +9,6 @@ public class Code {
     private String humanName;
     private int humanImage;
     private String image;
-    private String comment;
 
     //CONSTRUCTORS
 
@@ -24,7 +23,6 @@ public class Code {
         this.humanName = null;
         this.humanImage = R.drawable.baseline_qr_code_2_24;
         this.image = null;
-        this.comment = comment;
     }
 
     /**
@@ -33,13 +31,12 @@ public class Code {
      * @param score score of QR code
      * @param hash hashCode of QR code
      */
-    public Code(int score, String hash, String image, String comment) {
+    public Code(int score, String hash, String image) {
         this.score = score;
         this.hash = hash;
         this.humanName = generateHumanName(hash); // TODO: change to nameFunction once implemented
 //        this.humanImage = R.drawable.baseline_qr_code_2_24; // TODO: change to imageFunction once implemented
         this.image = image;
-        this.comment = comment;
     }
 
     /**
@@ -49,12 +46,11 @@ public class Code {
      * @param image string rep. of QR code
      * @param humanName human readable name for QR code
      */
-    public Code(int score, String hash, String humanName, String image,String comment) {
+    public Code(int score, String hash, String humanName, String image) {
         this.score = score;
         this.hash = hash;
         this.humanName = humanName;
         this.image = image;
-        this.comment = comment;
     }
 
     //SETTERS AND GETTERS
@@ -85,10 +81,6 @@ public class Code {
     public void setHumanName(String humanName) {
         this.humanName = humanName;
     }
-
-    public void setComment(String comment){ this.comment = comment;}
-
-    public  String getComment() {return comment;}
 
     //FUNCTIONS
     private String generateHumanName(String hash) {
