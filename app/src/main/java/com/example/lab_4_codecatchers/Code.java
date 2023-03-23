@@ -118,4 +118,80 @@ public class Code {
         }
         return output;
     }
+
+    private String[] generateFace(String hash) {
+        String[] face= new String[8];
+        int eyes = 3;
+        int eyebrows = 2;
+        int shape1= 0;
+        int shape2= 1;
+        int shape3 = 7;
+        int nose1 = 4;
+        int nose2 = 5;
+        int smile = 6;
+        int beard = 7;
+
+        face[shape1] = "    ____";
+        face[shape2]= "  /      \\";
+        face[eyebrows]="  | ^  ^ |";
+        face[eyes]="|\\| -  - |/|";
+        face[nose1]=" \\|  ||  |/";
+        face[nose2]="  |  ``  |";
+        face[smile]="  | `__` |";
+        face[shape3]="   \\____/";
+
+    /*         base face
+    0            ____
+    1          /      \
+    2          | ^  ^ |
+    3        |\| -  - |/|
+    4         \|  ||  |/
+    5          |  ``  |
+    6          | `__` |
+    7           \____/
+    */
+
+
+        String substr = hash.substring(0, 6);
+
+        // Set the eyes based on the first bit
+        int index = Character.digit(substr.charAt(0), 2);
+        if (index == 1){
+            face[eyes]="|\\| O  O |/|";
+        }
+
+        // Set the eyebrows based on the second bit
+        index = Character.digit(substr.charAt(1), 2);
+        if (index == 1){
+            face[eyebrows]="  | ^  ^ |";
+        }
+
+        // Set the face shape based on the third bit
+        index = Character.digit(substr.charAt(2), 2);
+        if (index == 1){
+            face[shape1]="   ______";
+            face[shape2]="  |      |";
+            face[shape3]="  |______|";
+        }
+
+        // Set the nose based on the fourth bit
+        index = Character.digit(substr.charAt(3), 2);
+        if (index == 1){
+            face[nose1] = " \\| |__| |/";
+            face[nose2] ="  |      |";
+        }
+
+        // Set the smile based on the fifth bit
+        index = Character.digit(substr.charAt(4), 2);
+        if(index==1){
+            face[smile] = "  | ,--, |";
+        }
+
+        // Set the beard based on the sixth bit
+        index = Character.digit(substr.charAt(5), 2);
+        if (index==1){
+            face[beard]="  \\::::::/";
+        }
+        return face;
+    }
 }
