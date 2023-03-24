@@ -23,8 +23,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.io.ByteArrayOutputStream;
 
 import javax.xml.transform.Result;
@@ -41,7 +39,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     Code code; //code to add
     SwitchCompat geoSave;
     ImageView ivProfile;
-    ImageView addQRImage;
     Bitmap finalPhoto;
     Boolean photoAdded = false;
     public AddCodeFragment() {
@@ -96,7 +93,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     private void populateFields(View view) {
         TextView humanName = view.findViewById(R.id.addHumanName);
         TextView score = view.findViewById(R.id.addScore);
-        addQRImage = view.findViewById(R.id.addQRImage);
         // TODO: add photo view when implemented
 
         user = User.getInstance();
@@ -105,16 +101,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 
         humanName.setText(code.getHumanName());
         score.setText(String.valueOf(code.getScore()));
-
-        String loco = code.getQRImage() + user.getUsername();
-
-        Picasso.get()
-                .load(loco)
-                .resize(130, 130)
-                .centerCrop()
-                .into(addQRImage);
-
-
     }
 
     /**
