@@ -1,213 +1,198 @@
 package com.example.lab_4_codecatchers;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.budiyev.android.codescanner.CodeScanner;
-import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
-import com.example.lab_4_codecatchers.R;
-import com.google.zxing.Result;
-import android.util.Log;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+
+import javax.xml.transform.Result;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CameraFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- * Fragment shows Camera that auto-scans QR codes
- * Also turns codes to hashes and sums Code's score
+ * Fragment used to let a User add a new QR code to wallet
+ * CameraFragment will jump to this fragment after a QR code is scanned
+ * @see CameraFragment
  */
-public class CameraFragment extends Fragment {
-    // declaring all the items from xml
-    TextView tv_textView;
-    TextView binary_textView;
-    TextView hash_textView;
-    TextView hashOut_textView;
+public class AddCodeFragment extends Fragment implements View.OnClickListener {
+    User user;
     UserWallet userWallet;
-
-    // for camera - neel
-    private CodeScanner mCodeScanner;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CameraFragment() {
+    Code code; //code to add
+    SwitchCompat geoSave;
+    ImageView ivProfile;
+    ImageView addQRImage;
+    Bitmap finalPhoto;
+    Boolean photoAdded = false;
+    public AddCodeFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CameraFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CameraFragment newInstance(String param1, String param2) {
-        CameraFragment fragment = new CameraFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_camera, container, false);
-        CodeScannerView scannerView = view.findViewById(R.id.scanner_view);
-        tv_textView = view.findViewById(R.id.tv_textView);
-        binary_textView = view.findViewById(R.id.binary_textView);
-        hash_textView = view.findViewById(R.id.hash_textView);
-        hashOut_textView = view.findViewById(R.id.hashOut_textView);
-
-        mCodeScanner = new CodeScanner(getActivity(), scannerView);
-        mCodeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull final Result result) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    // this function is to scan the QR code
-                    public void run() {
-                        /**
-                         TODO potentially create the other fragment here to that we can save the qr code
-                         */
-                        // gets the decoded QR content
-                        String s = result.getText();
-                        // shows it at tv_textView
-                        tv_textView.setText(result.getText());
-                        // gets the binary content of the decoded message
-                        byte[] bytes = s.getBytes();
-                        int score = getScore(bytes);
-                        // sets the binary content at binary_textView
-                        binary_textView.setText(Arrays.toString(bytes));
-                        // gets the first item in the array and stores it as a string
-                        String x = String.valueOf(bytes[0]);
-                        // if the array is greater than size 1 than it goes throught it and added it to the string x
-                        if (bytes.length > 1 ) {
-                            for (int i = 1; i < bytes.length; i++) {
-                                x = x + String.valueOf(bytes[i]);
-                            }
-                        }
-                        hash_textView.setText(String.valueOf(score));
-//                        // shows the string of x
-//                        hash_textView.setText(x);
-                        // inputs x as the input for the hash function to get the hash output and sets it under hashOut_textView
-                        String hash_output = hash(x);
-                        hashOut_textView.setText(hash_output);
-                        /**
-                         * get rid of the extra items ^^^^^^^^
-                         */
-
-                        //make new code
-                        Code code = new Code(score, hash_output, "0","");
-                        userWallet = User.getInstance().getCollectedQRCodes();
-                        userWallet.addCode(code);
-
-                        //go to AddCodeFragment
-                        ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
-
-                    }
-                });
-            }
-        });
-        scannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCodeScanner.startPreview();
-            }
-        });
-        return view;
-    }
-
-    // Returns the SHA-256 hash for any given string
-    // Based on code from http://www.java2s.com/example/android/java.lang/sha256-hash-string.html
-    public static String hash(String s) {
-        byte[] rawHash = null;
-        String output = "";
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            rawHash = digest.digest(s.getBytes());
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("CodeCatchers", "Cannot calculate SHA-256");
-        }
-        if (rawHash != null) {
-            StringBuilder sb = new StringBuilder();
-            for (byte b: rawHash) {
-                sb.append(String.format("%02x", b));
-            }
-            output = sb.toString();
-        }
-        return output;
-    }
-
-    public static int getScore(byte[] bytes) {
-        int x = 0;
-        for (byte b : bytes) {
-            x += b;
-        }
-        int m = bytes.length % 100;
-        int[] down = {11, 75, 42, 66, 5, 94, 32, 68, 19, 83};
-        int[] up = {72, 39, 88, 15, 56, 93, 2, 47, 81, 29};
-        int score;
-        if (contains(up, m)) {
-            score = x * m;
-        } else if (contains(down, m)) {
-            score = Math.floorDiv(x, 2);
-        } else {
-            score = x;
-        }
-        return score;
-    }
-
-    private static boolean contains(int[] arr, int val) {
-        for (int i : arr) {
-            if (i == val) {
-                return true;
-            }
-        }
-        return false;
+        return inflater.inflate(R.layout.fragment_add_code, container, false);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mCodeScanner.startPreview();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        populateFields(view);
+
+        Button add = view.findViewById(R.id.addButton);
+        Button cancel = view.findViewById(R.id.cancelButton);
+        geoSave = view.findViewById(R.id.geoLocation);
+        Button add_loc_photo = view.findViewById(R.id.add_loc_photoButton);
+        ivProfile = view.findViewById(R.id.ivProfile);
+
+        add_loc_photo.setOnClickListener(this);
+        add.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+
+
     }
 
     @Override
-    public void onPause() {
-        mCodeScanner.releaseResources();
-        super.onPause();
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && data !=null){
+            Bundle bundle = data.getExtras();
+            finalPhoto = (Bitmap) bundle.get("data");
+            ivProfile.setImageBitmap(finalPhoto);
+        }
+    }
+
+    /**
+     * Fill the information boxes for new QR code found in the AddCodeFragment xml
+     * @param view current view
+     */
+    private void populateFields(View view) {
+        TextView humanName = view.findViewById(R.id.addHumanName);
+        TextView score = view.findViewById(R.id.addScore);
+        addQRImage = view.findViewById(R.id.addQRImage);
+        // TODO: add photo view when implemented
+
+        user = User.getInstance();
+        userWallet = user.getCollectedQRCodes();
+        code = userWallet.getCode((userWallet.getSize()) - 1);
+
+        humanName.setText(code.getHumanName());
+        score.setText(String.valueOf(code.getScore()));
+
+        String loco = code.getQRImage() + user.getUsername();
+
+        Picasso.get()
+                .load(loco)
+                .resize(130, 130)
+                .centerCrop()
+                .into(addQRImage);
+
+
+    }
+
+    /**
+     * Defines behaviour when buttons are selected in AddCodeFragment
+     * @param v current view
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+//           implemented with help from: Android Academics
+//                URL: https://androidacademic.blogspot.com/2016/12/multiple-buttons-onclicklistener-android.html
+//                Author: Pragnesh Ghoda
+
+
+//            case R.id.add_loc_photo:
+//                // TODO: jump to photo taking camera fragment
+//                break;
+            case R.id.addButton:
+                //The switches are returning a NullPointerException when using isChecked()
+                //Commented out for now
+                if(geoSave.isChecked()) {
+
+                    // TODO: add save location code here, then setCords of code
+                }
+
+                if(photoAdded) {
+                    // Convert the finalPhoto Bitmap to a Base64 encoded String
+                    String encodedImage = null;
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    byte[] imageBytes = outputStream.toByteArray();
+                    encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                    //TODO: upload encodedImage to firebase
+                    code.setImageString(encodedImage);
+                }
+
+                // here is the code to convert from string back to bitmap
+//                String bitmapString = "get from firebase" // Replace with bitmap string
+//                byte[] decodedBytes = Base64.decode(bitmapString, Base64.DEFAULT);
+//                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+                // Get user comment from EditText
+                EditText commentField = getView().findViewById(R.id.editTextComment);
+                String comment = commentField.getText().toString().trim();
+                if (!TextUtils.isEmpty(comment)) {
+                    // store the comment
+                    // Set user comment to Code
+                    //code.setComment(comment); //TODO: update code class to hold comments
+                }
+
+
+                // update user in Firestore
+                FireStoreActivity fireStore = FireStoreActivity.getInstance();
+                fireStore.updateUser(user);
+                ((MainActivity) getActivity()).changeFragment(new CameraFragment());
+
+                break;
+
+            case R.id.cancelButton:
+                //remove Code from wallet
+                userWallet.removeCode(code);
+                ((MainActivity) getActivity()).changeFragment(new CameraFragment());
+                break;
+
+            case R.id.add_loc_photoButton:   //https://www.youtube.com/watch?v=YLUmfyGFjnU&ab_channel=CodingDemos
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null){
+                    startActivityForResult(intent,1);
+                    photoAdded = true;
+                } else {
+                    Toast.makeText(getActivity(), "There is no app that supports this action",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            default:
+                ((MainActivity) getActivity()).changeFragment(new CameraFragment());
+                break;
+        }
+        //jump back to camera fragment
     }
 }

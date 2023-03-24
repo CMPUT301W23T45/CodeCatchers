@@ -86,6 +86,11 @@ public class Code {
         this.humanName = humanName;
     }
 
+    public String getQRImage() {
+        String ref = "https://api.dicebear.com/5.x/bottts-neutral/png?seed=" + this.hash;
+        return ref;
+    }
+
     public void setComment(String comment){ this.comment = comment;}
 
     public  String getComment() {return comment;}
