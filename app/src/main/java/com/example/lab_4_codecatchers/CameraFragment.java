@@ -35,7 +35,7 @@ import javax.xml.transform.Result;
  * CameraFragment will jump to this fragment after a QR code is scanned
  * @see CameraFragment
  */
-public class AddCodeFragment extends Fragment implements View.OnClickListener {
+public class CameraFragment extends Fragment implements View.OnClickListener {
     User user;
     UserWallet userWallet;
     Code code; //code to add
@@ -44,7 +44,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     ImageView addQRImage;
     Bitmap finalPhoto;
     Boolean photoAdded = false;
-    public AddCodeFragment() {
+    public CameraFragment() {
         // Required empty public constructor
     }
 
