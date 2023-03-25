@@ -106,7 +106,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         humanName.setText(code.getHumanName());
         score.setText(String.valueOf(code.getScore()));
 
-        String loco = code.getQRImage() + user.getUsername();
+        String loco = code.getQRImage();
 
         Picasso.get()
                 .load(loco)
