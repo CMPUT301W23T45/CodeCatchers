@@ -32,9 +32,6 @@ import java.util.Arrays;
 public class CameraFragment extends Fragment {
     // declaring all the items from xml
     TextView tv_textView;
-    TextView binary_textView;
-    TextView hash_textView;
-    TextView hashOut_textView;
     UserWallet userWallet;
 
     // for camera - neel
@@ -87,9 +84,6 @@ public class CameraFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         CodeScannerView scannerView = view.findViewById(R.id.scanner_view);
         tv_textView = view.findViewById(R.id.tv_textView);
-        binary_textView = view.findViewById(R.id.binary_textView);
-        hash_textView = view.findViewById(R.id.hash_textView);
-        hashOut_textView = view.findViewById(R.id.hashOut_textView);
 
         mCodeScanner = new CodeScanner(getActivity(), scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -104,33 +98,29 @@ public class CameraFragment extends Fragment {
                          */
                         // gets the decoded QR content
                         String s = result.getText();
-                        // shows it at tv_textView
-                        tv_textView.setText(result.getText());
+
+                        // collected message passed to user
+                        tv_textView.setText("Code Collected!!");
+
                         // gets the binary content of the decoded message
                         byte[] bytes = s.getBytes();
                         int score = getScore(bytes);
-                        // sets the binary content at binary_textView
-                        binary_textView.setText(Arrays.toString(bytes));
+
                         // gets the first item in the array and stores it as a string
                         String x = String.valueOf(bytes[0]);
-                        // if the array is greater than size 1 than it goes throught it and added it to the string x
+
+                        // if the array is greater than size 1 than it goes through it and added it to the string x
                         if (bytes.length > 1 ) {
                             for (int i = 1; i < bytes.length; i++) {
                                 x = x + String.valueOf(bytes[i]);
                             }
                         }
-                        hash_textView.setText(String.valueOf(score));
-//                        // shows the string of x
-//                        hash_textView.setText(x);
+
                         // inputs x as the input for the hash function to get the hash output and sets it under hashOut_textView
                         String hash_output = hash(x);
-                        hashOut_textView.setText(hash_output);
-                        /**
-                         * get rid of the extra items ^^^^^^^^
-                         */
 
                         //make new code
-                        Code code = new Code(score, hash_output, "0");
+                        Code code = new Code(score, hash_output, "0","");
                         userWallet = User.getInstance().getCollectedQRCodes();
                         userWallet.addCode(code);
 

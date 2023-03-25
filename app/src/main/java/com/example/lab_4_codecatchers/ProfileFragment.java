@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,6 +63,8 @@ public class ProfileFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         ProfileAdapter profileAdapter = new ProfileAdapter(getContext(), qrList);
         recyclerView.setAdapter(profileAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         profileAdapter.notifyDataSetChanged();
     }
 

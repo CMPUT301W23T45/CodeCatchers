@@ -12,14 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
@@ -37,6 +41,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     Code code; //code to add
     SwitchCompat geoSave;
     ImageView ivProfile;
+    ImageView addQRImage;
     Bitmap finalPhoto;
     Boolean photoAdded = false;
     public AddCodeFragment() {
@@ -91,6 +96,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     private void populateFields(View view) {
         TextView humanName = view.findViewById(R.id.addHumanName);
         TextView score = view.findViewById(R.id.addScore);
+        addQRImage = view.findViewById(R.id.addQRImage);
         // TODO: add photo view when implemented
 
         user = User.getInstance();
@@ -99,6 +105,16 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 
         humanName.setText(code.getHumanName());
         score.setText(String.valueOf(code.getScore()));
+
+        String loco = code.getQRImage() + user.getUsername();
+
+        Picasso.get()
+                .load(loco)
+                .resize(130, 130)
+                .centerCrop()
+                .into(addQRImage);
+
+
     }
 
     /**
@@ -124,8 +140,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                     // TODO: add save location code here, then setCords of code
                 }
 
-                // TODO: add user comment to Code
-
                 if(photoAdded) {
                     // Convert the finalPhoto Bitmap to a Base64 encoded String
                     String encodedImage = null;
@@ -142,8 +156,17 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 //                byte[] decodedBytes = Base64.decode(bitmapString, Base64.DEFAULT);
 //                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
 
+                // Get user comment from EditText
+                EditText commentField = getView().findViewById(R.id.editTextComment);
+                String comment = commentField.getText().toString().trim();
+                if (!TextUtils.isEmpty(comment)) {
+                    // store the comment
+                    // Set user comment to Code
+                    //code.setComment(comment); //TODO: update code class to hold comments
+                }
 
-                //update user in Firestore
+
+                // update user in Firestore
                 FireStoreActivity fireStore = FireStoreActivity.getInstance();
                 fireStore.updateUser(user);
                 ((MainActivity) getActivity()).changeFragment(new CameraFragment());
@@ -155,6 +178,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 userWallet.removeCode(code);
                 ((MainActivity) getActivity()).changeFragment(new CameraFragment());
                 break;
+
             case R.id.add_loc_photoButton:   //https://www.youtube.com/watch?v=YLUmfyGFjnU&ab_channel=CodingDemos
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null){
