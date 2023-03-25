@@ -1,5 +1,8 @@
 package com.example.lab_4_codecatchers;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +11,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,6 +24,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -35,6 +42,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private HashMap<String, GeoPoint> allCodes = new HashMap<String, GeoPoint>();
     // Default location at the UAlberta Computer Science building
     private LatLng defaultPosition = new LatLng(53.526790646055474, -113.52714133200335);
+    private FusedLocationProviderClient fusedLocationClient;
+
+    private GeoPoint getLocation() {
+        // Default value = 0, 0 (Null location)
+        final double[] lat = {0};
+        final double[] lon = {0};
+
+        // Check permissions
+        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Log.i("CodeCatchers", "PERMISSIONS PASSED");
+            fusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        lat[0] = location.getLatitude();
+                        lon[0] = location.getLongitude();
+                        Log.i("CodeCatchers", Double.toString(location.getLatitude()));
+                        Log.i("CodeCatchers", Double.toString(location.getLongitude()));
+                    } else {
+                        Log.i("CodeCatchers", "LOCATION NOT FOUND");
+                    }
+                }
+            });
+        }
+
+        Log.i("CodeCatchers_LAT", Double.toString(lat[0]));
+        Log.i("CodeCatchers_LON", Double.toString(lon[0]));
+        return new GeoPoint(lat[0], lon[0]);
+    }
 
     @Nullable
     @Override
@@ -51,9 +88,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+    }
+
+    @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, 16F));
+        GeoPoint userlocation = getLocation();
+        if (userlocation.getLongitude() != 0 && userlocation.getLatitude() != 0) {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userlocation.getLatitude(), userlocation.getLongitude()), 16F));
+        } else {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, 16F));
+        }
         FireStoreActivity db = FireStoreActivity.getInstance();
         db.getCodes().addOnSuccessListener(queryDocumentSnapshots -> {
             for (DocumentSnapshot code : queryDocumentSnapshots) {
