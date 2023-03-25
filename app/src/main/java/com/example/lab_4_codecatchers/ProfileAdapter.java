@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -51,6 +54,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
         Code code = codes.get(position);
         holder.scoreText.setText(String.valueOf(code.getScore()));
         holder.nameText.setText(code.getHumanName());
+        String loco = code.getQRImage() + User.getInstance().getUsername();
+        Picasso.get()
+                .load(loco)
+                .resize(130, 130)
+                .centerCrop()
+                .into(holder.qrImage);
         //holder.qrImage.setImageResource(code.getHumanImage());
         // TODO: Figure out image files
 
@@ -73,11 +82,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
         //ShapeableImageView qrImage;
         TextView nameText;
         TextView scoreText;
+        ImageView qrImage;
         // TODO: add visual rep of QR codes once implemented
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            //qrImage = itemView.findViewById(R.id.qrImage);
+            qrImage = itemView.findViewById(R.id.qrImage);
             nameText = itemView.findViewById(R.id.humanName);
             scoreText = itemView.findViewById(R.id.qrScore);
         }
