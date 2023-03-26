@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="300dp"
+        android:layout_height="59dp"
+        android:layout_weight="10"
+        app:srcCompat="@drawable/baseline_person_24" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/playerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/player_username" />
+
+        <TextView
+            android:id="@+id/playerScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/player_s_score"/>
+
+    </LinearLayout>
+</LinearLayout>
