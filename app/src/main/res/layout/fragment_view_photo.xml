@@ -7,9 +7,10 @@
     tools:context=".ViewPhotoFragment">
 
     <ImageView
+        android:layout_gravity="center_horizontal"
         android:id="@+id/loc_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_insert_photo_24"
-        android:contentDescription = "@string/photo_of_location_of_qr_code_taken_by_user" />
+        android:layout_width="111dp"
+        android:layout_height="148dp"
+        android:contentDescription="@string/photo_of_location_of_qr_code_taken_by_user"
+        android:src="@drawable/baseline_insert_photo_24" />
 </FrameLayout>
