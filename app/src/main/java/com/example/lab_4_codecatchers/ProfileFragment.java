@@ -27,7 +27,7 @@ import java.util.Objects;
  *      highest and lowest QR
  *      ect.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClickListener {
     private User user;
     private ArrayList<Code> qrList;
     private UserWallet userWallet;
@@ -61,11 +61,12 @@ public class ProfileFragment extends Fragment {
         recyclerView = view.findViewById(R.id.userQRList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        ProfileAdapter profileAdapter = new ProfileAdapter(getContext(), qrList);
+        ProfileAdapter profileAdapter = new ProfileAdapter(getContext(), qrList, this);
         recyclerView.setAdapter(profileAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
         recyclerView.addItemDecoration(dividerItemDecoration);
         profileAdapter.notifyDataSetChanged();
+
     }
 
     /**
@@ -105,5 +106,12 @@ public class ProfileFragment extends Fragment {
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
         qrList = userWallet.getUserCodes();
+    }
+
+    @Override
+    public void onItemClick(Code code) {
+        userWallet.setCurrentCode(code);
+        ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
+
     }
 }

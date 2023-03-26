@@ -97,7 +97,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         TextView humanName = view.findViewById(R.id.addHumanName);
         TextView score = view.findViewById(R.id.addScore);
         addQRImage = view.findViewById(R.id.addQRImage);
-        // TODO: add photo view when implemented
 
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
@@ -162,7 +161,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 if (!TextUtils.isEmpty(comment)) {
                     // store the comment
                     // Set user comment to Code
-                    //code.setComment(comment); //TODO: update code class to hold comments
+                    code.setComment(comment);
                 }
 
 

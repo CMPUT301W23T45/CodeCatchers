@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class UserWallet {
     private String userID;
+    private Code currentCode;
     private ArrayList<Code> userCodes;
 
 
@@ -20,6 +21,7 @@ public class UserWallet {
     public UserWallet() {
         this.userID = null;
         this.userCodes = new ArrayList<Code>();
+        this.currentCode = null;
     }
 
     /**
@@ -30,6 +32,7 @@ public class UserWallet {
     public UserWallet(String userID) {
         this.userID = userID;
         this.userCodes = new ArrayList<Code>();
+        this.currentCode = null;
     }
 
     /**
@@ -40,10 +43,19 @@ public class UserWallet {
     public UserWallet(String userID, ArrayList<Code> playerCodes) {
         this.userID = userID;
         this.userCodes = playerCodes;
+        this.currentCode = null;
     }
 
 
     //GETTERS AND SETTERS
+
+    public Code getCurrentCode() {
+        return currentCode;
+    }
+
+    public void setCurrentCode(Code currentCode) {
+        this.currentCode = currentCode;
+    }
 
     public String getUserID() {
         return userID;
@@ -164,6 +176,11 @@ public class UserWallet {
         }else{
             return false;
         }
+    }
+
+    public Code getUniqueCode() {
+        //TODO: implement
+        return null;
     }
 
 }
