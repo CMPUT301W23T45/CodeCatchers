@@ -48,7 +48,7 @@ public class FireStoreActivity {
         return userCollection
                 .document(user.getUsername())
                 .update("totalScore", user.getCollectedQRCodes().getTotal(),
-                        "userCodes", user.getCollectedQRCodes());
+                        "collectedQRCodes", user.getCollectedQRCodes());
     }
 
     /**
