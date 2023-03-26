@@ -56,7 +56,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
         Code code = codes.get(position);
         holder.scoreText.setText(String.valueOf(code.getScore()));
         holder.nameText.setText(code.getHumanName());
-        String loco = code.getQRImage() + User.getInstance().getUsername();
+        String loco = code.getQRImage();
         Picasso.get()
                 .load(loco)
                 .resize(130, 130)

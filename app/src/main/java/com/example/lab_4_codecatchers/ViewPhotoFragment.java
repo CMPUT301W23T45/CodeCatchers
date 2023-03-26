@@ -53,7 +53,7 @@ public class ViewPhotoFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
                 .setView(view)
-                .setTitle("Loaction Photo")
+                .setTitle("Location Photo")
                 .setNegativeButton("Done", null)
                 .setPositiveButton("Take New Photo", (dialog, which) -> {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
