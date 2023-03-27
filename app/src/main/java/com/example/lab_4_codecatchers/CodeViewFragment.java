@@ -104,11 +104,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.viewImageLocation:
-                if(code.getImageString() == null || Objects.equals(code.getImageString(), " ")) {
-                    Toast.makeText(getActivity(), "There is no location photo saved for this code!",Toast.LENGTH_SHORT).show();
-                } else {
-                    new ViewPhotoFragment(code).show(getFragmentManager(), "Add Visit");
-                }
+                new ViewPhotoFragment(code).show(getFragmentManager(), "Add Visit");
                 break;
 
             case R.id.coordLayout:
@@ -124,6 +120,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 fireStore.updateUser(user);
 
                 //go back to playerWaller
+                userWallet.setCurrentCode(null);
                 ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
                 break;
 

@@ -148,6 +148,8 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                     encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
                     //TODO: upload encodedImage to firebase
                     code.setImageString(encodedImage);
+                } else {
+                    code.setImageString(" ");
                 }
 
                 // here is the code to convert from string back to bitmap

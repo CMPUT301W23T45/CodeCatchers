@@ -84,18 +84,26 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         TextView totalPoints = view.findViewById(R.id.totalPoints);
         TextView rank = view.findViewById(R.id.currentRank);
 
-        Code highCode = userWallet.getHighest();
-        Code lowCode = userWallet.getLowest();
-
-        highName.setText(highCode.getHumanName());
-        highScore.setText(String.valueOf(highCode.getScore()));
-        lowName.setText(lowCode.getHumanName());
-        lowScore.setText(String.valueOf(lowCode.getScore()));
         sumOfScores.setText(String.valueOf(userWallet.getTotal()));
         numQR.setText(String.valueOf(userWallet.getSize()));
         username.setText(user.getUsername());
         totalPoints.setText(String.valueOf(userWallet.getTotal()));
         rank.setText(String.valueOf(user.getRank()));
+
+        if (userWallet.getSize() == 0) {
+            highName.setText(" ");
+            highScore.setText(" ");
+            lowName.setText(" ");
+            lowScore.setText(" ");
+        } else {
+            Code highCode = userWallet.getHighest();
+            Code lowCode = userWallet.getLowest();
+
+            highName.setText(highCode.getHumanName());
+            highScore.setText(String.valueOf(highCode.getScore()));
+            lowName.setText(lowCode.getHumanName());
+            lowScore.setText(String.valueOf(lowCode.getScore()));
+        }
 
     }
 
