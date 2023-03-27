@@ -25,10 +25,12 @@ import java.util.ArrayList;
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHolder>{
     Context context;
     ArrayList<Code> codes; //List of codes to be put in recyclerView
+    private ItemClickListener clickListener;
 
-    public ProfileAdapter(Context context, ArrayList<Code> codes) {
+    public ProfileAdapter(Context context, ArrayList<Code> codes, ItemClickListener clickListener) {
         this.context = context;
         this.codes = codes;
+        this.clickListener = clickListener;
     }
 
     /**
@@ -54,16 +56,18 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
         Code code = codes.get(position);
         holder.scoreText.setText(String.valueOf(code.getScore()));
         holder.nameText.setText(code.getHumanName());
-        String loco = code.getQRImage() + User.getInstance().getUsername();
+        String loco = code.getQRImage();
         Picasso.get()
                 .load(loco)
                 .resize(130, 130)
                 .centerCrop()
                 .into(holder.qrImage);
-        //holder.qrImage.setImageResource(code.getHumanImage());
-        // TODO: Figure out image files
-
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(code);
+            }
+        });
     }
 
     /**
@@ -83,7 +87,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
         TextView nameText;
         TextView scoreText;
         ImageView qrImage;
-        // TODO: add visual rep of QR codes once implemented
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,5 +94,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
             nameText = itemView.findViewById(R.id.humanName);
             scoreText = itemView.findViewById(R.id.qrScore);
         }
+    }
+
+    public interface ItemClickListener {
+        public void onItemClick(Code code);
     }
 }

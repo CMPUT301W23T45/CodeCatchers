@@ -93,8 +93,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/users_recycle_view"
-            android:layout_width="378dp"
-            android:layout_height="405dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/globalRankLayout"
             android:layout_gravity="center"
             android:paddingTop="15dp"

@@ -8,7 +8,8 @@ import java.util.ArrayList;
  */
 public class UserWallet {
     private String userID;
-    private ArrayList<Code> userCodes2;
+    private Code currentCode;
+    private ArrayList<Code> userCodes;
 
 
     //CONSTRUCTORS
@@ -19,7 +20,8 @@ public class UserWallet {
      */
     public UserWallet() {
         this.userID = null;
-        this.userCodes2 = new ArrayList<Code>();
+        this.userCodes = new ArrayList<Code>();
+        this.currentCode = null;
     }
 
     /**
@@ -29,7 +31,8 @@ public class UserWallet {
      */
     public UserWallet(String userID) {
         this.userID = userID;
-        this.userCodes2 = new ArrayList<Code>();
+        this.userCodes = new ArrayList<Code>();
+        this.currentCode = null;
     }
 
     /**
@@ -39,11 +42,20 @@ public class UserWallet {
      */
     public UserWallet(String userID, ArrayList<Code> playerCodes) {
         this.userID = userID;
-        this.userCodes2 = playerCodes;
+        this.userCodes = playerCodes;
+        this.currentCode = null;
     }
 
 
     //GETTERS AND SETTERS
+
+    public Code getCurrentCode() {
+        return currentCode;
+    }
+
+    public void setCurrentCode(Code currentCode) {
+        this.currentCode = currentCode;
+    }
 
     public String getUserID() {
         return userID;
@@ -54,15 +66,15 @@ public class UserWallet {
     }
 
     public ArrayList<Code> getUserCodes() {
-        return userCodes2;
+        return userCodes;
     }
 
     public void setUserCodes(ArrayList<Code> userCodes) {
-        this.userCodes2 = userCodes;
+        this.userCodes = userCodes;
     }
 
     public int getSize() {
-        return userCodes2.size();
+        return userCodes.size();
     }
 
     //FUNCTIONS
@@ -73,10 +85,10 @@ public class UserWallet {
      * @return Code at index or null if index is out of range
      */
     public Code getCode(int index) {
-        if(userCodes2.size() <= index){
+        if(userCodes.size() <= index){
             return null;
         }
-        return userCodes2.get(index);
+        return userCodes.get(index);
     }
 
     /**
@@ -87,7 +99,7 @@ public class UserWallet {
         int size = getSize();
         int total = 0;
         for(int i =0; i<size; i++) {
-            int score = userCodes2.get(i).getScore();
+            int score = userCodes.get(i).getScore();
             total += score;
         }
         return total;
@@ -106,16 +118,16 @@ public class UserWallet {
         if(size <= 0) {
             return null;
         }
-        int highest = userCodes2.get(0).getScore();
+        int highest = userCodes.get(0).getScore();
         int highestIndex = 0;
         for(int i =1; i<size; i++) {
-            int score = userCodes2.get(i).getScore();
+            int score = userCodes.get(i).getScore();
             if(score > highest) {
                 highest = score;
                 highestIndex = i;
             }
         }
-        return userCodes2.get(highestIndex);
+        return userCodes.get(highestIndex);
     }
 
     /**
@@ -127,16 +139,16 @@ public class UserWallet {
         if(size <= 0) {
             return null;
         }
-        int lowest = userCodes2.get(0).getScore();
+        int lowest = userCodes.get(0).getScore();
         int lowestIndex = 0;
         for(int i =1; i<size; i++) {
-            int score = userCodes2.get(i).getScore();
+            int score = userCodes.get(i).getScore();
             if(score < lowest) {
                 lowest = score;
                 lowestIndex = i;
             }
         }
-        return userCodes2.get(lowestIndex);
+        return userCodes.get(lowestIndex);
     }
 
     /**
@@ -145,11 +157,11 @@ public class UserWallet {
      *
      */
     public void addCode(Code code) {
-        if(userCodes2.contains(code)) {
+        if(userCodes.contains(code)) {
             //check if code has already been added
             return;
         }
-        userCodes2.add(code);
+        userCodes.add(code);
     }
 
     /**
@@ -158,12 +170,17 @@ public class UserWallet {
      * @return true if successful, false if failed
      */
     public boolean removeCode(Code code) {
-        if(userCodes2.contains(code)){
-            userCodes2.remove(code);
+        if(userCodes.contains(code)){
+            userCodes.remove(code);
             return true;
         }else{
             return false;
         }
+    }
+
+    public Code getUniqueCode() {
+        //TODO: implement
+        return null;
     }
 
 }
