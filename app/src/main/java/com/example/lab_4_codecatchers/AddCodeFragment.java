@@ -133,7 +133,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         TextView humanName = view.findViewById(R.id.addHumanName);
         TextView score = view.findViewById(R.id.addScore);
         addQRImage = view.findViewById(R.id.addQRImage);
-        // TODO: add photo view when implemented
 
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
@@ -142,7 +141,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         humanName.setText(code.getHumanName());
         score.setText(String.valueOf(code.getScore()));
 
-        String loco = code.getQRImage() + user.getUsername();
+        String loco = code.getQRImage();
 
         Picasso.get()
                 .load(loco)
@@ -185,6 +184,8 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                     encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
                     //TODO: upload encodedImage to firebase
                     code.setImageString(encodedImage);
+                } else {
+                    code.setImageString(" ");
                 }
 
                 // here is the code to convert from string back to bitmap
@@ -198,7 +199,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 if (!TextUtils.isEmpty(comment)) {
                     // store the comment
                     // Set user comment to Code
-                    //code.setComment(comment); //TODO: update code class to hold comments
+                    code.setComment(comment);
                 }
 
 
