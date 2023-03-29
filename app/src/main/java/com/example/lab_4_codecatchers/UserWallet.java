@@ -157,13 +157,9 @@ public class UserWallet {
      * @param code QR code to be added
      *
      */
-    public Boolean addCode(Code code) {
-        if(!inWallet(code)) {
-            //check if code has already been added
-            userCodes.add(code);
-            return true;
-        }
-        return false;
+    public void addCode(Code code) {
+        //check if code has already been added
+        userCodes.add(code);
     }
 
     /**
@@ -180,13 +176,13 @@ public class UserWallet {
         }
     }
 
-    private Boolean inWallet(Code code){
+    public Boolean inWallet(String hash){
         if (userCodes.isEmpty()) {
             return false;
         }
         int size = userCodes.size();
         for (int i = 0; i < size; i++) {
-            if (Objects.equals(userCodes.get(i).getHash(), code.getHash())) {
+            if (Objects.equals(userCodes.get(i).getHash(), hash)) {
                 return true;
             }
         }
