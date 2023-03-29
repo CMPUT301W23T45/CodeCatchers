@@ -1,6 +1,7 @@
 package com.example.lab_4_codecatchers;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * UserWallet stores a Users scanned QR codes
@@ -156,12 +157,13 @@ public class UserWallet {
      * @param code QR code to be added
      *
      */
-    public void addCode(Code code) {
-        if(userCodes.contains(code)) {
+    public Boolean addCode(Code code) {
+        if(!inWallet(code)) {
             //check if code has already been added
-            return;
+            userCodes.add(code);
+            return true;
         }
-        userCodes.add(code);
+        return false;
     }
 
     /**
@@ -178,6 +180,18 @@ public class UserWallet {
         }
     }
 
+    private Boolean inWallet(Code code){
+        if (userCodes.isEmpty()) {
+            return false;
+        }
+        int size = userCodes.size();
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(userCodes.get(i).getHash(), code.getHash())) {
+                return true;
+            }
+        }
+        return false;
+    }
     public Code getUniqueCode() {
         //TODO: implement
         return null;

@@ -2,6 +2,8 @@ package com.example.lab_4_codecatchers;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import java.util.ArrayList;
+
 /**
  * Representation of a QR Code or Barcode
  */
@@ -14,6 +16,7 @@ public class Code {
     private String comment;
     private GeoPoint location;
     private String coordinates;
+    private ArrayList<String> playersWhoScanned;
 
     //CONSTRUCTORS
 
@@ -31,6 +34,7 @@ public class Code {
         this.location = new GeoPoint(0, 0);
         this.comment = null;
         this.coordinates = null;
+        this.playersWhoScanned = null;
     }
 
     /**
@@ -47,6 +51,7 @@ public class Code {
         this.image = image;
         this.comment = comment;
         this.coordinates = coordinates;
+        this.playersWhoScanned = null;
     }
 
     /**
@@ -63,9 +68,17 @@ public class Code {
         this.image = image;
         this.comment = comment;
         this.coordinates = coordinates;
+        this.playersWhoScanned = null;
     }
 
     //SETTERS AND GETTERS
+    public ArrayList<String> getPlayersWhoScanned() {
+        return playersWhoScanned;
+    }
+
+    public void setPlayersWhoScanned(ArrayList<String> playersWhoScanned) {
+        this.playersWhoScanned = playersWhoScanned;
+    }
 
     public String getCoordinates() {
         return coordinates;
@@ -147,5 +160,21 @@ public class Code {
 
     public GeoPoint getLocation() {
         return location;
+    }
+
+    public void addPlayer(String ID) {
+        playersWhoScanned.add(ID);
+    }
+
+    //Returns -1 if error, 0 if no players left after removing, 1 if more players left
+    public int removePlayer(String ID){
+        if(playersWhoScanned.contains(ID)) {
+            playersWhoScanned.remove(ID);
+            if(playersWhoScanned.isEmpty()){
+                return 0;
+            }
+            return 1;
+        }
+        return -1;
     }
 }
