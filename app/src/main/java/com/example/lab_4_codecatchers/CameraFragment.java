@@ -125,6 +125,7 @@ public class CameraFragment extends Fragment {
                         Boolean inWallet = userWallet.inWallet(hash_output);
                         if(inWallet){
                             Toast.makeText(getActivity(), "You already have this code!",Toast.LENGTH_SHORT).show();
+                            ((MainActivity) getActivity()).changeFragment(new CameraFragment());
                         } else {
                             //make new code
                             Code code = new Code(score, hash_output, "0", "", "");
