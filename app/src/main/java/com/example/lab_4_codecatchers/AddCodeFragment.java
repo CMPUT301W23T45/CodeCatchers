@@ -202,7 +202,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                     code.setComment(comment);
                 }
 
-
                 // update user in Firestore
                 FireStoreActivity fireStore = FireStoreActivity.getInstance();
                 fireStore.updateUser(user);

@@ -62,7 +62,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * If user exists then direct to MainActivity
      */
