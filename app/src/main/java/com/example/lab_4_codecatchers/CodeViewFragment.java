@@ -119,6 +119,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 FireStoreActivity fireStore = FireStoreActivity.getInstance();
                 fireStore.updateUser(user);
 
+
                 //go back to playerWaller
                 userWallet.setCurrentCode(null);
                 ((MainActivity) getActivity()).changeFragment(new ProfileFragment());

@@ -16,6 +16,8 @@ import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.lab_4_codecatchers.R;
 import com.google.zxing.Result;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -124,10 +126,15 @@ public class CameraFragment extends Fragment {
                             //make new code
                             Code code = new Code(score, hash_output, "0", "", "");
                             userWallet = User.getInstance().getCollectedQRCodes();
-                            userWallet.addCode(code);
+                            Boolean inWallet = userWallet.addCode(code);
 
-                            //go to AddCodeFragment
-                            ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
+                            if(inWallet){
+                                Toast.makeText(getActivity(), "You already have this code!",Toast.LENGTH_SHORT).show();
+                            } else {
+                                //go to AddCodeFragment
+                                ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
+                            }
+
                         //TODO end }
                     }
                 });
