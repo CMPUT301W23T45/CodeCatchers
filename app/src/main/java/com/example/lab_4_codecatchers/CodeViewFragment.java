@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -40,6 +42,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
     public CodeViewFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,9 +76,17 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         back.setOnClickListener(this);
         coords.setOnClickListener(this);
 
-        //TODO: set the recyclerView and make the adapter
+        // TODO: set the recyclerView and make the adapter
+        Map<String, Integer> players = getPlayers();
 
 
+    }
+
+    public Map<String, Integer> getPlayers(){
+        QRList list = QRList.getInstance();
+        int index = list.inList(code);
+        Code code1 = list.getCode(index);
+        return code1.getPlayersWhoScanned();
     }
 
     private void populateFields(View view) {
@@ -134,4 +145,6 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 }

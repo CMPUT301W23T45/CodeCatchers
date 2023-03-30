@@ -121,21 +121,17 @@ public class CameraFragment extends Fragment {
                         // inputs x as the input for the hash function to get the hash output and sets it under hashOut_textView
                         String hash_output = hash(x);
 
-                        //TODO start
-                        // if (code not in wallet) {
+                        userWallet = User.getInstance().getCollectedQRCodes();
+                        Boolean inWallet = userWallet.inWallet(hash_output);
+                        if(inWallet){
+                            Toast.makeText(getActivity(), "You already have this code!",Toast.LENGTH_SHORT).show();
+                            ((MainActivity) getActivity()).changeFragment(new CameraFragment());
+                        } else {
                             //make new code
                             Code code = new Code(score, hash_output, "0", "", "");
-                            userWallet = User.getInstance().getCollectedQRCodes();
-                            Boolean inWallet = userWallet.addCode(code);
-
-                            if(inWallet){
-                                Toast.makeText(getActivity(), "You already have this code!",Toast.LENGTH_SHORT).show();
-                            } else {
-                                //go to AddCodeFragment
-                                ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
-                            }
-
-                        //TODO end }
+                            userWallet.addCode(code);
+                            ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
+                        }
                     }
                 });
             }
