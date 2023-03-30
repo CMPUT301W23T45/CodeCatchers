@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class FireStoreActivity {
     private final FirebaseFirestore userDB = FirebaseFirestore.getInstance();
     private final CollectionReference userCollection = userDB.collection("Users");
-    private final CollectionReference codeCollection = userDB.collection(" ");
+    private final CollectionReference codeCollection = userDB.collection("qrCollect");
     User currentUser = User.getInstance();
     QRList list = QRList.getInstance();
     private static FireStoreActivity instance = null;
@@ -55,10 +56,24 @@ public class FireStoreActivity {
                         "highestUniqueCode", user.getCollectedQRCodes().getHighestUniqueScore(),
                         "collectedQRCodes", user.getCollectedQRCodes());
     }
-    public Task<Void> updateCodes(ArrayList<Code> codes) {
+
+    public Task<Void> addCode(MiniCode code){
         return codeCollection
-                .document("Codes")
-                .update("allCodes", list.getCodes());
+                .document(code.getHash())
+                .set(code);
+
+    }
+    public Task<Void> updateCodes(MiniCode code) {
+        return codeCollection
+                .document(code.getHash())
+                .update("locPic", code.getImage(), "location", code.getLocation(), "scannedBy", code.getPlayersWhoScanned());
+    }
+
+    public Task<Void> removeCode(MiniCode code) {
+        Log.i("CodeCatchers", "In Remove");
+        return codeCollection
+                .document(code.getHash())
+                .delete();
     }
 
 

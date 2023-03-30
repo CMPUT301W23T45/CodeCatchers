@@ -66,26 +66,35 @@ public class QRList {
         }
     }
 
-    public void addCode(MiniCode code){
+    public void addCode(Code code){
+        User user = User.getInstance();
+        String userName = user.getUsername();
+        FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
         int index = inList(code.getHash());
         if (index == -1) {
             //adds whole code to list
-            codes.add(code);
+            MiniCode mini = new MiniCode(code.getHash(), code.getImageString(), code.getLocation(), new ArrayList<String>());
+            mini.addPlayer(userName);
+            codes.add(mini);
+
+            //update Firestore
+            fireStoreActivity.addCode(mini);
+
         } else {
             //if the code with the same hash is already in list
             //then only add current player to list
             MiniCode code1 = codes.get(index);
-            User user = User.getInstance();
-            String userName = user.getUsername();
             int score = user.getTotalScore();
             code1.addPlayer(userName);
-        }
 
-        //update Firestore
+            //update Firestore
+            fireStoreActivity.updateCodes(code1);
+        }
 
     }
 
-    public void removeCode(MiniCode code){
+    public void removeCode(Code code){
+        FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
         int index = inList(code.getHash());
         if (index != -1) {
             MiniCode code1 = codes.get(index);
@@ -95,9 +104,13 @@ public class QRList {
             if(i == 0) {
                 //no more players have in their wallet
                 codes.remove(code1);
+                //upadte FireStore by removing document
+                fireStoreActivity.removeCode(code1);
+            }else{
+                //update Firestore
+                fireStoreActivity.updateCodes(code1);
             }
         }
 
-        //update Firestore
     }
 }

@@ -40,6 +40,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
     User user;
     UserWallet userWallet;
+    QRList qrList;
     Code code; //code to add
     private RecyclerView recyclerView;
 
@@ -147,6 +148,9 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 FireStoreActivity fireStore = FireStoreActivity.getInstance();
                 fireStore.updateUser(user);
 
+                //update QRList
+                qrList = QRList.getInstance();
+                qrList.removeCode(code);
 
                 //go back to playerWaller
                 userWallet.setCurrentCode(null);
