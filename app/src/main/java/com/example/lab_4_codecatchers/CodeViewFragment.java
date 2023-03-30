@@ -77,15 +77,15 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         coords.setOnClickListener(this);
 
         // TODO: set the recyclerView and make the adapter
-        Map<String, Integer> players = getPlayers();
+        ArrayList<String> players = getPlayers();
 
 
     }
 
-    public Map<String, Integer> getPlayers(){
+    public ArrayList<String> getPlayers(){
         QRList list = QRList.getInstance();
-        int index = list.inList(code);
-        Code code1 = list.getCode(index);
+        int index = list.inList(code.getHash());
+        MiniCode code1 = list.getCode(index);
         return code1.getPlayersWhoScanned();
     }
 
