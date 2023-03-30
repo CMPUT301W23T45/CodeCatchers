@@ -131,6 +131,21 @@ public class UserWallet {
         return userCodes.get(highestIndex);
     }
 
+    public Integer getHighestUniqueScore() {
+        int size = getSize();
+        if(size <= 0) {
+            return null;
+        }
+        int highest = userCodes.get(0).getScore();
+        for(int i =1; i<size; i++) {
+            int score = userCodes.get(i).getScore();
+            if(score > highest) {
+                highest = score;
+            }
+        }
+        return highest;
+    }
+
     /**
      * Returns the lowest score (int) of all QR codes in wallet
      * @return lowest scoring Code

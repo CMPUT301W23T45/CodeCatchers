@@ -15,6 +15,7 @@ public class User {
     private Integer rank;
     private UserWallet collectedQRCodes;
     private ArrayList<String> devices = new ArrayList<>();
+    private Integer highestUniqueCode;
 
     //FUNCTIONS
 
@@ -37,6 +38,7 @@ public class User {
         this.email = " ";
         this.phone = " ";
         this.totalScore = 0;
+        this.highestUniqueCode = 0;
         this.rank = 0;
         this.collectedQRCodes = new UserWallet(this.id);
         this.devices = new ArrayList<String>();
@@ -53,7 +55,7 @@ public class User {
      * @param rank user's rank on global leaderboard
      * @param collectedQRCodes list of all user's scanned QR codes
      */
-    public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes) {
+    public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes, Integer highestUniqueCode) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -62,6 +64,7 @@ public class User {
         this.rank = rank;
         this.collectedQRCodes = new UserWallet(id, collectedQRCodes);
         this.devices = new ArrayList<String>();
+        this.highestUniqueCode = highestUniqueCode;
     }
 
     //SETTERS AND GETTERS
@@ -183,6 +186,14 @@ public class User {
      */
     public void setCollectedQRCodes(UserWallet collectedQRCodes) {
         this.collectedQRCodes = collectedQRCodes;
+    }
+
+    public Integer getHighestUniqueCode() {
+        return highestUniqueCode;
+    }
+
+    public void setHighestUniqueCode(Integer highestUniqueCode) {
+        this.highestUniqueCode = highestUniqueCode;
     }
 
 }
