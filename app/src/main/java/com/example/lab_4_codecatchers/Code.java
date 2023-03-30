@@ -1,5 +1,10 @@
 package com.example.lab_4_codecatchers;
 
+import com.google.firebase.firestore.GeoPoint;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Representation of a QR Code or Barcode
  */
@@ -10,6 +15,9 @@ public class Code {
     private int humanImage;
     private String image;
     private String comment;
+    private GeoPoint location;
+    private String coordinates;
+
 
     //CONSTRUCTORS
 
@@ -24,7 +32,9 @@ public class Code {
         this.humanName = null;
         this.humanImage = R.drawable.baseline_qr_code_2_24;
         this.image = null;
-        this.comment = comment;
+        this.location = new GeoPoint(0, 0);
+        this.comment = null;
+        this.coordinates = null;
     }
 
     /**
@@ -33,13 +43,14 @@ public class Code {
      * @param score score of QR code
      * @param hash hashCode of QR code
      */
-    public Code(int score, String hash, String image, String comment) {
+    public Code(int score, String hash, String image, String comment, String coordinates) {
         this.score = score;
         this.hash = hash;
         this.humanName = generateHumanName(hash); // TODO: change to nameFunction once implemented
 //        this.humanImage = R.drawable.baseline_qr_code_2_24; // TODO: change to imageFunction once implemented
         this.image = image;
         this.comment = comment;
+        this.coordinates = coordinates;
     }
 
     /**
@@ -49,15 +60,25 @@ public class Code {
      * @param image string rep. of QR code
      * @param humanName human readable name for QR code
      */
-    public Code(int score, String hash, String humanName, String image,String comment) {
+    public Code(int score, String hash, String humanName, String image,String comment, String coordinates) {
         this.score = score;
         this.hash = hash;
         this.humanName = humanName;
         this.image = image;
         this.comment = comment;
+        this.coordinates = coordinates;
     }
 
     //SETTERS AND GETTERS
+
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
+    }
+
     public String getImageString() {return image;}
 
     public void setImageString(String image) {this.image = image;}
@@ -123,4 +144,14 @@ public class Code {
         }
         return output;
     }
+
+    public void setLocation(GeoPoint l) {
+        this.location = l;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+
 }

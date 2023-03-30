@@ -16,6 +16,8 @@ import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.lab_4_codecatchers.R;
 import com.google.zxing.Result;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -110,7 +112,7 @@ public class CameraFragment extends Fragment {
                         String x = String.valueOf(bytes[0]);
 
                         // if the array is greater than size 1 than it goes through it and added it to the string x
-                        if (bytes.length > 1 ) {
+                        if (bytes.length > 1) {
                             for (int i = 1; i < bytes.length; i++) {
                                 x = x + String.valueOf(bytes[i]);
                             }
@@ -119,14 +121,17 @@ public class CameraFragment extends Fragment {
                         // inputs x as the input for the hash function to get the hash output and sets it under hashOut_textView
                         String hash_output = hash(x);
 
-                        //make new code
-                        Code code = new Code(score, hash_output, "0","");
                         userWallet = User.getInstance().getCollectedQRCodes();
-                        userWallet.addCode(code);
-
-                        //go to AddCodeFragment
-                        ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
-
+                        Boolean inWallet = userWallet.inWallet(hash_output);
+                        if(inWallet){
+                            Toast.makeText(getActivity(), "You already have this code!",Toast.LENGTH_SHORT).show();
+                            ((MainActivity) getActivity()).changeFragment(new CameraFragment());
+                        } else {
+                            //make new code
+                            Code code = new Code(score, hash_output, "0", "", "");
+                            userWallet.addCode(code);
+                            ((MainActivity) getActivity()).changeFragment(new AddCodeFragment());
+                        }
                     }
                 });
             }

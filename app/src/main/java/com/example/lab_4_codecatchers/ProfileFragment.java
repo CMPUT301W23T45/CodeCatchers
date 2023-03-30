@@ -1,14 +1,18 @@
 package com.example.lab_4_codecatchers;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +30,14 @@ import java.util.Objects;
  *      highest and lowest QR
  *      ect.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClickListener {
     private User user;
     private ArrayList<Code> qrList;
     private UserWallet userWallet;
     private RecyclerView recyclerView;
+
+    private FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
+    private ArrayList<User> allUsers = new ArrayList<>();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -60,9 +67,12 @@ public class ProfileFragment extends Fragment {
         recyclerView = view.findViewById(R.id.userQRList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        ProfileAdapter profileAdapter = new ProfileAdapter(getContext(), qrList);
+        ProfileAdapter profileAdapter = new ProfileAdapter(getContext(), qrList, this);
         recyclerView.setAdapter(profileAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         profileAdapter.notifyDataSetChanged();
+
     }
 
     /**
@@ -80,18 +90,31 @@ public class ProfileFragment extends Fragment {
         TextView totalPoints = view.findViewById(R.id.totalPoints);
         TextView rank = view.findViewById(R.id.currentRank);
 
-        Code highCode = userWallet.getHighest();
-        Code lowCode = userWallet.getLowest();
-
-        highName.setText(highCode.getHumanName());
-        highScore.setText(String.valueOf(highCode.getScore()));
-        lowName.setText(lowCode.getHumanName());
-        lowScore.setText(String.valueOf(lowCode.getScore()));
         sumOfScores.setText(String.valueOf(userWallet.getTotal()));
         numQR.setText(String.valueOf(userWallet.getSize()));
         username.setText(user.getUsername());
-        totalPoints.setText(String.valueOf(userWallet.getTotal()));
-        rank.setText(String.valueOf(user.getRank()));
+
+        if (userWallet.getSize() == 0) {
+            highName.setText(" ");
+            highScore.setText(" ");
+            lowName.setText(" ");
+            lowScore.setText(" ");
+        } else {
+            Code highCode = userWallet.getHighest();
+            Code lowCode = userWallet.getLowest();
+            highName.setText(highCode.getHumanName());
+            highScore.setText(String.valueOf(highCode.getScore()));
+            lowName.setText(lowCode.getHumanName());
+            lowScore.setText(String.valueOf(lowCode.getScore()));
+            rank.setText(String.valueOf(user.getRank()));
+            allUsers.clear();
+            fireStoreActivity.isUniqueUsername()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        queryDocumentSnapshots.getDocuments().forEach(documentSnapshot -> allUsers.add(documentSnapshot.toObject(User.class)));
+                        int rankUniqueCode = rankByUniqueScore(allUsers);
+                        totalPoints.setText(" "+rankUniqueCode);
+                    });
+        }
 
     }
 
@@ -103,4 +126,21 @@ public class ProfileFragment extends Fragment {
         userWallet = user.getCollectedQRCodes();
         qrList = userWallet.getUserCodes();
     }
+
+    @Override
+    public void onItemClick(Code code) {
+        userWallet.setCurrentCode(code);
+        ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
+
+    }
+    private int rankByUniqueScore(ArrayList<User> users){
+        users.sort((user,i)-> i.getHighestUniqueCode() - user.getHighestUniqueCode());
+        for(int i =0;i < users.size();i++){
+            if(users.get(i).getUsername().equals(user.getUsername())){
+                return i+1;
+            }
+        }
+        return 0;
+    }
+
 }
