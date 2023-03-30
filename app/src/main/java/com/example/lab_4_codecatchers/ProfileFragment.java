@@ -93,7 +93,6 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         sumOfScores.setText(String.valueOf(userWallet.getTotal()));
         numQR.setText(String.valueOf(userWallet.getSize()));
         username.setText(user.getUsername());
-        totalPoints.setText(String.valueOf(userWallet.getTotal()));
 
         if (userWallet.getSize() == 0) {
             highName.setText(" ");
@@ -103,17 +102,17 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         } else {
             Code highCode = userWallet.getHighest();
             Code lowCode = userWallet.getLowest();
-
             highName.setText(highCode.getHumanName());
             highScore.setText(String.valueOf(highCode.getScore()));
             lowName.setText(lowCode.getHumanName());
             lowScore.setText(String.valueOf(lowCode.getScore()));
+            rank.setText(String.valueOf(user.getRank()));
             allUsers.clear();
             fireStoreActivity.isUniqueUsername()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
                         queryDocumentSnapshots.getDocuments().forEach(documentSnapshot -> allUsers.add(documentSnapshot.toObject(User.class)));
                         int rankUniqueCode = rankByUniqueScore(allUsers);
-                        rank.setText(" "+rankUniqueCode);
+                        totalPoints.setText(" "+rankUniqueCode);
                     });
         }
 

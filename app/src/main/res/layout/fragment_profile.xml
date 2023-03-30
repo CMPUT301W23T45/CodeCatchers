@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="Highest unique QR code rank: " />
+                        android:text="Current Rank: " />
 
                     <TextView
                         android:id="@+id/currentRank"
@@ -103,7 +103,7 @@
                         android:id="@+id/totalPointsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total points: " />
+                        android:text="Highest QR score rank: " />
 
                     <TextView
                         android:id="@+id/totalPoints"
