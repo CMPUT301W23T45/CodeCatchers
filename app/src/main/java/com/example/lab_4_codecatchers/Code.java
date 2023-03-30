@@ -1,5 +1,10 @@
 package com.example.lab_4_codecatchers;
 
+import com.google.firebase.firestore.GeoPoint;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Representation of a QR Code or Barcode
  */
@@ -10,7 +15,9 @@ public class Code {
     private int humanImage;
     private String image;
     private String comment;
+    private GeoPoint location;
     private String coordinates;
+    private Map<String, Integer> playersWhoScanned;
 
     //CONSTRUCTORS
 
@@ -25,8 +32,10 @@ public class Code {
         this.humanName = null;
         this.humanImage = R.drawable.baseline_qr_code_2_24;
         this.image = null;
+        this.location = new GeoPoint(0, 0);
         this.comment = null;
         this.coordinates = null;
+        this.playersWhoScanned = null;
     }
 
     /**
@@ -43,6 +52,7 @@ public class Code {
         this.image = image;
         this.comment = comment;
         this.coordinates = coordinates;
+        this.playersWhoScanned = null;
     }
 
     /**
@@ -59,9 +69,19 @@ public class Code {
         this.image = image;
         this.comment = comment;
         this.coordinates = coordinates;
+        this.playersWhoScanned = null;
     }
 
     //SETTERS AND GETTERS
+
+
+    public Map<String, Integer> getPlayersWhoScanned() {
+        return playersWhoScanned;
+    }
+
+    public void setPlayersWhoScanned(Map<String, Integer> playersWhoScanned) {
+        this.playersWhoScanned = playersWhoScanned;
+    }
 
     public String getCoordinates() {
         return coordinates;
@@ -135,5 +155,29 @@ public class Code {
             output = output.concat(selection);
         }
         return output;
+    }
+
+    public void setLocation(GeoPoint l) {
+        this.location = l;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+    public void addPlayer(String username, int score) {
+        playersWhoScanned.put(username, score);
+    }
+
+    //Returns -1 if error, 0 if no players left after removing, 1 if more players left
+    public int removePlayer(String username){
+        if(playersWhoScanned.containsKey(username)) {
+            playersWhoScanned.remove(username);
+            if(playersWhoScanned.isEmpty()){
+                return 0;
+            }
+            return 1;
+        }
+        return -1;
     }
 }

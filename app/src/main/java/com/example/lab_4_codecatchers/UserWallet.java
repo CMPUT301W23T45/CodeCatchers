@@ -1,6 +1,7 @@
 package com.example.lab_4_codecatchers;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * UserWallet stores a Users scanned QR codes
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  */
 public class UserWallet {
     private String userID;
+    private Code currentCode;
     private ArrayList<Code> userCodes;
 
 
@@ -20,6 +22,7 @@ public class UserWallet {
     public UserWallet() {
         this.userID = null;
         this.userCodes = new ArrayList<Code>();
+        this.currentCode = null;
     }
 
     /**
@@ -30,6 +33,7 @@ public class UserWallet {
     public UserWallet(String userID) {
         this.userID = userID;
         this.userCodes = new ArrayList<Code>();
+        this.currentCode = null;
     }
 
     /**
@@ -40,10 +44,19 @@ public class UserWallet {
     public UserWallet(String userID, ArrayList<Code> playerCodes) {
         this.userID = userID;
         this.userCodes = playerCodes;
+        this.currentCode = null;
     }
 
 
     //GETTERS AND SETTERS
+
+    public Code getCurrentCode() {
+        return currentCode;
+    }
+
+    public void setCurrentCode(Code currentCode) {
+        this.currentCode = currentCode;
+    }
 
     public String getUserID() {
         return userID;
@@ -117,22 +130,6 @@ public class UserWallet {
         }
         return userCodes.get(highestIndex);
     }
-    public Integer getHighestUniqueScore() {
-        int size = getSize();
-        if(size <= 0) {
-            return null;
-        }
-        int highest = userCodes.get(0).getScore();
-        for(int i =1; i<size; i++) {
-            int score = userCodes.get(i).getScore();
-            if(score > highest) {
-                highest = score;
-            }
-        }
-        return highest;
-    }
-
-
 
     /**
      * Returns the lowest score (int) of all QR codes in wallet
@@ -161,10 +158,7 @@ public class UserWallet {
      *
      */
     public void addCode(Code code) {
-        if(userCodes.contains(code)) {
-            //check if code has already been added
-            return;
-        }
+        //check if code has already been added
         userCodes.add(code);
     }
 
@@ -180,6 +174,23 @@ public class UserWallet {
         }else{
             return false;
         }
+    }
+
+    public Boolean inWallet(String hash){
+        if (userCodes.isEmpty()) {
+            return false;
+        }
+        int size = userCodes.size();
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(userCodes.get(i).getHash(), hash)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public Code getUniqueCode() {
+        //TODO: implement
+        return null;
     }
 
 }

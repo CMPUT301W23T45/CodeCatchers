@@ -10,8 +10,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * Storing and fetching data from firestore database
@@ -21,6 +24,7 @@ public class FireStoreActivity {
     private final CollectionReference userCollection = userDB.collection("Users");
     private final CollectionReference codeCollection = userDB.collection(" ");
     User currentUser = User.getInstance();
+    QRList list = QRList.getInstance();
     private static FireStoreActivity instance = null;
 
     public static FireStoreActivity getInstance(){
@@ -50,6 +54,11 @@ public class FireStoreActivity {
                 .update("totalScore", user.getCollectedQRCodes().getTotal(),
                         "highestUniqueCode", user.getCollectedQRCodes().getHighestUniqueScore(),
                         "collectedQRCodes", user.getCollectedQRCodes());
+    }
+    public Task<Void> updateCodes(ArrayList<Code> codes) {
+        return codeCollection
+                .document("Codes")
+                .update("allCodes", list.getCodes());
     }
 
 
