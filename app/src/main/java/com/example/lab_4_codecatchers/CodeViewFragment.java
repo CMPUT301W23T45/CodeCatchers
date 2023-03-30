@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -36,6 +39,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
     User user;
     UserWallet userWallet;
     Code code; //code to add
+    private RecyclerView recyclerView;
 
     public CodeViewFragment() {
         // Required empty public constructor
@@ -74,6 +78,15 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         coords.setOnClickListener(this);
 
         //TODO: set the recyclerView and make the adapter
+
+        recyclerView = view.findViewById(R.id.SameUserList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        //SameQRCodeAdapter sameQRCodeAdapter = new SameQRCodeAdapter(getContext(), qrList, this);
+        //recyclerView.setAdapter(sameQRCodeAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
 
 
     }
