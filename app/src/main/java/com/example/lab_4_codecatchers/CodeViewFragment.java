@@ -86,8 +86,8 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         recyclerView = view.findViewById(R.id.SameUserList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        //SameQRCodeAdapter sameQRCodeAdapter = new SameQRCodeAdapter(getContext(), qrList, this);
-        //recyclerView.setAdapter(sameQRCodeAdapter);
+        SameQRCodeAdapter sameQRCodeAdapter = new SameQRCodeAdapter(getContext(), players);
+        recyclerView.setAdapter(sameQRCodeAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -97,9 +97,13 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
     public ArrayList<String> getPlayers(){
         QRList list = QRList.getInstance();
-        int index = list.inList(code.getHash());
-        MiniCode code1 = list.getCode(index);
-        return code1.getPlayersWhoScanned();
+        if(list.getSize() < 1) {
+            return new ArrayList<String>();
+        }else {
+            int index = list.inList(code.getHash());
+            MiniCode code1 = list.getCode(index);
+            return code1.getPlayersWhoScanned();
+        }
     }
 
     private void populateFields(View view) {

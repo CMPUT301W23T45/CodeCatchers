@@ -31,6 +31,9 @@ public class QRList {
     }
 
     //FUNCTIONS
+    public int getSize(){
+        return codes.size();
+    }
     public int inList(String hash) {
         if (codes.isEmpty()) {
             return -1;
