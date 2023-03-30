@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.appcompat.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +29,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.GeoPoint;
+
+
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -89,8 +93,41 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //Resources for the Map search: https://www.geeksforgeeks.org/how-to-add-searchview-in-google-maps-in-android/
+        //Used for Reference: https://www.youtube.com/watch?v=68HWFGCSAj8
+        //https://developers.google.com/maps/documentation/android-sdk/views
+        // For fixing Import error: https://stackoverflow.com/questions/57484148/androidx-appcompat-widget-searchview-cannot-be-cast-to-android-widget-searchview
         super.onViewCreated(view, savedInstanceState);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        SearchView searchView = view.findViewById(R.id.searchView); //SearchView by ID in the fragment_map.xml file
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //Handles user entry into the search bar.
+            @Override
+            public boolean onQueryTextSubmit(String query) { //Called when the user submits a longitude and latitude
+                //The following if statement checks to see if the user entered valid coordinates. It must be a latitude followed by the longitude seperated by a comma.
+                String[] coordinates = query.split(",");
+                if (coordinates.length != 2) { //If the length is not two then we give a toast message.
+                    Toast.makeText(requireContext(), "Invalid coordinates", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                //Parse the coordinates into doubles
+                try {
+                    double latitude = Double.parseDouble(coordinates[0]);
+                    double longitude = Double.parseDouble(coordinates[1]);
+                    LatLng location = new LatLng(latitude, longitude); //Create new object.
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16F)); //use the move camera method
+                    return true;
+                } catch (NumberFormatException e) { //If the parse failed.
+                    Toast.makeText(requireContext(), "Invalid coordinates", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });;
     }
 
     @Override
