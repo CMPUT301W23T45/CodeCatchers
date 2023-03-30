@@ -3,6 +3,7 @@ package com.example.lab_4_codecatchers;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Representation of a QR Code or Barcode
@@ -16,7 +17,7 @@ public class Code {
     private String comment;
     private GeoPoint location;
     private String coordinates;
-    private ArrayList<String> playersWhoScanned;
+    private Map<String, Integer> playersWhoScanned;
 
     //CONSTRUCTORS
 
@@ -72,11 +73,13 @@ public class Code {
     }
 
     //SETTERS AND GETTERS
-    public ArrayList<String> getPlayersWhoScanned() {
+
+
+    public Map<String, Integer> getPlayersWhoScanned() {
         return playersWhoScanned;
     }
 
-    public void setPlayersWhoScanned(ArrayList<String> playersWhoScanned) {
+    public void setPlayersWhoScanned(Map<String, Integer> playersWhoScanned) {
         this.playersWhoScanned = playersWhoScanned;
     }
 
@@ -162,14 +165,14 @@ public class Code {
         return location;
     }
 
-    public void addPlayer(String ID) {
-        playersWhoScanned.add(ID);
+    public void addPlayer(String username, int score) {
+        playersWhoScanned.put(username, score);
     }
 
     //Returns -1 if error, 0 if no players left after removing, 1 if more players left
-    public int removePlayer(String ID){
-        if(playersWhoScanned.contains(ID)) {
-            playersWhoScanned.remove(ID);
+    public int removePlayer(String username){
+        if(playersWhoScanned.containsKey(username)) {
+            playersWhoScanned.remove(username);
             if(playersWhoScanned.isEmpty()){
                 return 0;
             }

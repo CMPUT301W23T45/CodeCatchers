@@ -1,6 +1,7 @@
 package com.example.lab_4_codecatchers;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 public class QRList {
@@ -43,13 +44,18 @@ public class QRList {
         return -1;
     }
 
+    public Code getCode(int index){
+        return codes.get(index);
+    }
+
+
     public boolean isUnique(Code code) {
         int index = inList(code);
         if (index == -1) {
             return true;
         } //list is empty or item is not in list
         Code code1 = codes.get(index);
-        ArrayList<String> players = code1.getPlayersWhoScanned();
+        Map<String, Integer> players = code1.getPlayersWhoScanned();
         if (players.size() > 1) {
             return false;
         } else {
@@ -67,8 +73,9 @@ public class QRList {
             //then only add current player to list
             Code code1 = codes.get(index);
             User user = User.getInstance();
-            String ID = user.getId();
-            code1.addPlayer(ID);
+            String userName = user.getUsername();
+            int score = user.getTotalScore();
+            code1.addPlayer(userName, score);
         }
 
         //update Firestore
@@ -81,8 +88,8 @@ public class QRList {
         if (index != -1) {
             Code code1 = codes.get(index);
             User user = User.getInstance();
-            String ID = user.getId();
-            int i = code1.removePlayer(ID);
+            String userName = user.getUsername();
+            int i = code1.removePlayer(userName);
             if(i == 0) {
                 //no more players have in their wallet
                 codes.remove(code1);
