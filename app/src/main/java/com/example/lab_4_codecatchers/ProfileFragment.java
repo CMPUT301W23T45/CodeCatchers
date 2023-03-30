@@ -1,5 +1,7 @@
 package com.example.lab_4_codecatchers;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +35,9 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
     private ArrayList<Code> qrList;
     private UserWallet userWallet;
     private RecyclerView recyclerView;
+
+    private FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
+    private ArrayList<User> allUsers = new ArrayList<>();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -88,7 +94,6 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         numQR.setText(String.valueOf(userWallet.getSize()));
         username.setText(user.getUsername());
         totalPoints.setText(String.valueOf(userWallet.getTotal()));
-        rank.setText(String.valueOf(user.getRank()));
 
         if (userWallet.getSize() == 0) {
             highName.setText(" ");
@@ -103,6 +108,13 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
             highScore.setText(String.valueOf(highCode.getScore()));
             lowName.setText(lowCode.getHumanName());
             lowScore.setText(String.valueOf(lowCode.getScore()));
+            allUsers.clear();
+            fireStoreActivity.isUniqueUsername()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        queryDocumentSnapshots.getDocuments().forEach(documentSnapshot -> allUsers.add(documentSnapshot.toObject(User.class)));
+                        int rankUniqueCode = rankByUniqueScore(allUsers);
+                        rank.setText(" "+rankUniqueCode);
+                    });
         }
 
     }
@@ -122,4 +134,14 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
 
     }
+    private int rankByUniqueScore(ArrayList<User> users){
+        users.sort((user,i)-> i.getHighestUniqueCode() - user.getHighestUniqueCode());
+        for(int i =0;i < users.size();i++){
+            if(users.get(i).getUsername().equals(user.getUsername())){
+                return i+1;
+            }
+        }
+        return 0;
+    }
+
 }

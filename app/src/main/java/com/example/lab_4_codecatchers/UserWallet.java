@@ -8,7 +8,6 @@ import java.util.ArrayList;
  */
 public class UserWallet {
     private String userID;
-    private Code currentCode;
     private ArrayList<Code> userCodes;
 
 
@@ -21,7 +20,6 @@ public class UserWallet {
     public UserWallet() {
         this.userID = null;
         this.userCodes = new ArrayList<Code>();
-        this.currentCode = null;
     }
 
     /**
@@ -32,7 +30,6 @@ public class UserWallet {
     public UserWallet(String userID) {
         this.userID = userID;
         this.userCodes = new ArrayList<Code>();
-        this.currentCode = null;
     }
 
     /**
@@ -43,19 +40,10 @@ public class UserWallet {
     public UserWallet(String userID, ArrayList<Code> playerCodes) {
         this.userID = userID;
         this.userCodes = playerCodes;
-        this.currentCode = null;
     }
 
 
     //GETTERS AND SETTERS
-
-    public Code getCurrentCode() {
-        return currentCode;
-    }
-
-    public void setCurrentCode(Code currentCode) {
-        this.currentCode = currentCode;
-    }
 
     public String getUserID() {
         return userID;
@@ -129,6 +117,22 @@ public class UserWallet {
         }
         return userCodes.get(highestIndex);
     }
+    public Integer getHighestUniqueScore() {
+        int size = getSize();
+        if(size <= 0) {
+            return null;
+        }
+        int highest = userCodes.get(0).getScore();
+        for(int i =1; i<size; i++) {
+            int score = userCodes.get(i).getScore();
+            if(score > highest) {
+                highest = score;
+            }
+        }
+        return highest;
+    }
+
+
 
     /**
      * Returns the lowest score (int) of all QR codes in wallet
@@ -176,11 +180,6 @@ public class UserWallet {
         }else{
             return false;
         }
-    }
-
-    public Code getUniqueCode() {
-        //TODO: implement
-        return null;
     }
 
 }

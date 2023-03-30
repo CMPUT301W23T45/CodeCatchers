@@ -19,7 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class FireStoreActivity {
     private final FirebaseFirestore userDB = FirebaseFirestore.getInstance();
     private final CollectionReference userCollection = userDB.collection("Users");
-    private final CollectionReference codeCollection = userDB.collection("qrCode");
+    private final CollectionReference codeCollection = userDB.collection(" ");
     User currentUser = User.getInstance();
     private static FireStoreActivity instance = null;
 
@@ -48,8 +48,10 @@ public class FireStoreActivity {
         return userCollection
                 .document(user.getUsername())
                 .update("totalScore", user.getCollectedQRCodes().getTotal(),
+                        "highestUniqueCode", user.getCollectedQRCodes().getHighestUniqueScore(),
                         "collectedQRCodes", user.getCollectedQRCodes());
     }
+
 
     /**
      * Retrieves users based on Device id for login
