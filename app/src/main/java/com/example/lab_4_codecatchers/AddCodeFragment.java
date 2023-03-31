@@ -48,6 +48,7 @@ import javax.xml.transform.Result;
 public class AddCodeFragment extends Fragment implements View.OnClickListener {
     User user;
     UserWallet userWallet;
+    QRList qrList;
     Code code; //code to add
     SwitchCompat geoSave;
     ImageView ivProfile;
@@ -202,6 +203,10 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                     // Set user comment to Code
                     code.setComment(comment);
                 }
+
+                //update QRList
+                qrList = QRList.getInstance();
+                qrList.addCode(code);
 
                 // update user in Firestore
                 FireStoreActivity fireStore = FireStoreActivity.getInstance();
