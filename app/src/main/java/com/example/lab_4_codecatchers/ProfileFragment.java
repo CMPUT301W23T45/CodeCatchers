@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -88,11 +89,12 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         TextView numQR = view.findViewById(R.id.numQR);
         TextView username = view.findViewById(R.id.username);
         TextView totalPoints = view.findViewById(R.id.totalPoints);
-        TextView rank = view.findViewById(R.id.currentRank);
+        TextView email = view.findViewById(R.id.userEditEmail);
 
         sumOfScores.setText(String.valueOf(userWallet.getTotal()));
         numQR.setText(String.valueOf(userWallet.getSize()));
         username.setText(user.getUsername());
+        email.setText(user.getEmail());
 
         if (userWallet.getSize() == 0) {
             highName.setText(" ");
@@ -106,7 +108,6 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
             highScore.setText(String.valueOf(highCode.getScore()));
             lowName.setText(lowCode.getHumanName());
             lowScore.setText(String.valueOf(lowCode.getScore()));
-            rank.setText(String.valueOf(user.getRank()));
             allUsers.clear();
             fireStoreActivity.isUniqueUsername()
                     .addOnSuccessListener(queryDocumentSnapshots -> {

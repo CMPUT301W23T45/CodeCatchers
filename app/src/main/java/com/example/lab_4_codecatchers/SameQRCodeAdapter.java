@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class SameQRCodeAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHolder> {
+public class SameQRCodeAdapter extends RecyclerView.Adapter<SameQRCodeAdapter.MyViewHolder> {
 
     Context context;
     ArrayList<String> listOfScanned; //List of codes to be put in recyclerView
@@ -25,16 +25,16 @@ public class SameQRCodeAdapter extends RecyclerView.Adapter<ProfileAdapter.MyVie
 
     @NonNull
     @Override
-    public ProfileAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.code_list_items,parent, false);
-        return new ProfileAdapter.MyViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProfileAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String key = listOfScanned.get(position);
-        holder.nameText.setText("Ghunaym");
-        holder.scoreText.setText(0);
+        holder.playerName.setText(key);
+        holder.playerScore.setText("0");
 
         // TODO Un-hard code this.
 

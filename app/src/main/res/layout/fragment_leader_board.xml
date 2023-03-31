@@ -98,6 +98,7 @@
             android:layout_below="@+id/globalRankLayout"
             android:layout_gravity="center"
             android:paddingTop="15dp"
+            android:clickable="true"
             tools:listitem="@layout/leader_board_recycle_view" />
 
     </LinearLayout>
