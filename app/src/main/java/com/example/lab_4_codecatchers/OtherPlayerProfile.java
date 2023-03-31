@@ -36,9 +36,9 @@ public class OtherPlayerProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_other_player_profile);
+        setContentView(R.layout.fragment_other_users);
 
-        ListView qrCodeListView = findViewById(R.id.OtherPlayerProfileListView);
+        ListView qrCodeListView = findViewById(R.id.userQRList);
         // Create list adapter
         qrCodes = new ArrayList<>();
         //scanAdapter = new ScanListAdapter(this, R.layout.my_scans_adapter, qrCodes);

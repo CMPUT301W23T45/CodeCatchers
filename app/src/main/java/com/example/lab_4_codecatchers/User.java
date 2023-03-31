@@ -195,5 +195,4 @@ public class User {
     public void setHighestUniqueCode(Integer highestUniqueCode) {
         this.highestUniqueCode = highestUniqueCode;
     }
-
 }
