@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.GeoPoint;
 import com.squareup.picasso.Picasso;
@@ -59,29 +60,30 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    private GeoPoint getLocation() {
-        // Default value = 0, 0 (Null location)
-        final double[] lat = {0};
-        final double[] lon = {0};
-
+    private void getUserLocation() {
         // Check permissions
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null) {
-                        lat[0] = location.getLatitude();
-                        lon[0] = location.getLongitude();
-
+                        Log.i("CodeCatchers-LOCATION", location.toString());
+                        code.setLocation(new GeoPoint(location.getLatitude(), location.getLongitude()));
+                    } else {
+                        Log.i("CodeCatchers-LOCATION", "LOCATION NOT FOUND");
+                        code.setLocation(new GeoPoint(0, 0));
                     }
                 }
+            }).addOnFailureListener(getActivity(), new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e("CodeCatchers-LOCATION", "Failed to get user location");
+                }
             });
+        } else {
+            code.setLocation(new GeoPoint(0, 0));
         }
-
-        Log.i("CodeCatchers_LAT", Double.toString(lat[0]));
-        Log.i("CodeCatchers_LON", Double.toString(lon[0]));
-        return new GeoPoint(lat[0], lon[0]);
     }
 
     @Override
@@ -99,7 +101,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         populateFields(view);
 
         Button add = view.findViewById(R.id.addButton);
@@ -112,7 +114,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
     }
 
     @Override
@@ -148,7 +150,7 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                 .resize(130, 130)
                 .centerCrop()
                 .into(addQRImage);
-
+        getUserLocation();
 
     }
 
@@ -170,9 +172,8 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
             case R.id.addButton:
                 //The switches are returning a NullPointerException when using isChecked()
                 //Commented out for now
-                if(geoSave.isChecked()) {
-                    GeoPoint l = getLocation();
-                    code.setLocation(l);
+                if(!geoSave.isChecked()) {
+                    code.setLocation(new GeoPoint(0, 0));
                 }
 
                 if(photoAdded) {
