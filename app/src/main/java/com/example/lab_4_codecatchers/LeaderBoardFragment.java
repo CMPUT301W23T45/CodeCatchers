@@ -63,6 +63,7 @@ public class LeaderBoardFragment extends Fragment {
     }
 
 
+
     /**
      * Fills the array allUsers with users from firebase
      * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
@@ -141,6 +142,7 @@ public class LeaderBoardFragment extends Fragment {
         }
         return 0;
     }
+
 
 
 }

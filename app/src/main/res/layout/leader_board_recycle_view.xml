@@ -6,6 +6,7 @@
     android:layout_height="85dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
+    android:clickable="true"
     >
 
     <RelativeLayout
