@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,9 +117,13 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         TextView humanName = view.findViewById(R.id.codeHumanName);
         TextView coords = view.findViewById(R.id.coordView);
         TextView comment = view.findViewById(R.id.editComment);
+        double latitude = code.getLocation().getLatitude();
+        double longitude = code.getLocation().getLongitude();
+        String locationString = latitude + ", " + longitude;
 
         humanName.setText(code.getHumanName());
-        coords.setText(code.getCoordinates());
+
+        coords.setText(locationString);
         comment.setText(code.getComment());
 
         String loco = code.getQRImage();
