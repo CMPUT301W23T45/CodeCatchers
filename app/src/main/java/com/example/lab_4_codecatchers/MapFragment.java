@@ -105,6 +105,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public boolean onQueryTextSubmit(String query) { //Called when the user submits a longitude and latitude
                 //The following if statement checks to see if the user entered valid coordinates. It must be a latitude followed by the longitude seperated by a comma.
+                searchView.clearFocus();
                 String[] coordinates = query.split(",");
                 if (coordinates.length != 2) { //If the length is not two then we give a toast message.
                     Toast.makeText(requireContext(), "Invalid coordinates", Toast.LENGTH_SHORT).show();
