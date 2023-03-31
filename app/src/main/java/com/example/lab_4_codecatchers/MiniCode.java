@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class MiniCode {
     private String hash;
+    private String name;
     private String locPic;
     private GeoPoint location;
     private ArrayList<String> playersWhoScanned;
@@ -13,13 +14,15 @@ public class MiniCode {
     //CONSTRUCTORS
 
     public MiniCode() {
+        this.name = null;
         this.hash = null;
         this.locPic = null;
         this.location = null;
         this.playersWhoScanned = new ArrayList<String>();
     }
 
-    public MiniCode(String hash, String locPic, GeoPoint location, ArrayList<String> playersWhoScanned) {
+    public MiniCode(String name, String hash, String locPic, GeoPoint location, ArrayList<String> playersWhoScanned) {
+        this.name = name;
         this.hash = hash;
         this.locPic = locPic;
         this.location = location;
@@ -27,6 +30,15 @@ public class MiniCode {
     }
 
     //SETTER AND GETTER
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getHash() {
         return hash;

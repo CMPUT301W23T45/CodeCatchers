@@ -60,7 +60,7 @@ public class FireStoreActivity {
     public Task<Void> updateCodes(MiniCode code) {
         return codeCollection
                 .document(code.getHash())
-                .update("locPic", code.getLocPic(), "location", code.getLocation(), "playersWhoScanned", code.getPlayersWhoScanned());
+                .update("name", code.getName(), "locPic", code.getLocPic(), "location", code.getLocation(), "playersWhoScanned", code.getPlayersWhoScanned());
     }
 
     public Task<Void> removeCode(MiniCode code) {
@@ -100,6 +100,7 @@ public class FireStoreActivity {
                             MiniCode code = QRCodes.get(i).toObject(MiniCode.class);
                             assert code != null;
                             MiniCode toAdd = new MiniCode();
+                            toAdd.setName(code.getName());
                             toAdd.setHash(code.getHash());
                             toAdd.setLocPic(code.getLocPic());
                             toAdd.setLocation(code.getLocation());

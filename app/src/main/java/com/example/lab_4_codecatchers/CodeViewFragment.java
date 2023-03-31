@@ -103,7 +103,11 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         }else {
             int index = list.inList(code.getHash());
             MiniCode code1 = list.getCode(index);
-            return code1.getPlayersWhoScanned();
+            ArrayList<String> list1 = code1.getPlayersWhoScanned();
+            if(list1.contains(user.getUsername())){
+                list1.remove(user.getUsername());
+            }
+            return list1;
         }
     }
 

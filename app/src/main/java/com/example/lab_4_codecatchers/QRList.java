@@ -73,7 +73,7 @@ public class QRList {
         int index = inList(code.getHash());
         if (index == -1) {
             //adds whole code to list
-            MiniCode mini = new MiniCode(code.getHash(), code.getImageString(), code.getLocation(), new ArrayList<String>());
+            MiniCode mini = new MiniCode(code.getHumanName(), code.getHash(), code.getImageString(), code.getLocation(), new ArrayList<String>());
             mini.addPlayer(userName);
             codes.add(mini);
 
