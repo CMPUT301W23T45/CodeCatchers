@@ -3,11 +3,10 @@ package com.example.lab_4_codecatchers;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MiniCode {
     private String hash;
-    private String image;
+    private String locPic;
     private GeoPoint location;
     private ArrayList<String> playersWhoScanned;
 
@@ -15,14 +14,14 @@ public class MiniCode {
 
     public MiniCode() {
         this.hash = null;
-        this.image = null;
+        this.locPic = null;
         this.location = null;
         this.playersWhoScanned = new ArrayList<String>();
     }
 
-    public MiniCode(String hash, String image, GeoPoint location, ArrayList<String> playersWhoScanned) {
+    public MiniCode(String hash, String locPic, GeoPoint location, ArrayList<String> playersWhoScanned) {
         this.hash = hash;
-        this.image = image;
+        this.locPic = locPic;
         this.location = location;
         this.playersWhoScanned = playersWhoScanned;
     }
@@ -37,12 +36,12 @@ public class MiniCode {
         this.hash = hash;
     }
 
-    public String getImage() {
-        return image;
+    public String getLocPic() {
+        return locPic;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setLocPic(String locPic) {
+        this.locPic = locPic;
     }
 
     public GeoPoint getLocation() {

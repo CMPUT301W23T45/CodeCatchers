@@ -21,7 +21,6 @@ import java.util.List;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
     User currentUser = User.getInstance();
-    QRList qrList = QRList.getInstance();
     FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        fireStoreActivity.fillQRList();
         deviceCheck();
     }
 
@@ -58,29 +58,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                         currentUser.setCollectedQRCodes(current.getCollectedQRCodes());
                         Log.d(TAG,"User Exists!");
                         userExists();
-                    }
-                });
-    }
-
-    protected void fillQRList(){
-        fireStoreActivity.getCodes()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<DocumentSnapshot> QRCodes = queryDocumentSnapshots.getDocuments();
-                    if(QRCodes.isEmpty()){
-                        qrList.setCodes(new ArrayList<MiniCode>());
-                    }else{
-                        ArrayList<MiniCode> codeList = new ArrayList<>();
-                        for(int i = 0; i<QRCodes.size(); i++) {
-                            MiniCode code = QRCodes.get(i).toObject(MiniCode.class);
-                            assert code != null;
-                            MiniCode toAdd = new MiniCode();
-                            toAdd.setHash(code.getHash());
-                            toAdd.setImage(code.getImage());
-                            toAdd.setLocation(code.getLocation());
-                            toAdd.setPlayersWhoScanned(code.getPlayersWhoScanned());
-                            codeList.add(toAdd);
-                        }
-                        qrList.setCodes(codeList);
                     }
                 });
     }
