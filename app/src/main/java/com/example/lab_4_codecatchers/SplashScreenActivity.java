@@ -31,6 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        fireStoreActivity.fillQRList();
         deviceCheck();
     }
 
