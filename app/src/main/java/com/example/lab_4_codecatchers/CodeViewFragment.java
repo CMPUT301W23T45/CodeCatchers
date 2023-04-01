@@ -43,6 +43,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
     UserWallet userWallet;
     QRList qrList;
     Code code; //code to add
+    View view1;
     private RecyclerView recyclerView;
 
     public CodeViewFragment() {
@@ -65,7 +66,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        view1 = view;
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
         code = userWallet.getCurrentCode();
@@ -76,11 +77,13 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         Button delete = view.findViewById(R.id.deleteButton);
         ImageButton back = view.findViewById(R.id.backButton);
         LinearLayout coords = view.findViewById(R.id.coordLayout);
+        LinearLayout comment = view.findViewById(R.id.commentLayout);
 
         image.setOnClickListener(this);
         delete.setOnClickListener(this);
         back.setOnClickListener(this);
         coords.setOnClickListener(this);
+        comment.setOnClickListener(this);
 
         // TODO: set the recyclerView and make the adapter
         ArrayList<String> players = getPlayers();
@@ -92,8 +95,6 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(sameQRCodeAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
         recyclerView.addItemDecoration(dividerItemDecoration);
-
-
 
     }
 
@@ -140,9 +141,10 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
+        FireStoreActivity fireStore = FireStoreActivity.getInstance();
         switch (v.getId()) {
             case R.id.viewImageLocation:
-                new ViewPhotoFragment(code).show(getFragmentManager(), "Add Visit");
+                new ViewPhotoFragment(code).show(getFragmentManager(), "ViewPhoto");
                 break;
 
             case R.id.coordLayout:
@@ -154,7 +156,6 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 userWallet.removeCode(code);
 
                 // update user in Firestore
-                FireStoreActivity fireStore = FireStoreActivity.getInstance();
                 fireStore.updateUser(user);
 
                 //update QRList
@@ -169,6 +170,10 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
             case R.id.backButton:
                 //go back to playerWaller
                 ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
+                break;
+
+            case R.id.commentLayout:
+                new ChangeCommentFragment(code).show(getFragmentManager(), "Change Comment");
                 break;
 
             default:
