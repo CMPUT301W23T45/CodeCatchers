@@ -101,13 +101,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         SearchView searchView = view.findViewById(R.id.searchView); //SearchView by ID in the fragment_map.xml file
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //Handles user entry into the search bar.
+        //searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //Handles user entry into the search bar.
+        searchView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) { //Called when the user submits a longitude and latitude
-                //The following if statement checks to see if the user entered valid coordinates. It must be a latitude followed by the longitude seperated by a comma.
+            public void onClick(View view) {
+                searchView.setIconified(false);
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
                 searchView.clearFocus();
                 String[] coordinates = query.split(",");
-                if (coordinates.length != 2) { //If the length is not two then we give a toast message.
+                if (coordinates.length != 2) {
                     Toast.makeText(requireContext(), "Invalid coordinates", Toast.LENGTH_SHORT).show();
                     return false;
                 }
