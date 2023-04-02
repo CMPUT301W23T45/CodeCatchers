@@ -55,6 +55,7 @@ public class ChangeCommentFragment extends DialogFragment {
                     code.setComment(comment1);
                     // update user in Firestore
                     fireStore.updateUser(user);
+                    ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
                 }).create();
     }
 
