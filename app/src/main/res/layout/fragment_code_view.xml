@@ -76,12 +76,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/commentLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.26"
             android:background="@color/baby_blue"
             android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:clickable="true">
 
             <TextView
                 android:id="@+id/commentTitle"
