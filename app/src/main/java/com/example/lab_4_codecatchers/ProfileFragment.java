@@ -134,6 +134,12 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
 
     }
+
+    /**
+     * Sorts the users in terms of the highest QR code scores
+     * @param users
+     * @return the rank of the user
+     */
     private int rankByUniqueScore(ArrayList<User> users){
         users.sort((user,i)-> i.getHighestUniqueCode() - user.getHighestUniqueCode());
         for(int i =0;i < users.size();i++){
