@@ -50,10 +50,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private LatLng defaultPosition = new LatLng(53.526790646055474, -113.52714133200335);
     private FusedLocationProviderClient fusedLocationClient;
 
-    private GeoPoint getLocation() {
-        // Default value = 0, 0 (Null location)
-        final double[] lat = {0};
-        final double[] lon = {0};
+    private void getLocation() {
+        // Check bundle first
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            LatLng bundleTarget = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
+            Log.i("CodeCatchers-LOC", String.valueOf(bundleTarget));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(bundleTarget, 16F));
+            return;
+        }
 
         // Check permissions
         if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
@@ -63,20 +68,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null) {
-                        lat[0] = location.getLatitude();
-                        lon[0] = location.getLongitude();
                         Log.i("CodeCatchers", Double.toString(location.getLatitude()));
                         Log.i("CodeCatchers", Double.toString(location.getLongitude()));
+                        LatLng userTarget = new LatLng(location.getLatitude(), location.getLongitude());
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(userTarget, 16F));
                     } else {
                         Log.i("CodeCatchers", "LOCATION NOT FOUND");
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, 16F));
                     }
                 }
             });
         }
-
-        Log.i("CodeCatchers_LAT", Double.toString(lat[0]));
-        Log.i("CodeCatchers_LON", Double.toString(lon[0]));
-        return new GeoPoint(lat[0], lon[0]);
     }
 
     @Nullable
@@ -142,18 +144,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
-        GeoPoint userlocation = getLocation();
-        if (userlocation.getLongitude() != 0 && userlocation.getLatitude() != 0) {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userlocation.getLatitude(), userlocation.getLongitude()), 16F));
-        } else {
-            Bundle bundle = getArguments();
-            if (bundle != null) {
-                defaultPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
-                // do something with the latitude and longitude values
-            }
-            Log.i("for validation of the bundle balues", String.valueOf(defaultPosition));
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, 16F));
-        }
+        getLocation();
 
         FireStoreActivity db = FireStoreActivity.getInstance();
         db.getCodes().addOnSuccessListener(queryDocumentSnapshots -> {
