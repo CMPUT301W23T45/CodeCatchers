@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alwaysDrawnWithCache="false"
-    android:background="@color/lightgreen"
+    android:background="@color/lightbackground"
     android:padding="10dp"
     tools:context=".ProfileFragment">
 
@@ -35,8 +35,8 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@color/candyapple"
-            android:backgroundTint="@color/candyapple"
+            android:background="@color/primary2"
+            android:backgroundTint="@color/primary2"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true">
 
@@ -44,7 +44,7 @@
                 android:layout_width="396dp"
                 android:layout_height="60dp"
                 android:clipToPadding="true"
-                app:cardBackgroundColor="@color/candyapple"
+                app:cardBackgroundColor="@color/primary2"
                 app:cardCornerRadius="10dp"
                 app:cardUseCompatPadding="true">
 
