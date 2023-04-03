@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/username2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -69,7 +69,7 @@
                         android:text="Highest QR score rank: " />
 
                     <TextView
-                        android:id="@+id/totalPoints"
+                        android:id="@+id/totalPoints2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
@@ -78,7 +78,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/userEditEmail"
+                    android:id="@+id/userEditEmail2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
@@ -86,7 +86,7 @@
                     android:text=" " />
 
                 <TextView
-                    android:id="@+id/userEditPhone"
+                    android:id="@+id/userEditPhone2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
@@ -129,7 +129,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/highScore"
+                        android:id="@+id/highScore2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/highest_score"
@@ -138,7 +138,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/humanNameHigh"
+                        android:id="@+id/humanNameHigh2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/human_readable_name"
@@ -167,7 +167,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/lowScore"
+                        android:id="@+id/lowScore2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/lowest_score"
@@ -175,7 +175,7 @@
                         android:textSize="13dp"/>
 
                     <TextView
-                        android:id="@+id/humanNameLow"
+                        android:id="@+id/humanNameLow2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/human_readable_name"
@@ -194,7 +194,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/userQRList"
+            android:id="@+id/userQRList2"
             android:layout_width="348dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -228,14 +228,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/scoreSumText"
+                    android:id="@+id/scoreSumText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sum_of_scores"
                     android:textAlignment="center"/>
 
                 <TextView
-                    android:id="@+id/scoreSum"
+                    android:id="@+id/scoreSum2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/undefinedNum"
@@ -256,14 +256,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/numQRText"
+                    android:id="@+id/numQRText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/total_num_of_qr_scanned"
                     android:textAlignment="center"/>
 
                 <TextView
-                    android:id="@+id/numQR"
+                    android:id="@+id/numQR2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/undefinedNum"

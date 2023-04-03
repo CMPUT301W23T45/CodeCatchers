@@ -1,5 +1,7 @@
 package com.example.lab_4_codecatchers;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,100 +33,67 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OtherPlayer#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickListener{
+public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String USERNAME = "username";
-
 
     // TODO: Rename and change types of parameters
-    private String username;
-    User user;
-    UserWallet userWallet;
+    private User user = new User();
+    private UserWallet userWallet = new UserWallet();
+    private ArrayList<Code> qrList = new ArrayList<>();
     FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
     private ArrayList<User> allUsers = new ArrayList<>();
     RecyclerView recyclerView;
-    ArrayList<String> QRHash = new ArrayList<>();
-
-
 
 
     public OtherPlayer() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param username Parameter 1.
-
-     * @return A new instance of fragment OtherPlayer.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OtherPlayer newInstance(String username) {
-        OtherPlayer fragment = new OtherPlayer();
-        Bundle args = new Bundle();
-        args.putString(USERNAME, username);
-
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            username = getArguments().getString(USERNAME);
-
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_other_player, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getFromfirestore();
-        setInfoBoxes(view);
-
+        getFromFireStore(view);
         //setting recycler view to show list of scanned QRcodes
-        recyclerView = view.findViewById(R.id.userQRList);
+        recyclerView = view.findViewById(R.id.userQRList2);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        ProfileAdapter profileAdapter = new ProfileAdapter(getContext(), userWallet.getUserCodes(), this);
+        ProfileAdapter profileAdapter = new ProfileAdapter(getContext(), qrList, this);
         recyclerView.setAdapter(profileAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
         recyclerView.addItemDecoration(dividerItemDecoration);
         profileAdapter.notifyDataSetChanged();
-
     }
 
-    public void getFromfirestore() {
+    /**
+     * Retrieves the user from the database
+     * @param view
+     */
+
+    public void getFromFireStore(View view) {
+        String username = getArguments().getString("username");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionReference = db.collection("Users");
-        //UserWallet userWallet;
-
-        // Extract from intent
-       // Intent intent = this.getIntent();
-        //Bundle extras = intent.getExtras();
-        //if (extras != null) {
-          //  username = (String) extras.get("username");
-            //playerHash = (String) extras.get("playerHash");
-
-
         // Extract Player from database
-        DocumentReference playerDocRef = db.collection("Users").document("username");
+        DocumentReference playerDocRef = db.collection("Users").document(username);
 
         playerDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -134,118 +103,81 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
                     if (documentSnapshot.exists()) {
                         user = documentSnapshot.toObject(User.class);
 
+                        Log.d(TAG,"user exists"+ user.getCollectedQRCodes());
+                        userWallet = user.getCollectedQRCodes();
+                        Log.d(TAG,"user size"+ userWallet.getSize());
+                        int size = userWallet.getSize();
+                        for(int i = 0; i < size; i++){
+                            Code code = userWallet.getCode(i);
+                            qrList.add(code);
+                        }
 
-                        //ProfileAdapter.notifyDataSetChanged();
-                        Log.d("Success", "12");
-                        // display to list view
+                        TextView username2 = view.findViewById(R.id.username2);
+                        TextView highName = view.findViewById(R.id.humanNameHigh2);
+                        TextView lowName = view.findViewById(R.id.humanNameLow2);
+                        TextView sumOfScores = view.findViewById(R.id.scoreSum2);
+                        TextView numQR = view.findViewById(R.id.numQR2);
+                        TextView totalPoints = view.findViewById(R.id.totalPoints2);
+                        TextView email = view.findViewById(R.id.userEditEmail2);
+                        TextView phone = view.findViewById(R.id.userEditPhone2);
+
+                        sumOfScores.setText(String.valueOf(userWallet.getTotal()));
+                        numQR.setText(String.valueOf(userWallet.getSize()));
+                        email.setText(user.getEmail());
+                        phone.setText(user.getPhone());
+                        username2.setText(user.getUsername());
+
+
+                        if (userWallet.getSize() == 0) {
+                            highName.setText(" ");
+                            lowName.setText(" ");
+                        } else {
+                            Code highCode = userWallet.getHighest();
+                            Code lowCode = userWallet.getLowest();
+                            highName.setText(highCode.getHumanName());
+                            lowName.setText(lowCode.getHumanName());
+                            allUsers.clear();
+                            fireStoreActivity.isUniqueUsername()
+                                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                                        queryDocumentSnapshots.getDocuments().forEach(documentSnapshot2 -> allUsers.add(documentSnapshot2.toObject(User.class)));
+                                        int rankUniqueCode = rankByUniqueScore(allUsers);
+                                        totalPoints.setText(" "+rankUniqueCode);
+                                    });
+                        }
 
                     }
                 }
             }
         });
-        userWallet = user.getCollectedQRCodes();
     }
-
 
 
     /**
      * Sorts the users in terms of the highest QR code scores
+     *
      * @param users
      * @return the rank of the user
      */
-    private int rankByUniqueScore(ArrayList<User> users){
-        users.sort((user,i)-> i.getHighestUniqueCode() - user.getHighestUniqueCode());
-        for(int i =0;i < users.size();i++){
-            if(users.get(i).getUsername().equals(user.getUsername())){
-                return i+1;
+    private int rankByUniqueScore(ArrayList<User> users) {
+        users.sort((user, i) -> i.getHighestUniqueCode() - user.getHighestUniqueCode());
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(user.getUsername())) {
+                return i + 1;
             }
         }
         return 0;
     }
 
-    /**
-     * Fill the information boxes found in the profileFragment xml
-     * @param view current view
-     */
-    private void setInfoBoxes(View view) {
-        TextView highName = view.findViewById(R.id.humanNameHigh);
-//        TextView highScore = view.findViewById(R.id.qrScoreHigh);
-        TextView lowName = view.findViewById(R.id.humanNameLow);
-//        TextView lowScore = view.findViewById(R.id.qrScoreLow);
-        TextView sumOfScores = view.findViewById(R.id.scoreSum);
-        TextView numQR = view.findViewById(R.id.numQR);
-        TextView username = view.findViewById(R.id.username);
-        TextView totalPoints = view.findViewById(R.id.totalPoints);
-        TextView email = view.findViewById(R.id.userEditEmail);
-        TextView phone = view.findViewById(R.id.userEditPhone);
-
-        sumOfScores.setText(String.valueOf(userWallet.getTotal()));
-        numQR.setText(String.valueOf(userWallet.getSize()));
-        username.setText(user.getUsername());
-        email.setText(user.getEmail());
-        phone.setText(user.getPhone());
-
-
-        if (userWallet.getSize() == 0) {
-            highName.setText(" ");
-//            highScore.setText(" ");
-            lowName.setText(" ");
-//            lowScore.setText(" ");
-        } else {
-            Code highCode = userWallet.getHighest();
-            Code lowCode = userWallet.getLowest();
-            highName.setText(highCode.getHumanName());
-//            highScore.setText(String.valueOf(highCode.getScore()));
-            lowName.setText(lowCode.getHumanName());
-//            lowScore.setText(String.valueOf(lowCode.getScore()));
-            allUsers.clear();
-            fireStoreActivity.isUniqueUsername()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
-                        queryDocumentSnapshots.getDocuments().forEach(documentSnapshot -> allUsers.add(documentSnapshot.toObject(User.class)));
-                        int rankUniqueCode = rankByUniqueScore(allUsers);
-                        totalPoints.setText(" "+rankUniqueCode);
-                    });
-        }
-
-    }
 
     @Override
     public void onItemClick(Code code) {
-        return ;
+        return;
 
     }
 
     /**
      * Gets the players' scans from database
      */
-    public void getPlayerScans(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Users").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        // after getting the data we are checking if query snapshot is empty or not
-
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            // if the snapshot is not empty we are adding data in a list
-
-                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-
-                            for (DocumentSnapshot document : list) {
-                                Map data = document.getData();
-                                data.entrySet()
-                                        .forEach((entry) ->
-                                                QRHash.add(entry.toString().split("=")[0]));
-                                QRHash.add(String.valueOf(data));
-                                //username = document.getId();
-
-
-                            }
-
-                        }
-                    }
-                });
-    }
 
 
 }
