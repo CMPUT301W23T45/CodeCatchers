@@ -47,13 +47,6 @@
                     android:textAlignment="center"
                     android:textSize="13dp" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/coords"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/coordinates"-->
-<!--                    android:textSize="13dp" />-->
-
                 <TextView
                     android:id="@+id/coordView"
                     android:layout_width="wrap_content"
