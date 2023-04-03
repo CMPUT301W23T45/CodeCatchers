@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CodeViewFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightbackground"
+        android:divider="@drawable/empty_divider"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.24"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/genImage"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_qr_code_2_24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:divider="@drawable/empty_divider"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:showDividers="middle">
+
+                <TextView
+                    android:id="@+id/codeHumanName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/code_human_readable_name" />
+
+                <LinearLayout
+                    android:id="@+id/coordLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/coords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/coordinates" />
+
+                    <TextView
+                        android:id="@+id/coordView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxxxxxxxxx" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/viewImageLocation"
+                    style="@style/myButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/stacked_images"
+                    android:text="@string/location_image" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.27"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.30"
+                android:text="You Haven't Scanned this Code Yet!"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.30"
+                android:text="Go Catch That Code!!"
+                android:textAlignment="center"
+                android:textColor="@color/primary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.30"
+                android:text="Player's Who Have Caught this Code:"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/SameUserList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.19"
+            android:background="@drawable/background"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            tools:listitem="@layout/code_list_items">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:divider="@drawable/empty_divider"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="69dp"
+                android:layout_height="38dp"
+                android:layout_gravity="start|center_vertical"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/primary"
+                android:src="@drawable/baseline_arrow_back_24" />
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
