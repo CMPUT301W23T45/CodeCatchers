@@ -5,7 +5,7 @@
     <string name="code_catchers">CODE CATCHERS</string>
     <string name="user_profile">[USER]</string>
     <string name="sum_of_scores">Total Score:</string>
-    <string name="total_num_of_qr_scanned">Number if QR Scanned:</string>
+    <string name="total_num_of_qr_scanned">Number of QR Scanned:</string>
     <string name="lowest_qr">Lowest QR</string>
     <string name="highest_qr">Highest QR</string>
     <string name="undefinedNum">XXXX</string>

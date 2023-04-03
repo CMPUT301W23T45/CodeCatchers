@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class OtherPlayerListAdapter extends ArrayAdapter<User> {
     private ArrayList<User> players;
     private Context context;
-    private int myRecource;
+    private int myResource;
     /**
      * Constructor for OtherPlayerListAdapter.
      * @param context
@@ -30,7 +30,7 @@ public class OtherPlayerListAdapter extends ArrayAdapter<User> {
     public OtherPlayerListAdapter(Context context, int resource, ArrayList<User> players){
         super(context,resource,players);
         this.players = players;
-        this.myRecource = resource;
+        this.myResource = resource;
         this.context = context;
 
     }
@@ -42,7 +42,7 @@ public class OtherPlayerListAdapter extends ArrayAdapter<User> {
         View view = convertView;
 
         if (view == null){
-            view = LayoutInflater.from(context).inflate(myRecource, parent, false);
+            view = LayoutInflater.from(context).inflate(myResource, parent, false);
         }
 
         User player = players.get(position);
