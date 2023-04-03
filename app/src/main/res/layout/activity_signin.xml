@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/coffee">
+    android:background="@color/lightbackground">
 
     <TextView
         android:id="@+id/textViewFirstTime"
@@ -44,7 +44,7 @@
 
     <TextView
         android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="189dp"
         android:layout_height="wrap_content"
         android:text="Email (optional):"
         android:textColor="@color/black"
@@ -56,7 +56,7 @@
 
     <EditText
         android:id="@+id/editTextEmailAddress"
-        android:layout_width="wrap_content"
+        android:layout_width="189dp"
         android:layout_height="48dp"
         android:ems="10"
         android:hint="abcde@gmail.com"
@@ -69,8 +69,8 @@
 
     <TextView
         android:id="@+id/textViewPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
         android:text="Phone number (optional):"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -81,7 +81,7 @@
 
     <EditText
         android:id="@+id/editTextPhoneNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="189dp"
         android:layout_height="48dp"
         android:ems="10"
         android:hint="xxx-xxx-xxxx"
@@ -93,6 +93,7 @@
 
     <Button
         android:id="@+id/button_get_started"
+        style="@style/myButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get Started!"
