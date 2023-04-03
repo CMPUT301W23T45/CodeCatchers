@@ -168,8 +168,14 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.backButton:
-                //go back to playerWaller
-                ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
+                //go back to playerWallet or Map
+                if (userWallet.getBackToMap()) {
+                    userWallet.setBackToMap(false);
+                    ((MainActivity) getActivity()).changeFragment(new MapFragment());
+                } else {
+                    ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
+                }
+
                 break;
 
             case R.id.commentLayout:

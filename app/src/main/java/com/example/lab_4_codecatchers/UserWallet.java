@@ -11,7 +11,7 @@ public class UserWallet {
     private String userID;
     private Code currentCode;
     private ArrayList<Code> userCodes;
-
+    private Boolean backToMap = false;
 
     //CONSTRUCTORS
 
@@ -77,6 +77,10 @@ public class UserWallet {
     public int getSize() {
         return userCodes.size();
     }
+
+    public Boolean getBackToMap() { return backToMap; }
+
+    public void setBackToMap(Boolean toMap) { backToMap = toMap; }
 
     //FUNCTIONS
 
@@ -195,18 +199,19 @@ public class UserWallet {
         }
     }
 
-    public Boolean inWallet(String hash){
+    public int inWallet(String hash){
         if (userCodes.isEmpty()) {
-            return false;
+            return -1;
         }
         int size = userCodes.size();
         for (int i = 0; i < size; i++) {
             if (Objects.equals(userCodes.get(i).getHash(), hash)) {
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
+
     public Code getUniqueCode() {
         //TODO: implement
         return null;

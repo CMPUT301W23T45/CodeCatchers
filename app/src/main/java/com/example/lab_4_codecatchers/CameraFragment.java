@@ -122,8 +122,8 @@ public class CameraFragment extends Fragment {
                         String hash_output = hash(x);
 
                         userWallet = User.getInstance().getCollectedQRCodes();
-                        Boolean inWallet = userWallet.inWallet(hash_output);
-                        if(inWallet){
+                        int inWallet = userWallet.inWallet(hash_output);
+                        if(inWallet >= 0) {
                             Toast.makeText(getActivity(), "You already have this code!",Toast.LENGTH_SHORT).show();
                             ((MainActivity) getActivity()).changeFragment(new CameraFragment());
                         } else {

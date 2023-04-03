@@ -25,8 +25,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -146,14 +148,41 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } else {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, 16F));
         }
+
         FireStoreActivity db = FireStoreActivity.getInstance();
         db.getCodes().addOnSuccessListener(queryDocumentSnapshots -> {
             for (DocumentSnapshot code : queryDocumentSnapshots) {
                 GeoPoint g = (GeoPoint) code.get("location");
                 if (g.getLatitude() != 0.0 && g.getLongitude() != 0.0) {
                     LatLng position = new LatLng(g.getLatitude(), g.getLongitude());
-                    map.addMarker(new MarkerOptions().position(position).title(code.get("name").toString()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    BitmapDescriptor markerIcon;
+                    if (user.getCollectedQRCodes().inWallet(code.get("hash").toString()) >= 0) {
+                        markerIcon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+                    } else {
+                        markerIcon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
+                    }
+                    map.addMarker(new MarkerOptions().position(position).title(code.get("name").toString()).icon(markerIcon)).setTag(code);
                 }
+            }
+        });
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                DocumentSnapshot c = (DocumentSnapshot) marker.getTag();
+                if (c != null) {
+                    Log.i("CodeCatchers", c.get("name").toString());
+                    int ind = user.getCollectedQRCodes().inWallet(c.get("hash").toString());
+                    if (ind >= 0) {
+                        user.getCollectedQRCodes().setCurrentCode(user.getCollectedQRCodes().getCode(ind));
+                        user.getCollectedQRCodes().setBackToMap(true);
+                        ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
+                    } else {
+                        Log.i("CodeCatchers", "Code not scanned by current user, redirecting to UnscannedCodeView");
+                    }
+                }
+                //((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
+                return false;
             }
         });
     }
