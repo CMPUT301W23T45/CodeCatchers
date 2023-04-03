@@ -76,7 +76,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         Button image = view.findViewById(R.id.viewImageLocation);
         Button delete = view.findViewById(R.id.deleteButton);
         ImageButton back = view.findViewById(R.id.backButton);
-        LinearLayout coords = view.findViewById(R.id.coordLayout);
+        TextView coords = view.findViewById(R.id.coordView);
         LinearLayout comment = view.findViewById(R.id.commentLayout);
 
         image.setOnClickListener(this);
@@ -147,7 +147,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 new ViewPhotoFragment(code).show(getFragmentManager(), "ViewPhoto");
                 break;
 
-            case R.id.coordLayout:
+            case R.id.coordView:
                 //goto map layout
                 ((MainActivity) getActivity()).changeFragment(new MapFragment());
                 break;
