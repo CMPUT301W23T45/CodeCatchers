@@ -16,6 +16,7 @@ public class User {
     private UserWallet collectedQRCodes;
     private ArrayList<String> devices = new ArrayList<>();
     private Integer highestUniqueCode;
+    private Boolean isOwner;
 
     //FUNCTIONS
 
@@ -55,7 +56,7 @@ public class User {
      * @param rank user's rank on global leaderboard
      * @param collectedQRCodes list of all user's scanned QR codes
      */
-    public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes, Integer highestUniqueCode) {
+    public User(String id, String username, String email, String phone, Integer totalScore, Integer rank, ArrayList<Code> collectedQRCodes, Integer highestUniqueCode, Boolean isOwner) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -65,6 +66,7 @@ public class User {
         this.collectedQRCodes = new UserWallet(id, collectedQRCodes);
         this.devices = new ArrayList<String>();
         this.highestUniqueCode = highestUniqueCode;
+        this.isOwner = false;
     }
 
     //SETTERS AND GETTERS
@@ -194,5 +196,13 @@ public class User {
 
     public void setHighestUniqueCode(Integer highestUniqueCode) {
         this.highestUniqueCode = highestUniqueCode;
+    }
+
+    public Boolean getOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(Boolean owner) {
+        isOwner = owner;
     }
 }

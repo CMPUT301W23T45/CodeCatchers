@@ -27,7 +27,7 @@ import java.util.ArrayList;
  */
 public class OtherPlayers extends AppCompatActivity {
     // Initialize variables
-
+    private SingletonPlayer singletonPlayer;
     private ArrayList<User> allPlayers;
     private FirebaseFirestore db;
     private ArrayAdapter<User> playerAdapter;
@@ -44,7 +44,7 @@ public class OtherPlayers extends AppCompatActivity {
         final CollectionReference collectionReference = db.collection("Users");
 
         // Prepare ListView and Adapter
-        playerList = findViewById(R.id.profileInfo);
+        playerList = findViewById(R.id.userQRList);
         allPlayers = new ArrayList<>();
         playerAdapter = new OtherPlayerListAdapter(this, R.layout.fragment_other_users, allPlayers);
         playerList.setAdapter(playerAdapter);
@@ -55,28 +55,28 @@ public class OtherPlayers extends AppCompatActivity {
                 allPlayers.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     User p = doc.toObject(User.class);
-                    //if (!p.getPlayerHash().equals(singletonPlayer.player.getPlayerHash()) && !p.getOwner()) {
+                    if (!p.getCollectedQRCodes().getCurrentCode().getHash().equals(singletonPlayer.player.getCollectedQRCodes().getCurrentCode().getHash()) && !p.getOwner()) {
                         allPlayers.add(p);
                     }
 
                 }
-                //ProfileAdapter.notifyDataSetChanged();
+                //OtherPlayerListAdapter.notifyDataSetChanged();
             }
         });
 
         // Be able to view a profile if we click a user
-        //playerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        playerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-          //  public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-            //    User clickedPLayer = allPlayers.get(position);
-              //  String playerUserName = clickedPLayer.getUsername();
-                //String playerHash = clickedPLayer.;
-                //Intent intent = new Intent(OtherPlayers.this, OtherPlayerProfile.class);
-                //intent.putExtra("playerUserName", playerUserName);
-                //intent.putExtra("playerHash", playerHash);
-                //startActivity(intent);
-           // }
-       // });
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+               User clickedPLayer = allPlayers.get(position);
+                String playerUserName = clickedPLayer.getUsername();
+                String playerHash = clickedPLayer.getCollectedQRCodes().getCurrentCode().getHash();
+                Intent intent = new Intent(OtherPlayers.this, OtherPlayerProfile.class);
+                intent.putExtra("playerUserName", playerUserName);
+                intent.putExtra("playerHash", playerHash);
+                startActivity(intent);
+            }
+        });
     }
 }
 
