@@ -80,6 +80,7 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
         return inflater.inflate(R.layout.fragment_unscanned_code_view, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -106,6 +107,11 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
 
     }
 
+
+    /**
+     * populated the items in the XML of the fragment
+     * @param view current view
+     */
     private void populateFields(View view) {
         TextView humanName = view.findViewById(R.id.codeHumanName);
         TextView coords = view.findViewById(R.id.coordView);
@@ -117,6 +123,11 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
         coords.setText(locationString);
     }
 
+    /**
+     * gets a list of all players who have scanned code usernames
+     * @return ArrayList<String> of all the players
+     * who have scanned the current codes's usernames
+     */
     public ArrayList<String> getPlayers(){
         QRList list = QRList.getInstance();
         if(list.getSize() < 1) {
@@ -125,6 +136,7 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
             int index = list.inList(code.getHash());
             MiniCode code1 = list.getCode(index);
             ArrayList<String> list1 = code1.getPlayersWhoScanned();
+            //remove current user from list so it doesn't get displayed
             if(list1.contains(user.getUsername())){
                 list1.remove(user.getUsername());
             }

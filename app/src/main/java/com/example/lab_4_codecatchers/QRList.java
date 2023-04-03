@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * QRList stores a global list of scanned codes (in MiniCode format)
+ * It can also preform tasks, like adding, removing and checking if code is in List
+ * @see MiniCode
+ */
 public class QRList {
     ArrayList<MiniCode> codes;
     private static QRList instance = null;
@@ -34,6 +39,12 @@ public class QRList {
     public int getSize(){
         return codes.size();
     }
+
+    /**
+     * Checks if code is in a wallet
+     * @param hash Hash code of MiniCode
+     * @return -1 if not in List, otherwise the index of MiniCode in List
+     */
     public int inList(String hash) {
         if (codes.isEmpty()) {
             return -1;
@@ -52,6 +63,10 @@ public class QRList {
     }
 
 
+    /**
+     * Checks if MiniCode has been scanned by any other player
+     * @param code Mini QR code to be removed
+     */
     public boolean isUnique(MiniCode code) {
         int index = inList(code.getHash());
         if (index == -1) {
@@ -66,6 +81,13 @@ public class QRList {
         }
     }
 
+    /**
+     * Checks if MiniCode with same hash as code is in a List
+     * then, adds MiniCode to list if not
+     * If code is already in List then just the players userName will
+     * be added to MiniCode's playersWhoScanned list
+     * @param code QR code to be removed
+     */
     public void addCode(Code code){
         User user = User.getInstance();
         String userName = user.getUsername();
@@ -93,6 +115,11 @@ public class QRList {
 
     }
 
+    /**
+     * Checks if MiniCode with same hash as code is in a List
+     * then, removes MiniCode from list
+     * @param code QR code to be removed
+     */
     public void removeCode(Code code){
         FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
         int index = inList(code.getHash());

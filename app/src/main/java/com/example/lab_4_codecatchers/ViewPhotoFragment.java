@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
+ * ViewPhotoFragment creates a dialog fragment to show the location image
+ * that a player took
  */
 public class ViewPhotoFragment extends DialogFragment {
     String image;
