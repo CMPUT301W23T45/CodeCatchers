@@ -31,7 +31,7 @@ public class OtherPlayerProfile extends AppCompatActivity {
     private FirebaseFirestore db;
     private User player;
     //private ArrayAdapter<QRCode> scanAdapter;
-    private ArrayList<QRCode> qrCodes;
+    private ArrayList<Code> qrCodes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class OtherPlayerProfile extends AppCompatActivity {
                         player = documentSnapshot.toObject(User.class);
                         qrCodes.clear();
                         for (int i = 0; i < player.getCollectedQRCodes().getSize(); i++) {
-                            qrCodes.add(player.getCollectedQRCodes().getCurrentCode());
+                            qrCodes.add(player.getCollectedQRCodes().getCode(i));
                         }
                         //ProfileAdapter.notifyDataSetChanged();
                         Log.d("Success", "12");
@@ -81,7 +81,7 @@ public class OtherPlayerProfile extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // go to viewQRcode activity
-                QRCode code = qrCodes.get(i);
+                Code code = qrCodes.get(i);
                 Intent intent = new Intent(getApplicationContext(), Code.class);
                 intent.putExtra("qrcode_info2", (Parcelable) code);
                 intent.putExtra("otherPlayerName", playerUserName);
