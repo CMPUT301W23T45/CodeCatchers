@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alwaysDrawnWithCache="false"
+    android:background="@color/coffee"
     tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,9 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightbackground"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,8 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/user_profile"
-                android:textColor="@color/primary2"
                 android:textAlignment="center"
+                android:textColor="@color/northern_sky"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -44,13 +44,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.26"
+            android:backgroundTint="@color/northern_sky"
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageView"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
-                android:background="@color/primary"
+                android:background="@color/northern_sky"
                 android:paddingStart="15dp"
                 android:paddingEnd="10dp"
                 android:src="@drawable/baseline_person_24"
@@ -104,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="abcd@gmail.com" />
+                        android:text="abcd@gmail.com"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -120,7 +121,6 @@
             android:orientation="vertical"
             android:paddingTop="5dp"
             android:paddingBottom="10dp">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topConstraint"
                 android:layout_width="match_parent"
@@ -130,10 +130,10 @@
 
                 <LinearLayout
                     android:id="@+id/highLayout"
-                    android:layout_width="190dp"
+                    android:layout_width="170dp"
                     android:layout_height="65dp"
-                    android:layout_marginEnd="200dp"
-                    android:background="@drawable/background"
+                    android:layout_marginEnd="180dp"
+                    android:background="@color/northern_sky"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -145,8 +145,7 @@
                         android:id="@+id/highScore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/highest_score" />
-
+                        android:text="@string/highest_score"/>
                     <TextView
                         android:id="@+id/humanNameHigh"
                         android:layout_width="match_parent"
@@ -164,10 +163,10 @@
 
                 <LinearLayout
                     android:id="@+id/lowLayout"
-                    android:layout_width="190dp"
+                    android:layout_width="170dp"
                     android:layout_height="65dp"
-                    android:layout_marginStart="200dp"
-                    android:background="@drawable/background"
+                    android:layout_marginStart="180dp"
+                    android:background="@color/northern_sky"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -179,7 +178,7 @@
                         android:id="@+id/lowScore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lowest_score" />
+                        android:text="@string/lowest_score"/>
 
                     <TextView
                         android:id="@+id/humanNameLow"
@@ -201,16 +200,16 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userQRList"
-            android:layout_width="385dp"
+            android:layout_width="348dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.18"
-            android:background="@drawable/background"
+            android:background="@color/northern_sky"
             android:clipToPadding="false"
-            android:paddingLeft="10dp"
             android:paddingTop="10dp"
-            android:paddingRight="10dp"
             android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             tools:listitem="@layout/profile_list_items" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -220,13 +219,12 @@
             android:layout_weight="0.28"
             android:gravity="center_horizontal"
             android:paddingTop="10dp">
-
             <LinearLayout
                 android:id="@+id/scoreLayout"
-                android:layout_width="190dp"
+                android:layout_width="170dp"
                 android:layout_height="65dp"
-                android:layout_marginEnd="200dp"
-                android:background="@drawable/background"
+                android:layout_marginEnd="180dp"
+                android:background="@color/northern_sky"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +235,7 @@
                     android:id="@+id/scoreSumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/sum_of_scores" />
+                    android:text="@string/sum_of_scores"/>
 
                 <TextView
                     android:id="@+id/scoreSum"
@@ -250,10 +248,10 @@
 
             <LinearLayout
                 android:id="@+id/numLayout"
-                android:layout_width="190dp"
+                android:layout_width="170dp"
                 android:layout_height="65dp"
-                android:layout_marginStart="200dp"
-                android:background="@drawable/background"
+                android:layout_marginStart="180dp"
+                android:background="@color/northern_sky"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

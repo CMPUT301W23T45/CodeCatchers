@@ -10,12 +10,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightbackground"
-        android:divider="@drawable/empty_divider"
         android:orientation="vertical"
         android:padding="12dp"
+        android:weightSum="1"
         android:showDividers="middle"
-        android:weightSum="1">
+        android:divider="@drawable/empty_divider">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,8 +49,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:focusable="true">
 
                     <TextView
                         android:id="@+id/coords"
@@ -68,7 +67,6 @@
 
                 <Button
                     android:id="@+id/viewImageLocation"
-                    style="@style/myButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/stacked_images"
@@ -82,10 +80,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.26"
-            android:background="@drawable/background"
-            android:clickable="true"
+            android:background="@color/baby_blue"
             android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:clickable="true">
 
             <TextView
                 android:id="@+id/commentTitle"
@@ -109,8 +107,11 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.2"
-            android:background="@drawable/background"
+            android:background="@color/baby_blue"
+            android:clipToPadding="false"
+            android:paddingLeft="10dp"
             android:paddingTop="10dp"
+            android:paddingRight="10dp"
             android:paddingBottom="10dp"
             tools:listitem="@layout/code_list_items" />
 
@@ -118,21 +119,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
+            android:orientation="horizontal"
             android:divider="@drawable/empty_divider"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/backButton"
                 android:layout_width="69dp"
-                android:layout_height="38dp"
-                android:background="@drawable/background"
-                android:backgroundTint="@color/primary"
+                android:layout_height="48dp"
                 android:src="@drawable/baseline_arrow_back_24" />
 
             <Button
                 android:id="@+id/deleteButton"
-                style="@style/myButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/delete_code" />
