@@ -71,6 +71,8 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        fireStoreActivity.fillQRList();
 
         getFromFireStore(view);
         //setting recycler view to show list of scanned QRcodes

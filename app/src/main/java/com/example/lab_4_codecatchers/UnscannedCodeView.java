@@ -83,12 +83,17 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        FireStoreActivity.getInstance().fillQRList();
+
         populateFields(view);
 
         ArrayList<String> players = getPlayers();
 
         ImageButton back = view.findViewById(R.id.backButton);
+        Button location = view.findViewById(R.id.viewImageLocation);
         back.setOnClickListener(this);
+        location.setOnClickListener(this);
 
         //fill recyclerView
         recyclerView = view.findViewById(R.id.SameUserList);
@@ -135,6 +140,9 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         FireStoreActivity fireStore = FireStoreActivity.getInstance();
         switch (v.getId()) {
+            case R.id.viewImageLocation:
+                new ViewPhotoFragment(code.getLocPic()).show(getFragmentManager(), "ViewPhoto");
+                break;
 
             case R.id.backButton:
                 //go back to map

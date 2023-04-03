@@ -34,9 +34,6 @@ public class SameQRCodeAdapter extends RecyclerView.Adapter<SameQRCodeAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String key = listOfScanned.get(position);
         holder.playerName.setText(key);
-        holder.playerScore.setText("0");
-
-        // TODO Un-hard code this.
 
 
     }
@@ -49,12 +46,10 @@ public class SameQRCodeAdapter extends RecyclerView.Adapter<SameQRCodeAdapter.My
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView playerName;
-        TextView playerScore;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             playerName = itemView.findViewById(R.id.playerName);
-            playerScore = itemView.findViewById(R.id.playerScore);
         }
     }
 }
