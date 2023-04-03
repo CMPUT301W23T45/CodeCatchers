@@ -224,13 +224,11 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        // after getting the data we are calling on success method
-                        // and inside this method we are checking if the received
-                        // query snapshot is empty or not.
+                        // after getting the data we are checking if query snapshot is empty or not
+
                         if (!queryDocumentSnapshots.isEmpty()) {
-                            // if the snapshot is not empty we are
-                            // hiding our progress bar and adding
-                            // our data in a list.
+                            // if the snapshot is not empty we are adding data in a list
+
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
                             for (DocumentSnapshot document : list) {
@@ -239,9 +237,9 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
                                         .forEach((entry) ->
                                                 QRHash.add(entry.toString().split("=")[0]));
                                 QRHash.add(String.valueOf(data));
-                                username = document.getId();
+                                //username = document.getId();
 
-                                //QRHash = new ArrayList<>();
+
                             }
 
                         }
