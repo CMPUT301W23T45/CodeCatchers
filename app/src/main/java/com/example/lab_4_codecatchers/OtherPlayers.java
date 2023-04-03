@@ -70,10 +70,10 @@ public class OtherPlayers extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                User clickedPLayer = allPlayers.get(position);
                 String playerUserName = clickedPLayer.getUsername();
-                String playerHash = clickedPLayer.getCollectedQRCodes().getCurrentCode().getHash();
+                //String playerHash = clickedPLayer.getCollectedQRCodes().getCurrentCode().getHash();
                 Intent intent = new Intent(OtherPlayers.this, OtherPlayerProfile.class);
                 intent.putExtra("playerUserName", playerUserName);
-                intent.putExtra("playerHash", playerHash);
+                //intent.putExtra("playerHash", playerHash);
                 startActivity(intent);
             }
         });

@@ -52,12 +52,12 @@ public class OtherPlayerProfile extends AppCompatActivity {
         Intent intent = this.getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            playerUserName = (String) extras.get("playerUserName");
-            playerHash = (String) extras.get("playerHash");
+            playerUserName = (String) extras.get("username");
+            //playerHash = (String) extras.get("playerHash");
         }
 
         // Extract Player from database
-        DocumentReference playerDocRef = db.collection("Users").document(playerUserName);
+        DocumentReference playerDocRef = db.collection("Users").document("username");
         playerDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
