@@ -110,6 +110,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         SearchView searchView = view.findViewById(R.id.searchView); //SearchView by ID in the fragment_map.xml file
+        searchView.setQueryHint("Latitude,Longitude");
         //searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //Handles user entry into the search bar.
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
