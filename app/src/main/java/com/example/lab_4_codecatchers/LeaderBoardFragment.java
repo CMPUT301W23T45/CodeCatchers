@@ -33,7 +33,7 @@ import java.util.Locale;
  * https://stackoverflow.com/questions/68423448/how-to-sort-an-array-of-objects-by-total-score
  * https://stackoverflow.com/questions/53991868/search-in-recyclerview-with-edittext
  */
-public class LeaderBoardFragment extends Fragment {
+public class LeaderBoardFragment extends Fragment implements LeaderBoardAdapter.ItemClickListener{
 
     RecyclerView recyclerView;
     TextView globalrank;
@@ -41,7 +41,7 @@ public class LeaderBoardFragment extends Fragment {
     private final User currentUser = User.getInstance();
     private final FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
     private ArrayList<User> allUsers = new ArrayList<>();
-    LeaderBoardAdapter leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers);
+    LeaderBoardAdapter leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers,this);
 
     public LeaderBoardFragment() {
         // Required empty public constructor
@@ -74,6 +74,8 @@ public class LeaderBoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        fireStoreActivity.fillQRList();
 
         allUsers.clear();
         fireStoreActivity.isUniqueUsername()
@@ -84,7 +86,7 @@ public class LeaderBoardFragment extends Fragment {
 
                     Log.d(TAG,"users are "+ allUsers);
                     recyclerView = view.findViewById(R.id.users_recycle_view);
-                    leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers);
+                    leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers,this);
                     recyclerView.setAdapter(leaderBoardAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 });
@@ -143,6 +145,13 @@ public class LeaderBoardFragment extends Fragment {
         return 0;
     }
 
-
+    @Override
+    public void onItemClick(User user) {
+        OtherPlayer otherPlayer = new OtherPlayer();
+        Bundle args = new Bundle();
+        args.putString("username",user.getUsername());
+        otherPlayer.setArguments(args);
+        ((MainActivity) getActivity()).changeFragment(otherPlayer);
+    }
 
 }

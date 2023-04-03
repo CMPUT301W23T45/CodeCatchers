@@ -66,6 +66,10 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        FireStoreActivity.getInstance().fillQRList();
+
+
         view1 = view;
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
@@ -144,7 +148,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         FireStoreActivity fireStore = FireStoreActivity.getInstance();
         switch (v.getId()) {
             case R.id.viewImageLocation:
-                new ViewPhotoFragment(code).show(getFragmentManager(), "ViewPhoto");
+                new ViewPhotoFragment(code.getImageString()).show(getFragmentManager(), "ViewPhoto");
                 break;
 
             case R.id.coordView:
@@ -162,6 +166,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
             case R.id.deleteButton:
                 userWallet.removeCode(code);
+                userWallet.setCurrentCode(null);
 
                 // update user in Firestore
                 fireStore.updateUser(user);
@@ -171,7 +176,6 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 qrList.removeCode(code);
 
                 //go back to playerWaller
-                userWallet.setCurrentCode(null);
                 ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
                 break;
 
