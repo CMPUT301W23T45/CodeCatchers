@@ -41,8 +41,8 @@ public class OtherPlayerProfile extends AppCompatActivity {
         ListView qrCodeListView = findViewById(R.id.userQRList);
         // Create list adapter
         qrCodes = new ArrayList<>();
-        scanAdapter = new OtherPlayerListAdapter(this, R.layout.fragment_other_users, qrCodes);
-        qrCodeListView.setAdapter(scanAdapter);
+        //scanAdapter = new OtherPlayerListAdapter(this, R.layout.fragment_other_users, qrCodes);
+        //qrCodeListView.setAdapter(scanAdapter);
 
 
         db = FirebaseFirestore.getInstance();
