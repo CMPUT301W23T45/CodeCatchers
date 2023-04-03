@@ -17,13 +17,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +48,8 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
     FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
     private ArrayList<User> allUsers = new ArrayList<>();
     RecyclerView recyclerView;
+    ArrayList<String> QRHash = new ArrayList<>();
+
 
 
 
@@ -208,5 +214,40 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
         return ;
 
     }
+
+    /**
+     * Gets the players' scans from database
+     */
+    public void getPlayerScans(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Users").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        // after getting the data we are calling on success method
+                        // and inside this method we are checking if the received
+                        // query snapshot is empty or not.
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            // if the snapshot is not empty we are
+                            // hiding our progress bar and adding
+                            // our data in a list.
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+
+                            for (DocumentSnapshot document : list) {
+                                Map data = document.getData();
+                                data.entrySet()
+                                        .forEach((entry) ->
+                                                QRHash.add(entry.toString().split("=")[0]));
+                                QRHash.add(String.valueOf(data));
+                                username = document.getId();
+
+                                //QRHash = new ArrayList<>();
+                            }
+
+                        }
+                    }
+                });
+    }
+
 
 }
