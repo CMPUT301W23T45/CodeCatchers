@@ -179,7 +179,15 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 //go back to playerWallet or Map
                 if (userWallet.getBackToMap()) {
                     userWallet.setBackToMap(false);
-                    ((MainActivity) getActivity()).changeFragment(new MapFragment());
+                    bundle = new Bundle();
+                    latitude = code.getLocation().getLatitude();
+                    longitude = code.getLocation().getLongitude();
+                    bundle.putDouble("latitude", latitude);
+                    bundle.putDouble("longitude", longitude);
+                    mapFragment = new MapFragment();
+                    mapFragment.setArguments(bundle);
+                    Log.i("Bundle being sent:", String.valueOf(bundle));
+                    ((MainActivity) getActivity()).changeFragment(mapFragment);
                 } else {
                     ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
                 }
