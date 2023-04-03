@@ -149,7 +149,15 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
             case R.id.coordView:
                 //goto map layout
-                ((MainActivity) getActivity()).changeFragment(new MapFragment());
+                Bundle bundle = new Bundle();
+                double latitude = code.getLocation().getLatitude();
+                double longitude = code.getLocation().getLongitude();
+                bundle.putDouble("latitude", latitude);
+                bundle.putDouble("longitude", longitude);
+                MapFragment mapFragment = new MapFragment();
+                mapFragment.setArguments(bundle);
+                Log.i("Bundle being sent:", String.valueOf(bundle));
+                ((MainActivity) getActivity()).changeFragment(mapFragment);
                 break;
 
             case R.id.deleteButton:
