@@ -33,7 +33,7 @@ import java.util.Locale;
  * https://stackoverflow.com/questions/68423448/how-to-sort-an-array-of-objects-by-total-score
  * https://stackoverflow.com/questions/53991868/search-in-recyclerview-with-edittext
  */
-public class LeaderBoardFragment extends Fragment {
+public class LeaderBoardFragment extends Fragment implements LeaderBoardAdapter.ItemClickListener {
 
     RecyclerView recyclerView;
     TextView globalrank;
@@ -144,5 +144,11 @@ public class LeaderBoardFragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClick(User user) {
+        ((MainActivity) getActivity()).changeFragment(new OtherPlayer().newInstance(user.getUsername()));
 
+
+
+    }
 }

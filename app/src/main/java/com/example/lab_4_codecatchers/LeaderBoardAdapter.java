@@ -25,6 +25,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
 
     Context context;
     private ArrayList<User> leaderBoardInfo = new ArrayList<>();
+    private ItemClickListener clickListener;
 
     public LeaderBoardAdapter(Context context,ArrayList<User> leaderBoardInfo) {
         this.leaderBoardInfo = leaderBoardInfo;
@@ -52,10 +53,17 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
      */
     @Override
     public void onBindViewHolder(@NonNull LeaderBoardAdapter.MyViewHolder holder, int position) {
+        User user = leaderBoardInfo.get(position);
         holder.userNameLeaderBoard.setText(leaderBoardInfo.get(position).getUsername());
         holder.rankLeaderBoard.setText(String.valueOf(leaderBoardInfo.get(position).getRank()));
         holder.scoreLeaderBoard.setText(String.valueOf(leaderBoardInfo.get(position).getTotalScore()));
         // TODO: click user which takes them to their profile
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(user);
+            }
+        });
     }
 
     /**
@@ -94,5 +102,9 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         }
 
 
+    }
+
+    public interface ItemClickListener {
+        public void onItemClick(User user);
     }
 }
