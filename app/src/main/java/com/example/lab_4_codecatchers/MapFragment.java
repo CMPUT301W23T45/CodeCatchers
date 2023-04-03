@@ -38,6 +38,7 @@ import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * MapFragment shows a map with scanned QR codes
@@ -176,6 +177,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
                     } else {
                         Log.i("CodeCatchers", "Code not scanned by current user, redirecting to UnscannedCodeView");
+                        UnscannedCodeView unscanned = UnscannedCodeView.newInstance(c.get("hash").toString());
+                        ((MainActivity) getActivity()).changeFragment(unscanned);
                     }
                 }
                 //((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
