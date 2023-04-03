@@ -108,7 +108,19 @@ public class Code {
 
     public  String getComment() {return comment;}
 
+    public void setLocation(GeoPoint l) {
+        this.location = l;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
     //FUNCTIONS
+    /**
+     * Creates a human readable name from hash code
+     * @param hash hashCode of QR code
+     */
     private String generateHumanName(String hash) {
         String[] mentalAdjectives = {"Clever ", "Intelligent ", "Inquisitive ", "Curious ", "Creative ", "Wise ", "Analytical ", "Perceptive ", "Insightful ", "Reflective ", "Contemplative ", "Philosophical ", "Eloquent ", "Expressive ", "Imaginative ", "Visionary "};
         String[] physicalAdjectives = {"Slender ", "Muscular ", "Chubby ", "Obese ", "Lean ", "Fit ", "Tall ", "Short ", "Curvy ", "Athletic ", "Stout ", "Brawny ", "Fragile ", "Graceful ", "Flabby ", "Lanky "};
@@ -135,14 +147,6 @@ public class Code {
             output = output.concat(selection);
         }
         return output;
-    }
-
-    public void setLocation(GeoPoint l) {
-        this.location = l;
-    }
-
-    public GeoPoint getLocation() {
-        return location;
     }
 
 

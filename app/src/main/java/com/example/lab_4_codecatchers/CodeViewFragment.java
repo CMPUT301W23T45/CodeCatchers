@@ -35,7 +35,7 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * Allows players to view their scanned QRcodes
  */
 public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
@@ -102,6 +102,11 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * gets a list of all players who have scanned code usernames
+     * @return ArrayList<String> of all the players
+     * who have scanned the current codes's usernames
+     */
     public ArrayList<String> getPlayers(){
         QRList list = QRList.getInstance();
         if(list.getSize() < 1) {
@@ -117,6 +122,10 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * populated the items in the XML of the fragment
+     * @param view current view
+     */
     private void populateFields(View view) {
         ImageView genImage = view.findViewById(R.id.genImage);
         TextView humanName = view.findViewById(R.id.codeHumanName);

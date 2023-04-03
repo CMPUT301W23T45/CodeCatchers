@@ -145,6 +145,9 @@ public class LeaderBoardFragment extends Fragment implements LeaderBoardAdapter.
         return 0;
     }
 
+    /**
+     * Clicklistener implementation for recycler view
+     */
     @Override
     public void onItemClick(User user) {
         OtherPlayer otherPlayer = new OtherPlayer();

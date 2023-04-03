@@ -68,7 +68,7 @@ public class FireStoreActivity {
     }
 
     /**
-     * Updates the code infor,ation in the database when another user
+     * Updates the code information in the database when another user
      * scans the same QR code.
      * @param code
      */
@@ -115,6 +115,9 @@ public class FireStoreActivity {
         return codeCollection.get();
     }
 
+    /**
+     * Retrieves all MiniCodes in the database and then fills QRList
+     */
     protected void fillQRList(){
         getCodes()
                 .addOnSuccessListener(queryDocumentSnapshots -> {

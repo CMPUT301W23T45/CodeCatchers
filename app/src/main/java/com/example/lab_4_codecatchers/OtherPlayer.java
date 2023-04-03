@@ -33,14 +33,9 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * Displays other player;s user information.
  */
 public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickListener {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    // TODO: Rename and change types of parameters
     private User user = new User();
     private UserWallet userWallet = new UserWallet();
     private ArrayList<Code> qrList = new ArrayList<>();
@@ -176,10 +171,4 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
         return;
 
     }
-
-    /**
-     * Gets the players' scans from database
-     */
-
-
 }

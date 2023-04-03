@@ -14,10 +14,7 @@ import java.util.List;
 
 
 /**
- * Adapter for the recycleView in ProfileFragment
- * Implemented with assistance from: Foxandroid on YouTube
- *      URL: https://www.youtube.com/watch?v=UBgXVGgTaHk
- *      Author: Foxandroid
+ * Adapter for the recycleView in LeaderBoardFragment
  *
  * @see LeaderBoardFragment
  */
@@ -104,6 +101,9 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
 
     }
 
+    /**
+     * Interface for ClickListener for items in LeaderBoard
+     */
     public interface ItemClickListener {
         public void onItemClick(User user);
     }
