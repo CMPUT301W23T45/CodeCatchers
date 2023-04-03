@@ -107,7 +107,7 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
     public void getFromfirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("Users");
-        UserWallet userWallet;
+        //UserWallet userWallet;
 
         // Extract from intent
        // Intent intent = this.getIntent();
@@ -118,7 +118,7 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
 
 
         // Extract Player from database
-        DocumentReference playerDocRef = db.collection("Users").document(username);
+        DocumentReference playerDocRef = db.collection("Users").document("username");
 
         playerDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -130,7 +130,6 @@ public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickLis
 
 
                         //ProfileAdapter.notifyDataSetChanged();
-
                         Log.d("Success", "12");
                         // display to list view
 
