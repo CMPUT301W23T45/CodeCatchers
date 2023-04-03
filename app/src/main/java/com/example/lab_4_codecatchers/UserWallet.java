@@ -131,10 +131,14 @@ public class UserWallet {
         return userCodes.get(highestIndex);
     }
 
+    /**
+     * Calculates the highest unique QR code score
+     * @return highest score
+     */
     public Integer getHighestUniqueScore() {
         int size = getSize();
         if(size <= 0) {
-            return null;
+            return 0;
         }
         int highest = userCodes.get(0).getScore();
         for(int i =1; i<size; i++) {

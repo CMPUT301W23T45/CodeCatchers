@@ -10,11 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/lightbackground"
+        android:divider="@drawable/empty_divider"
         android:orientation="vertical"
         android:padding="12dp"
-        android:weightSum="1"
         android:showDividers="middle"
-        android:divider="@drawable/empty_divider">
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,8 +50,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:orientation="horizontal"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/coords"
@@ -67,6 +68,7 @@
 
                 <Button
                     android:id="@+id/viewImageLocation"
+                    style="@style/myButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/stacked_images"
@@ -76,10 +78,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/commentLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.26"
-            android:background="@color/baby_blue"
+            android:background="@drawable/background"
+            android:clickable="true"
             android:orientation="vertical"
             android:paddingBottom="10dp">
 
@@ -105,11 +109,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.2"
-            android:background="@color/baby_blue"
-            android:clipToPadding="false"
-            android:paddingLeft="10dp"
+            android:background="@drawable/background"
             android:paddingTop="10dp"
-            android:paddingRight="10dp"
             android:paddingBottom="10dp"
             tools:listitem="@layout/code_list_items" />
 
@@ -117,18 +118,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
-            android:orientation="horizontal"
             android:divider="@drawable/empty_divider"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/backButton"
                 android:layout_width="69dp"
-                android:layout_height="48dp"
+                android:layout_height="38dp"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/primary"
                 android:src="@drawable/baseline_arrow_back_24" />
 
             <Button
                 android:id="@+id/deleteButton"
+                style="@style/myButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/delete_code" />
