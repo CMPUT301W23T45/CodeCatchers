@@ -1,6 +1,7 @@
 package com.example.lab_4_codecatchers;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,16 @@ import java.util.List;
  * @see LeaderBoardFragment
  */
 public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.MyViewHolder> {
-
+    String TAG = "NSP";
     Context context;
     private ArrayList<User> leaderBoardInfo = new ArrayList<>();
     private ItemClickListener clickListener;
 
-    public LeaderBoardAdapter(Context context,ArrayList<User> leaderBoardInfo) {
+    public LeaderBoardAdapter(Context context,ArrayList<User> leaderBoardInfo, ItemClickListener clickListener) {
         this.leaderBoardInfo = leaderBoardInfo;
         this.context = context;
         int size = leaderBoardInfo.size();
+        this.clickListener = clickListener;
     }
 
     /**
@@ -62,6 +64,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
             @Override
             public void onClick(View v) {
                 clickListener.onItemClick(user);
+                Log.e(TAG, String.valueOf(user));
             }
         });
     }

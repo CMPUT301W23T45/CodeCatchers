@@ -41,7 +41,7 @@ public class LeaderBoardFragment extends Fragment implements LeaderBoardAdapter.
     private final User currentUser = User.getInstance();
     private final FireStoreActivity fireStoreActivity = FireStoreActivity.getInstance();
     private ArrayList<User> allUsers = new ArrayList<>();
-    LeaderBoardAdapter leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers);
+    LeaderBoardAdapter leaderBoardAdapter;
 
     public LeaderBoardFragment() {
         // Required empty public constructor
@@ -84,7 +84,7 @@ public class LeaderBoardFragment extends Fragment implements LeaderBoardAdapter.
 
                     Log.d(TAG,"users are "+ allUsers);
                     recyclerView = view.findViewById(R.id.users_recycle_view);
-                    leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers);
+                    leaderBoardAdapter = new LeaderBoardAdapter(getContext(),allUsers, this);
                     recyclerView.setAdapter(leaderBoardAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 });
