@@ -188,12 +188,19 @@ public class User {
         this.collectedQRCodes = collectedQRCodes;
     }
 
+    /**
+     *Retrieves the highest unique QR code score for the user
+     * @return highestUniqueCode
+     */
     public Integer getHighestUniqueCode() {
         return highestUniqueCode;
     }
 
+    /**
+     * Sets the highest unique QR code score for the user
+     * @param highestUniqueCode
+     */
     public void setHighestUniqueCode(Integer highestUniqueCode) {
         this.highestUniqueCode = highestUniqueCode;
     }
-
 }
