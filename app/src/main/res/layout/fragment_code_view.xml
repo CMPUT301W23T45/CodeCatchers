@@ -25,13 +25,13 @@
 
             <ImageView
                 android:id="@+id/genImage"
-                android:layout_width="145dp"
+                android:layout_width="110dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/baseline_qr_code_2_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="190dp"
                 android:layout_gravity="center_vertical"
                 android:divider="@drawable/empty_divider"
                 android:gravity="center"
@@ -41,30 +41,26 @@
 
                 <TextView
                     android:id="@+id/codeHumanName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/code_human_readable_name" />
+                    android:text="@string/code_human_readable_name"
+                    android:textAlignment="center"
+                    android:textSize="13dp" />
 
-                <LinearLayout
-                    android:id="@+id/coordLayout"
-                    android:layout_width="match_parent"
+<!--                <TextView-->
+<!--                    android:id="@+id/coords"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/coordinates"-->
+<!--                    android:textSize="13dp" />-->
+
+                <TextView
+                    android:id="@+id/coordView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal">
+                    android:text="@string/xxxxxxxxxx"
+                    android:textSize="13dp" />
 
-                    <TextView
-                        android:id="@+id/coords"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/coordinates" />
-
-                    <TextView
-                        android:id="@+id/coordView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/xxxxxxxxxx" />
-                </LinearLayout>
 
                 <Button
                     android:id="@+id/viewImageLocation"
@@ -72,7 +68,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/stacked_images"
-                    android:text="@string/location_image" />
+                    android:text="@string/location_image"
+                    android:textSize="12dp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -80,7 +77,7 @@
         <LinearLayout
             android:id="@+id/commentLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="450dp"
             android:layout_weight="0.26"
             android:background="@drawable/background"
             android:clickable="true"
@@ -100,7 +97,8 @@
                 android:id="@+id/editComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/user_comment" />
+                android:hint="@string/user_comment"
+                android:textAlignment="center"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

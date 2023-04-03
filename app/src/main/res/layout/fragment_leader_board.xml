@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/code_catchers"
+                android:text="LEADERBOARD"
                 android:textAlignment="center"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -41,7 +41,7 @@
             app:cardUseCompatPadding="true">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="396dp"
+                android:layout_width="330dp"
                 android:layout_height="60dp"
                 android:clipToPadding="true"
                 app:cardBackgroundColor="@color/primary2"
@@ -50,7 +50,7 @@
 
                 <EditText
                     android:id="@+id/editTextSearchForPlayers"
-                    android:layout_width="372dp"
+                    android:layout_width="300dp"
                     android:layout_height="48dp"
                     android:layout_below="@+id/textView5"
                     android:hint="Search Users"
@@ -102,7 +102,7 @@
             android:background="@drawable/background"
             android:clickable="true"
             android:clipToPadding="true"
-            android:paddingTop="15dp"
+            android:paddingTop="5dp"
             tools:listitem="@layout/leader_board_recycle_view" />
 
     </LinearLayout>
