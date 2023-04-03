@@ -149,7 +149,15 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
             case R.id.coordView:
                 //goto map layout
-                ((MainActivity) getActivity()).changeFragment(new MapFragment());
+                Bundle bundle = new Bundle();
+                double latitude = code.getLocation().getLatitude();
+                double longitude = code.getLocation().getLongitude();
+                bundle.putDouble("latitude", latitude);
+                bundle.putDouble("longitude", longitude);
+                MapFragment mapFragment = new MapFragment();
+                mapFragment.setArguments(bundle);
+                Log.i("Bundle being sent:", String.valueOf(bundle));
+                ((MainActivity) getActivity()).changeFragment(mapFragment);
                 break;
 
             case R.id.deleteButton:
@@ -168,8 +176,22 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.backButton:
-                //go back to playerWaller
-                ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
+                //go back to playerWallet or Map
+                if (userWallet.getBackToMap()) {
+                    userWallet.setBackToMap(false);
+                    bundle = new Bundle();
+                    latitude = code.getLocation().getLatitude();
+                    longitude = code.getLocation().getLongitude();
+                    bundle.putDouble("latitude", latitude);
+                    bundle.putDouble("longitude", longitude);
+                    mapFragment = new MapFragment();
+                    mapFragment.setArguments(bundle);
+                    Log.i("Bundle being sent:", String.valueOf(bundle));
+                    ((MainActivity) getActivity()).changeFragment(mapFragment);
+                } else {
+                    ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
+                }
+
                 break;
 
             case R.id.commentLayout:

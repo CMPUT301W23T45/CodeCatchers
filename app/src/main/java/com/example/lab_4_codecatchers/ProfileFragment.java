@@ -135,7 +135,6 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
     public void onItemClick(Code code) {
         userWallet.setCurrentCode(code);
         ((MainActivity) getActivity()).changeFragment(new CodeViewFragment());
-
     }
 
     /**
