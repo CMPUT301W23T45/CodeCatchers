@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alwaysDrawnWithCache="false"
-    android:background="@color/coffee"
+    android:background="@color/candyapple"
     tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,8 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1"
-        android:orientation="vertical">
+        android:background="@color/lightgreen"
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/user_profile"
                 android:textAlignment="center"
-                android:textColor="@color/northern_sky"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -44,14 +44,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.26"
-            android:backgroundTint="@color/northern_sky"
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageView"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
-                android:background="@color/northern_sky"
+                android:background="@color/shrekgreen"
                 android:paddingStart="15dp"
                 android:paddingEnd="10dp"
                 android:src="@drawable/baseline_person_24"
@@ -103,6 +102,7 @@
             android:orientation="vertical"
             android:paddingTop="5dp"
             android:paddingBottom="10dp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topConstraint"
                 android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     android:layout_width="170dp"
                     android:layout_height="65dp"
                     android:layout_marginEnd="180dp"
-                    android:background="@color/northern_sky"
+                    android:background="@drawable/background"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -127,7 +127,8 @@
                         android:id="@+id/highScore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/highest_score"/>
+                        android:text="@string/highest_score" />
+
                     <TextView
                         android:id="@+id/humanNameHigh"
                         android:layout_width="match_parent"
@@ -148,7 +149,7 @@
                     android:layout_width="170dp"
                     android:layout_height="65dp"
                     android:layout_marginStart="180dp"
-                    android:background="@color/northern_sky"
+                    android:background="@drawable/background"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -160,7 +161,7 @@
                         android:id="@+id/lowScore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lowest_score"/>
+                        android:text="@string/lowest_score" />
 
                     <TextView
                         android:id="@+id/humanNameLow"
@@ -186,12 +187,12 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.18"
-            android:background="@color/northern_sky"
+            android:background="@drawable/background"
             android:clipToPadding="false"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:paddingLeft="10dp"
+            android:paddingTop="10dp"
             android:paddingRight="10dp"
+            android:paddingBottom="10dp"
             tools:listitem="@layout/profile_list_items" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -201,12 +202,13 @@
             android:layout_weight="0.28"
             android:gravity="center_horizontal"
             android:paddingTop="10dp">
+
             <LinearLayout
                 android:id="@+id/scoreLayout"
                 android:layout_width="170dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="180dp"
-                android:background="@color/northern_sky"
+                android:background="@drawable/background"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -217,7 +219,7 @@
                     android:id="@+id/scoreSumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/sum_of_scores"/>
+                    android:text="@string/sum_of_scores" />
 
                 <TextView
                     android:id="@+id/scoreSum"
@@ -233,7 +235,7 @@
                 android:layout_width="170dp"
                 android:layout_height="65dp"
                 android:layout_marginStart="180dp"
-                android:background="@color/northern_sky"
+                android:background="@drawable/background"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
