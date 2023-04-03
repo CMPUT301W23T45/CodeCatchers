@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -135,8 +137,16 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
         switch (v.getId()) {
 
             case R.id.backButton:
-                //go back to playerWaller
-                ((MainActivity) getActivity()).changeFragment(new MapFragment());
+                //go back to map
+                Bundle bundle = new Bundle();
+                double latitude = code.getLocation().getLatitude();
+                double longitude = code.getLocation().getLongitude();
+                bundle.putDouble("latitude", latitude);
+                bundle.putDouble("longitude", longitude);
+                MapFragment mapFragment = new MapFragment();
+                mapFragment.setArguments(bundle);
+                Log.i("Bundle being sent:", String.valueOf(bundle));
+                ((MainActivity) getActivity()).changeFragment(mapFragment);
                 break;
 
             default:
