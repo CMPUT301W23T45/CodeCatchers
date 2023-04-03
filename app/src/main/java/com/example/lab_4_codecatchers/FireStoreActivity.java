@@ -43,11 +43,6 @@ public class FireStoreActivity {
 
     }
 
-    /**
-     * Updates the total score, highest unique QR code score, and collected QR codes in the database
-     * each time a QR code has been added.
-     * @param user
-     */
     public Task<Void> updateUser(User user) {
         return userCollection
                 .document(user.getUsername())
@@ -56,32 +51,18 @@ public class FireStoreActivity {
                         "collectedQRCodes", user.getCollectedQRCodes());
     }
 
-    /**
-     * Adds the code to the database
-     * @param code
-     */
     public Task<Void> addCode(MiniCode code){
         return codeCollection
                 .document(code.getHash())
                 .set(code);
 
     }
-
-    /**
-     * Updates the code infor,ation in the database when another user
-     * scans the same QR code.
-     * @param code
-     */
     public Task<Void> updateCodes(MiniCode code) {
         return codeCollection
                 .document(code.getHash())
                 .update("name", code.getName(), "locPic", code.getLocPic(), "location", code.getLocation(), "playersWhoScanned", code.getPlayersWhoScanned());
     }
 
-    /**
-     * Removes the code from the database
-     * @param code
-     */
     public Task<Void> removeCode(MiniCode code) {
         Log.i("CodeCatchers", "In Remove");
         return codeCollection
@@ -98,19 +79,11 @@ public class FireStoreActivity {
         return userCollection.whereArrayContains("devices",currentUser.getId()).get();
     }
 
-    /**
-     * Retrieves all the users in the database
-     * @return users
-     */
     public Task<QuerySnapshot> isUniqueUsername() {
         return userCollection.get();
 
     }
 
-    /**
-     * Retrieves all codes in the database
-     * @return QR code hashes
-     */
     public Task<QuerySnapshot> getCodes() {
         return codeCollection.get();
     }
