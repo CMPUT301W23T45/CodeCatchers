@@ -144,6 +144,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (userlocation.getLongitude() != 0 && userlocation.getLatitude() != 0) {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userlocation.getLatitude(), userlocation.getLongitude()), 16F));
         } else {
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                defaultPosition = new LatLng(bundle.getDouble("latitude"), bundle.getDouble("longitude"));
+                // do something with the latitude and longitude values
+            }
+            Log.i("for validation of the bundle balues", String.valueOf(defaultPosition));
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, 16F));
         }
         FireStoreActivity db = FireStoreActivity.getInstance();
