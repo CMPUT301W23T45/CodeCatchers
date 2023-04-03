@@ -3,19 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/baby_blue"
+    android:background="@color/lightbackground"
     tools:context=".CameraFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="466dp"
         app:autoFocusButtonColor="@android:color/white"
         app:autoFocusButtonVisible="true"
         app:flashButtonColor="@android:color/white"
         app:flashButtonVisible="true"
-        app:maskColor="#75000000"/>
+        app:maskColor="#75000000" />
 
     <TextView
         android:id="@+id/tv_textView"
@@ -24,6 +24,7 @@
         android:layout_below="@+id/scanner_view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:gravity="center"
         android:text="Scan something...."
         android:textColor="@android:color/black" />
 

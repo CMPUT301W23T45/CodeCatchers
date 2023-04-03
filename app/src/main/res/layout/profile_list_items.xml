@@ -8,8 +8,8 @@
         android:id="@+id/qrImage"
         android:layout_width="300dp"
         android:layout_height="59dp"
-        android:layout_weight="10"
         android:layout_marginVertical="4dp"
+        android:layout_weight="10"
         app:srcCompat="@drawable/baseline_qr_code_2_24" />
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:id="@+id/qrScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/qr_code_score"/>
+            android:text="@string/qr_code_score" />
 
     </LinearLayout>
 </LinearLayout>
