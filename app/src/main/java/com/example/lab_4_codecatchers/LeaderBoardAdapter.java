@@ -55,7 +55,6 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         holder.userNameLeaderBoard.setText(leaderBoardInfo.get(position).getUsername());
         holder.rankLeaderBoard.setText(String.valueOf(leaderBoardInfo.get(position).getRank()));
         holder.scoreLeaderBoard.setText(String.valueOf(leaderBoardInfo.get(position).getTotalScore()));
-        // TODO: click user which takes them to their profile
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

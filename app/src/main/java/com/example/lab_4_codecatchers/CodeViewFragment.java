@@ -89,7 +89,6 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         coords.setOnClickListener(this);
         comment.setOnClickListener(this);
 
-        // TODO: set the recyclerView and make the adapter
         ArrayList<String> players = getPlayers();
 
         recyclerView = view.findViewById(R.id.SameUserList);

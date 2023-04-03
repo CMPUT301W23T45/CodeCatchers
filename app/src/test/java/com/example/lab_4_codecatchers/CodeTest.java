@@ -20,9 +20,6 @@ public class CodeTest {
         code = new Code();
     }
 
-    // TODO: once code fxns are implemented, add tests
-
-
     @Test
     public void imageStringTest(){
         Code code = new Code(3568, "763974","0","","");

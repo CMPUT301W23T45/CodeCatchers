@@ -46,8 +46,7 @@ public class Code {
     public Code(int score, String hash, String image, String comment, String coordinates) {
         this.score = score;
         this.hash = hash;
-        this.humanName = generateHumanName(hash); // TODO: change to nameFunction once implemented
-//        this.humanImage = R.drawable.baseline_qr_code_2_24; // TODO: change to imageFunction once implemented
+        this.humanName = generateHumanName(hash);
         this.image = image;
         this.comment = comment;
         this.coordinates = coordinates;

@@ -31,11 +31,9 @@ import java.util.ArrayList;
  */
 public class UnscannedCodeView extends Fragment implements View.OnClickListener{
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_QRHASH = "qrHash";
 
-    // TODO: Rename and change types of parameters
     private String qrHash = null;
     QRList  qrList = QRList.getInstance();
     MiniCode code;
@@ -53,7 +51,6 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
      * @param qrHash Hash of QrCode to be displayed.
      * @return A new instance of fragment UnscannedCodeView.
      */
-    // TODO: Rename and change types and number of parameters
     public static UnscannedCodeView newInstance(String qrHash) {
         UnscannedCodeView fragment = new UnscannedCodeView();
         Bundle args = new Bundle();
