@@ -82,32 +82,35 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
      */
     private void setInfoBoxes(View view) {
         TextView highName = view.findViewById(R.id.humanNameHigh);
-        TextView highScore = view.findViewById(R.id.qrScoreHigh);
+//        TextView highScore = view.findViewById(R.id.qrScoreHigh);
         TextView lowName = view.findViewById(R.id.humanNameLow);
-        TextView lowScore = view.findViewById(R.id.qrScoreLow);
+//        TextView lowScore = view.findViewById(R.id.qrScoreLow);
         TextView sumOfScores = view.findViewById(R.id.scoreSum);
         TextView numQR = view.findViewById(R.id.numQR);
         TextView username = view.findViewById(R.id.username);
         TextView totalPoints = view.findViewById(R.id.totalPoints);
         TextView email = view.findViewById(R.id.userEditEmail);
+        TextView phone = view.findViewById(R.id.userEditPhone);
 
         sumOfScores.setText(String.valueOf(userWallet.getTotal()));
         numQR.setText(String.valueOf(userWallet.getSize()));
         username.setText(user.getUsername());
         email.setText(user.getEmail());
+        phone.setText(user.getPhone());
+
 
         if (userWallet.getSize() == 0) {
             highName.setText(" ");
-            highScore.setText(" ");
+//            highScore.setText(" ");
             lowName.setText(" ");
-            lowScore.setText(" ");
+//            lowScore.setText(" ");
         } else {
             Code highCode = userWallet.getHighest();
             Code lowCode = userWallet.getLowest();
             highName.setText(highCode.getHumanName());
-            highScore.setText(String.valueOf(highCode.getScore()));
+//            highScore.setText(String.valueOf(highCode.getScore()));
             lowName.setText(lowCode.getHumanName());
-            lowScore.setText(String.valueOf(lowCode.getScore()));
+//            lowScore.setText(String.valueOf(lowCode.getScore()));
             allUsers.clear();
             fireStoreActivity.isUniqueUsername()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
