@@ -103,6 +103,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         //https://developers.google.com/maps/documentation/android-sdk/views
         // For fixing Import error: https://stackoverflow.com/questions/57484148/androidx-appcompat-widget-searchview-cannot-be-cast-to-android-widget-searchview
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        FireStoreActivity.getInstance().fillQRList();
+
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         SearchView searchView = view.findViewById(R.id.searchView); //SearchView by ID in the fragment_map.xml file

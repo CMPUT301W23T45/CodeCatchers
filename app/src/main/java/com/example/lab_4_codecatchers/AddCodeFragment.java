@@ -102,6 +102,10 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        FireStoreActivity.getInstance().fillQRList();
+
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         populateFields(view);
 
