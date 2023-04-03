@@ -24,17 +24,19 @@ import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
+ * ViewPhotoFragment creates a dialog fragment to show the location image
+ * that a player took
  */
 public class ViewPhotoFragment extends DialogFragment {
-    Code code;
+    String image;
 
-    public ViewPhotoFragment(Code code) {
-        this.code = code;
+    public ViewPhotoFragment(String image) {
+        this.image = image;
     }
 
-    public ViewPhotoFragment(int contentLayoutId, Code code) {
+    public ViewPhotoFragment(int contentLayoutId, String image) {
         super(contentLayoutId);
-        this.code = code;
+        this.image = image;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class ViewPhotoFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_view_photo, null);
         ImageView locationPhoto = view.findViewById(R.id.loc_photo);
-        byte [] encodeByte = Base64.decode(code.getImageString(),Base64.DEFAULT);
+        byte [] encodeByte = Base64.decode(image,Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         locationPhoto.setImageBitmap(bitmap);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

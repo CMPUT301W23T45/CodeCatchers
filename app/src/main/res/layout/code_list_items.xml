@@ -21,13 +21,8 @@
             android:id="@+id/playerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/player_username" />
-
-        <TextView
-            android:id="@+id/playerScore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/player_s_score" />
+            android:text="@string/player_username"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </LinearLayout>

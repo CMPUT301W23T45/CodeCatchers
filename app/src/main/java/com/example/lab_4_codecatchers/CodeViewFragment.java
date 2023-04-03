@@ -35,7 +35,7 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * Allows players to view their scanned QRcodes
  */
 public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
@@ -66,6 +66,10 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        FireStoreActivity.getInstance().fillQRList();
+
+
         view1 = view;
         user = User.getInstance();
         userWallet = user.getCollectedQRCodes();
@@ -85,7 +89,6 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         coords.setOnClickListener(this);
         comment.setOnClickListener(this);
 
-        // TODO: set the recyclerView and make the adapter
         ArrayList<String> players = getPlayers();
 
         recyclerView = view.findViewById(R.id.SameUserList);
@@ -98,6 +101,11 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * gets a list of all players who have scanned code usernames
+     * @return ArrayList<String> of all the players
+     * who have scanned the current codes's usernames
+     */
     public ArrayList<String> getPlayers(){
         QRList list = QRList.getInstance();
         if(list.getSize() < 1) {
@@ -113,6 +121,10 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * populated the items in the XML of the fragment
+     * @param view current view
+     */
     private void populateFields(View view) {
         ImageView genImage = view.findViewById(R.id.genImage);
         TextView humanName = view.findViewById(R.id.codeHumanName);
@@ -144,7 +156,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
         FireStoreActivity fireStore = FireStoreActivity.getInstance();
         switch (v.getId()) {
             case R.id.viewImageLocation:
-                new ViewPhotoFragment(code).show(getFragmentManager(), "ViewPhoto");
+                new ViewPhotoFragment(code.getImageString()).show(getFragmentManager(), "ViewPhoto");
                 break;
 
             case R.id.coordView:
@@ -162,6 +174,7 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
 
             case R.id.deleteButton:
                 userWallet.removeCode(code);
+                userWallet.setCurrentCode(null);
 
                 // update user in Firestore
                 fireStore.updateUser(user);
@@ -171,7 +184,6 @@ public class CodeViewFragment extends Fragment implements View.OnClickListener {
                 qrList.removeCode(code);
 
                 //go back to playerWaller
-                userWallet.setCurrentCode(null);
                 ((MainActivity) getActivity()).changeFragment(new ProfileFragment());
                 break;
 

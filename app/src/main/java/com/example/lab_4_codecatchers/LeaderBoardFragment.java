@@ -74,6 +74,8 @@ public class LeaderBoardFragment extends Fragment implements LeaderBoardAdapter.
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        fireStoreActivity.fillQRList();
 
         allUsers.clear();
         fireStoreActivity.isUniqueUsername()
@@ -143,6 +145,9 @@ public class LeaderBoardFragment extends Fragment implements LeaderBoardAdapter.
         return 0;
     }
 
+    /**
+     * Clicklistener implementation for recycler view
+     */
     @Override
     public void onItemClick(User user) {
         OtherPlayer otherPlayer = new OtherPlayer();

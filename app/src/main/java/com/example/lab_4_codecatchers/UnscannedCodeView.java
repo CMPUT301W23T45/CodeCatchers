@@ -31,11 +31,9 @@ import java.util.ArrayList;
  */
 public class UnscannedCodeView extends Fragment implements View.OnClickListener{
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_QRHASH = "qrHash";
 
-    // TODO: Rename and change types of parameters
     private String qrHash = null;
     QRList  qrList = QRList.getInstance();
     MiniCode code;
@@ -53,7 +51,6 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
      * @param qrHash Hash of QrCode to be displayed.
      * @return A new instance of fragment UnscannedCodeView.
      */
-    // TODO: Rename and change types and number of parameters
     public static UnscannedCodeView newInstance(String qrHash) {
         UnscannedCodeView fragment = new UnscannedCodeView();
         Bundle args = new Bundle();
@@ -80,15 +77,21 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
         return inflater.inflate(R.layout.fragment_unscanned_code_view, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        FireStoreActivity.getInstance().fillQRList();
+
         populateFields(view);
 
         ArrayList<String> players = getPlayers();
 
         ImageButton back = view.findViewById(R.id.backButton);
+        Button location = view.findViewById(R.id.viewImageLocation);
         back.setOnClickListener(this);
+        location.setOnClickListener(this);
 
         //fill recyclerView
         recyclerView = view.findViewById(R.id.SameUserList);
@@ -101,6 +104,11 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
 
     }
 
+
+    /**
+     * populated the items in the XML of the fragment
+     * @param view current view
+     */
     private void populateFields(View view) {
         TextView humanName = view.findViewById(R.id.codeHumanName);
         TextView coords = view.findViewById(R.id.coordView);
@@ -112,6 +120,11 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
         coords.setText(locationString);
     }
 
+    /**
+     * gets a list of all players who have scanned code usernames
+     * @return ArrayList<String> of all the players
+     * who have scanned the current codes's usernames
+     */
     public ArrayList<String> getPlayers(){
         QRList list = QRList.getInstance();
         if(list.getSize() < 1) {
@@ -120,6 +133,7 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
             int index = list.inList(code.getHash());
             MiniCode code1 = list.getCode(index);
             ArrayList<String> list1 = code1.getPlayersWhoScanned();
+            //remove current user from list so it doesn't get displayed
             if(list1.contains(user.getUsername())){
                 list1.remove(user.getUsername());
             }
@@ -135,6 +149,9 @@ public class UnscannedCodeView extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         FireStoreActivity fireStore = FireStoreActivity.getInstance();
         switch (v.getId()) {
+            case R.id.viewImageLocation:
+                new ViewPhotoFragment(code.getLocPic()).show(getFragmentManager(), "ViewPhoto");
+                break;
 
             case R.id.backButton:
                 //go back to map

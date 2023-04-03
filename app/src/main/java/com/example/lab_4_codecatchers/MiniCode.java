@@ -1,9 +1,17 @@
 package com.example.lab_4_codecatchers;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 
+import kotlin.contracts.Returns;
+
+/**
+ * Simple version of Codes for storing on Firebase
+ * @see Code
+ */
 public class MiniCode {
     private String hash;
     private String name;
@@ -72,11 +80,19 @@ public class MiniCode {
         this.playersWhoScanned = playersWhoScanned;
     }
 
+    /**
+     * Adds a player to list of playerWhoScanned
+     * @param username username of player to add
+     */
     public void addPlayer(String username) {
         playersWhoScanned.add(username);
     }
 
-    //Returns -1 if error, 0 if no players left after removing, 1 if more players left
+    /**
+     * Adds a player to list of playerWhoScanned
+     * @param username username of player to remove
+     * @return  -1 if error, 0 if no players left after removing, 1 if more players left
+     */
     public int removePlayer(String username){
         if(playersWhoScanned.contains(username)) {
             playersWhoScanned.remove(username);

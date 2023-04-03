@@ -46,8 +46,7 @@ public class Code {
     public Code(int score, String hash, String image, String comment, String coordinates) {
         this.score = score;
         this.hash = hash;
-        this.humanName = generateHumanName(hash); // TODO: change to nameFunction once implemented
-//        this.humanImage = R.drawable.baseline_qr_code_2_24; // TODO: change to imageFunction once implemented
+        this.humanName = generateHumanName(hash);
         this.image = image;
         this.comment = comment;
         this.coordinates = coordinates;
@@ -108,7 +107,19 @@ public class Code {
 
     public  String getComment() {return comment;}
 
+    public void setLocation(GeoPoint l) {
+        this.location = l;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
     //FUNCTIONS
+    /**
+     * Creates a human readable name from hash code
+     * @param hash hashCode of QR code
+     */
     private String generateHumanName(String hash) {
         String[] mentalAdjectives = {"Clever ", "Intelligent ", "Inquisitive ", "Curious ", "Creative ", "Wise ", "Analytical ", "Perceptive ", "Insightful ", "Reflective ", "Contemplative ", "Philosophical ", "Eloquent ", "Expressive ", "Imaginative ", "Visionary "};
         String[] physicalAdjectives = {"Slender ", "Muscular ", "Chubby ", "Obese ", "Lean ", "Fit ", "Tall ", "Short ", "Curvy ", "Athletic ", "Stout ", "Brawny ", "Fragile ", "Graceful ", "Flabby ", "Lanky "};
@@ -135,14 +146,6 @@ public class Code {
             output = output.concat(selection);
         }
         return output;
-    }
-
-    public void setLocation(GeoPoint l) {
-        this.location = l;
-    }
-
-    public GeoPoint getLocation() {
-        return location;
     }
 
 

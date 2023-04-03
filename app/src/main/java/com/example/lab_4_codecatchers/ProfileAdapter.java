@@ -15,12 +15,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Adapter for the recycleView in ProfileFragment
+ * Adapter for the recycleView in ProfileFragment and OtherPlayer
  * Implemented with assistance from: Foxandroid on YouTube
  *      URL: https://www.youtube.com/watch?v=UBgXVGgTaHk
  *      Author: Foxandroid
  *
  * @see ProfileFragment
+ * @see OtherPlayer
  */
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHolder>{
     Context context;

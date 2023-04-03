@@ -60,6 +60,8 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //update QRList
+        fireStoreActivity.fillQRList();
 
         setUserInfo();
         setInfoBoxes(view);
@@ -131,6 +133,10 @@ public class ProfileFragment extends Fragment implements ProfileAdapter.ItemClic
         qrList = userWallet.getUserCodes();
     }
 
+    /**
+     * ClickListener for Codes in List
+     * @param code
+     */
     @Override
     public void onItemClick(Code code) {
         userWallet.setCurrentCode(code);

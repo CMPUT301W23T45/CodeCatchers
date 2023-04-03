@@ -19,7 +19,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * ChangeCommentFragment creates a dialog fragment to allow user to change the comment on a QR code
+ */
 public class ChangeCommentFragment extends DialogFragment {
     Code code;
     FireStoreActivity fireStore = FireStoreActivity.getInstance();

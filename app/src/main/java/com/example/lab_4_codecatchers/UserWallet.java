@@ -112,10 +112,6 @@ public class UserWallet {
 
     /**
      * Returns the highest score (int) of all QR codes in wallet
-     * @return highest score
-     */
-    /**
-     * Returns the highest score (int) of all QR codes in wallet
      * @return highest scoring Code
      */
     public Code getHighest() {
@@ -199,6 +195,11 @@ public class UserWallet {
         }
     }
 
+    /**
+    * Checks if code is in a wallet
+    * @param hash Hash code of Code
+    * @return -1 if not in wallet, otherwise the index of Code in wallet
+     */
     public int inWallet(String hash){
         if (userCodes.isEmpty()) {
             return -1;
@@ -210,11 +211,6 @@ public class UserWallet {
             }
         }
         return -1;
-    }
-
-    public Code getUniqueCode() {
-        //TODO: implement
-        return null;
     }
 
 }
