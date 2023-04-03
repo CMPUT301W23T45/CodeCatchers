@@ -126,7 +126,7 @@ public class LeaderBoardFragment extends Fragment {
 
 
     /**
-     * Used to rank each user in order by total score
+     * Used to rank each user in order
      * @param users
      * @return users rank number
      */

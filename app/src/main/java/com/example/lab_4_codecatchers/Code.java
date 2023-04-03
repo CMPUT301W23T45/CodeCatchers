@@ -71,6 +71,14 @@ public class Code {
 
     //SETTERS AND GETTERS
 
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
+    }
+
     public String getImageString() {return image;}
 
     public void setImageString(String image) {this.image = image;}

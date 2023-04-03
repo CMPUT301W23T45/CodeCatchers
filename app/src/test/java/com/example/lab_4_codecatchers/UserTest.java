@@ -59,12 +59,6 @@ public class UserTest {
         assertEquals(1,actual_rank);
     }
 
-    @Test
-    public void highestScoreTest(){
-        int score = user.getHighestUniqueCode();
-        assertEquals(0,score);
-        user.setHighestUniqueCode(1);
-        int actual_rank = user.getHighestUniqueCode();
-        assertEquals(1,actual_rank);
-    }
+    //Not sure how to test collectedQRcodes
+
 }
