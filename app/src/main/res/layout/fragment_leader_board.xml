@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alwaysDrawnWithCache="false"
-    android:background="@color/lightbackground"
-    android:padding="10dp"
+    android:background="@color/coffee"
     tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -35,16 +34,14 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@color/primary2"
-            android:backgroundTint="@color/primary2"
+            app:cardBackgroundColor="@color/northern_sky"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="396dp"
                 android:layout_height="60dp"
-                android:clipToPadding="true"
-                app:cardBackgroundColor="@color/primary2"
+                app:cardBackgroundColor="@color/northern_sky"
                 app:cardCornerRadius="10dp"
                 app:cardUseCompatPadding="true">
 
@@ -65,6 +62,7 @@
             android:layout_width="376dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
+            android:background="@color/northern_sky"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -99,10 +97,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/globalRankLayout"
             android:layout_gravity="center"
-            android:background="@drawable/background"
-            android:clickable="true"
-            android:clipToPadding="true"
             android:paddingTop="15dp"
+            android:clickable="true"
             tools:listitem="@layout/leader_board_recycle_view" />
 
     </LinearLayout>
