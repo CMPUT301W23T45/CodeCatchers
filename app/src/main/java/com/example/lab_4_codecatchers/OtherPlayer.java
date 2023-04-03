@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Displays other player;s user information.
+ * Displays other player's user information.
  */
 public class OtherPlayer extends Fragment implements ProfileAdapter.ItemClickListener {
     private User user = new User();

@@ -6,7 +6,6 @@
     android:background="@color/lightbackground"
     tools:context=".CameraFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"

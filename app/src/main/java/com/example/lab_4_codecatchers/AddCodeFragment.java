@@ -169,11 +169,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
 //           implemented with help from: Android Academics
 //                URL: https://androidacademic.blogspot.com/2016/12/multiple-buttons-onclicklistener-android.html
 //                Author: Pragnesh Ghoda
-
-
-//            case R.id.add_loc_photo:
-//                // TODO: jump to photo taking camera fragment
-//                break;
             case R.id.addButton:
                 //The switches are returning a NullPointerException when using isChecked()
                 //Commented out for now
@@ -188,7 +183,6 @@ public class AddCodeFragment extends Fragment implements View.OnClickListener {
                     finalPhoto.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                     byte[] imageBytes = outputStream.toByteArray();
                     encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-                    //TODO: upload encodedImage to firebase
                     code.setImageString(encodedImage);
                 } else {
                     code.setImageString(" ");
