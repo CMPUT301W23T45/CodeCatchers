@@ -1,4 +1,4 @@
-This is what is shown in the demo Video:
+This is what is shown in the demo Video: (Video 1)
 1.  App is loaded.
         a. Loaded to camera to quickly scan a QR code.
 2.  A QR Code is scanned.
