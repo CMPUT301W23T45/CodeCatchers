@@ -1,0 +1,36 @@
+This is what is shown in the demo Video:
+1.  App is loaded.
+        a. Loaded to camera to quickly scan a QR code.
+2.  A QR Code is scanned.
+        a. Based on the QR code hash 2 things are generated:
+            i. Face using Dice Bear
+            ii. Name
+        b. Score is shown below the name. It is shown based on the binarary code.
+3.  The location where the code is scanned is saved.
+4.  A picture of the location where the code is scanned is taken. 
+5.  A comment is added.
+6.  Swtiched to the players profile.
+        a. Here many things can be seen:
+            i. Contact info
+            ii. Highest/Lowest code they have scanned
+            iii. List of all the codes they have scanned
+            iv. Total score
+            v. Total codes they have scanned
+            vi. Their ranking for thos have the highest scoring unique QR code from all the players
+7.  Clicked on the most recent QR that was scanned to see all its info. 
+        a. Bottom panel is empty because no other players have scanned this QR code.
+8.  Clicking on the coordinates that are shown takes you to the map and to those coordinates.
+9.  Browsing other QR codes
+10. Clicked on one of the markers to get more info on that QR code.
+        a. Looked at the location picture
+11. Browsed on the map to see a different colour marker.
+        a. Blue markers means that the code has already been scanned by that user.
+        b. Red markers mean that they have yet to scanned it.
+12. Clicked on red marker to view more info on the code.
+        a. Clicking displays info for the code and who else has scanned it.
+13. Clicked on another code to modify its comment.
+14. Loaded the game leaderboard.
+    a. Shows your ranking in the game.
+    b. Shows other players ranking in the games.
+15. Cliked on the top ranked player to get more info on them
+16. Searched up a specific player that I wanted look at.
