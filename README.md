@@ -127,3 +127,59 @@ Owner
 
 US 09.01.01 
 As an owner, I don’t want to store big images online.
+
+
+
+Firebase was used for cloud storage.
+There were two collections that the app worked with.
+
+all codes has the following feilds:
+a) comment : string
+b) hash : string
+c) humanName : string
+d) imageString : string
+e) location : geopoint
+f) qrimage : string
+g) score : integer
+
+1) Users: a collection of the documents of all players playing the game. Document names are the usernames for each player.
+Each document in the Users colletion has the following feilds.
+
+	i) collectedQRCodes
+		a) backToMap : Bool
+		b) currentCode : Code being looked at
+		c) highest : highest code
+		d) lowest : lowest code
+		e) highestUniqueScore : integer
+		f) size: integer
+		g) total : integer
+		h) userCodes :  array of codes that the user has scanned
+		
+	ii) devices : string
+	
+	iii) email : string
+	
+	iv) highestUniqueCode : integer
+	
+	v) id : string
+	
+	vi) phone : string
+	
+	vii) rank : integer
+	
+	viii) totalScore : integer
+	
+	ix) username : string
+	
+2) qrCollect: a collection of all the QR codes that have been ever scanned by any player. Each document name is the hash of the QR code.
+Each document in theqrCollect colletion has the following feilds.
+
+	i) hash : string
+
+	ii) locPic : string
+
+	iii) location : geopoint
+
+	iv) name : string
+
+	v) playerwhoScanned : array of string
